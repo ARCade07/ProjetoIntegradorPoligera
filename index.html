@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Poligera</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #1EB4C3, #FBA41F);
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login {
+            background: #F1EDE2;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+            width: 100%;
+            max-width: 350px;
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .login-logo img {
+            width: 80px;
+            height: 80px;
+            display: inline-block;
+        }
+        .login h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #ED2152;
+        }
+        .login label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1B1C20;
+            font-weight: 500;
+        }
+        .login input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #F1EDE2;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .login button {
+            width: 100%;
+            padding: 12px;
+            background: #ED2152;
+            color: #F1EDE2;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }  
+        .btn-entrar:hover {
+            background: #337574 !important;
+        }
+    </style>
+</head>
+<body>
+    <form class="login">
+        <div class="login-logo">
+            <img src="images/2.jpg" alt="Logo Poligera">
+        </div>
+        <h2>Login - Poligera</h2>
+        <label for="usuario">Usuário</label>
+        <input type="text" id="usuario" name="usuario" required>
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required>
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <button type="submit" class="btn-entrar" style="flex: 2; background: #ED2152; color: #F1EDE2; font-size: 16px;">Entrar</button>
+            <a href="esqueci_senha.html" style="flex: 1; align-self: center; text-align: center; text-decoration: underline; color: #F1EDE2; font-weight: bold; background: #1B1C20; border-radius: 6px; border: none; cursor: pointer; font-size: 12px; padding: 8px;">Esqueci senha</a>
+        </div>
+        <a href="cadastro.html" style="display: block; width: 40%; margin: 0 auto; padding: 8px; background: #1B1C20; color: #F1EDE2; border-radius: 6px; text-align: center; font-size: 12px; font-weight: bold; text-decoration: underline; cursor: pointer;">Não tem conta? Faça cadastro</a>
+    </form>
+</body>
+</html>

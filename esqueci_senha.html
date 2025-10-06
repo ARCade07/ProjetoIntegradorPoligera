@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha - Poligera</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #1EB4C3, #FBA41F);
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .recuperar {
+            background: #F1EDE2;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+            width: 100%;
+            max-width: 350px;
+        }
+        .recuperar h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #ED2152;
+        }
+        .recuperar label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1B1C20;
+            font-weight: 500;
+        }
+        .recuperar input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #F3EFEC;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .recuperar button {
+            width: 100%;
+            padding: 12px;
+            background: #ED2152;
+            color: #F3EFEC;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .recuperar button:hover {
+            background: #337574;
+        }
+    </style>
+</head>
+<body>
+    <form class="recuperar">
+        <h2>Para redefinir sua senha, informe o e-mail cadastrado na sua conta e lhe enviaremos um link com as instruções.</h2>
+        <label for="email">Digite seu e-mail cadastrado</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Enviar</button>
+        <a href="index.html" style="display: block; width: 100%; margin-top: 10px; padding: 12px; background: #0F0F0F; color: #F3EFEC; border-radius: 6px; text-align: center; font-size: 16px; font-weight: bold; text-decoration: none; cursor: pointer;">Cancelar</a>
+    </form>
+</body>
+</html>
