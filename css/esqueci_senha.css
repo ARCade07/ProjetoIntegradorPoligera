@@ -1,0 +1,99 @@
+body {
+    background-image: url(../images/fundo.png);
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+.esqueci-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    margin-top: -40px;
+}
+
+.recuperar {
+    background: #F1EDE2;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    width: 100%;
+    max-width: 550px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20%;
+    border: 2px solid #EC2252;
+    display: inline-block;
+}
+
+.recuperar h2 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 24px;
+    color: #ED2152;
+}
+
+.recuperar p {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.recuperar input {
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #F3EFEC;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.recuperar input::placeholder {
+    color: #444549;
+    font-weight: 500;
+}
+
+.recuperar button {
+    display: block;
+    margin: 0 auto 10px auto;
+    width: 50%;
+    padding: 12px;
+    background: #CC4014;
+    color: #F1EDE2;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.recuperar button:hover {
+    background: #d55c38 !important;
+}
+
+#cancelar {
+    display: block;
+    width: 25%;
+    margin: 0 auto;
+    padding: 8px;
+    color: #0F0F0F;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
