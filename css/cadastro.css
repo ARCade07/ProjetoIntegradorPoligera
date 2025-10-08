@@ -1,0 +1,94 @@
+body {
+    height: 120vh;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+.cadastro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    margin-top: -40px;
+}
+.cadastrar {
+    background: #F1EDE2;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    width: 100%;
+    max-width: 550px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20%;
+    border: 2px solid #EC2252;
+    display: inline-block;
+}
+
+.input-icon-wrapper {
+    position: relative;
+    width: 97%;
+    margin-bottom: 18px;
+}
+
+
+
+.input-icon-wrapper input {
+    width: 100%;
+    padding: 10px 10px 10px 42px;
+    border: 1px solid #F3EFEC;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+
+.botoes-cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.btn-cadastrar {
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: 600;
+    background: #CC4014;
+    color: #fff;
+    border: 1px solid #CC4014;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-cadastrar:hover {
+    background: #d55c38;
+    color: #fff;
+}
+
+.btn-cancelar {
+    background: none;
+    color: #222;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 8px;
+    width: auto;
+    align-self: flex-end;
+    transition: color 0.2s;
+}

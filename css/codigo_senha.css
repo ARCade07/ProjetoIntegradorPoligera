@@ -1,12 +1,10 @@
 body {
-    /* background-image: url(../images/fundo.png); */
-    /*background-size: cover;*/
     height: 100vh;
     margin: 0;
     font-family: "Inter", sans-serif;
 }
 
-.esqueci-container {
+.codigo-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,7 +14,7 @@ body {
     margin-top: -40px;
 }
 
-.recuperar {
+.codigo {
     background: #F1EDE2;
     padding: 40px 30px;
     border-radius: 12px;
@@ -38,20 +36,20 @@ body {
     display: inline-block;
 }
 
-.recuperar h2 {
+.codigo h2 {
     text-align: center;
     margin-top: 0px;
     margin-bottom: 24px;
     color: #ED2152;
 }
 
-.recuperar p {
+.codigo p {
     text-align: center;
     margin-bottom: 20px;
     font-size: 16px;
 }
 
-.recuperar input {
+.codigo input {
     width: 97%;
     padding: 10px;
     margin-bottom: 18px;
@@ -60,12 +58,12 @@ body {
     font-size: 16px;
 }
 
-.recuperar input::placeholder {
+.codigoinput::placeholder {
     color: #444549;
     font-weight: 500;
 }
 
-.recuperar button {
+.codigo button {
     display: block;
     margin: 0 auto 10px auto;
     width: 50%;
@@ -80,7 +78,7 @@ body {
     transition: 0.2s;
 }
 
-.recuperar button:hover {
+.codigo button:hover {
     background: #d55c38 !important;
 }
 

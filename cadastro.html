@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro- Poligera</title>
+    <title>Cadastro - Poligera</title>
+    <link rel="stylesheet" href="css/cadastro.css">
 </head>
 <body>
-    
+    <div class="cadastro-container">
+        <div class="logo">
+            <img src="images/Logo poliedro.png" alt="Logo Poligera">
+        </div>
+        <div class="cadastrar">
+            <form>
+                <div class="input-icon-wrapper">    
+                    <input type="text" placeholder="Nome" name="nome" required>
+                </div>
+                <div class="input-icon-wrapper">         
+                    <input type="email" placeholder="Email" name="email" required>
+                </div>
+                <div class="input-icon-wrapper">               
+                    <input type="password" placeholder="Senha" name="senha" required>
+                </div>
+                <div class="botoes-cadastro">
+                    <button type="submit" class="btn-cadastrar">Cadastrar</button>
+                    <button type="button" class="btn-cancelar" onclick="window.location.href='login.html'">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
