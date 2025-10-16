@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperar Senha - Poligera</title>
+    <!-- Booststrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- CSS -->
     <link rel="stylesheet" href="css/esqueci_senha.css">
+    <!-- Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -14,19 +18,28 @@
 </head>
 
 <body>
-    <div class="esqueci-container">
-        <div class="logo">
+    <main class="esqueci-container">
+        <!-- Logo Poliedro -->
+        <header class="logo">
             <img src="images/Logo poliedro.png" alt="Logo Poligera">
+        </header>
+        <!-- Bloco principal -->
+        <div class="row justify-content-center">
+            <div class="col-10 col-sm-8 col-md-12">
+                <form class="recuperar">
+                    <h2>Esqueci minha senha</h2>
+                    <p>Para redefinir sua senha, informe o e-mail cadastrado na sua conta e lhe enviaremos um link com as
+                        instruções.</p>
+                    <!-- Campo de preenchimento de email -->
+                    <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+                    <!-- Botão enviar -->
+                    <button type="submit">Enviar</button>
+                    <!-- Botão cancelar -->
+                    <a id="cancelar" href="login.html">Cancelar</a>
+                </form>
+            </div>
         </div>
-        <form class="recuperar">
-            <h2>Esqueci minha senha</h2>
-            <p>Para redefinir sua senha, informe o e-mail cadastrado na sua conta e lhe enviaremos um link com as
-                instruções.</p>
-            <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
-            <button type="submit">Enviar</button>
-            <a id="cancelar" href="login.html">Cancelar</a>
-        </form>
-    </div>
+    </main>
 </body>
 
 </html>
