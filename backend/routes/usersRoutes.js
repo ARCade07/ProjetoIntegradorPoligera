@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../models/User');
 const checkToken = require('../middleware/checkToken');
 
-router.get('user/:id', checkToken, async (req, res) => {
+router.get('/:id', checkToken, async (req, res) => {
     const id = req.params.id;
 
     const user = await User.findById(id, '-password');
