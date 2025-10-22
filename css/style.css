@@ -1,0 +1,230 @@
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #FFFFFF;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.barra-lateral {
+    width: 30%;
+    background-color: #D2D7DC;
+    border-radius: 17px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.menu-header {
+    display: flex;
+    height: 15vh;
+}
+
+.aba {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 17px 17px 0 0;
+    transition: background 0.2s;
+}
+
+.aba.ativa {
+    background-color: #F0F4F9;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+    margin-bottom: -3px;
+    margin-top: -3px;
+}
+
+.icone {
+    margin-left: 8px;
+}
+
+#icone-criacao {
+    height: 45px;
+}
+
+#icone-historico {
+    height: 40px;
+}
+
+.requerimentos {
+    flex: 1;
+    background-color: #F0F4F9;
+    border-top: 3px solid #3F696F;
+    border-radius: 0 0 17px 17px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.botoes-areas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.botao {
+    flex: 1 1 40%;
+    height: 60px;
+    font-size: 22px;
+    border-radius: 18px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.botao-fisica {
+    border: none;
+    background-color: #1EB4C3;
+    color: #00363C;
+}
+
+.botao-fisica:hover {
+    background-color: #22a8b4;
+}
+
+.botao-quimica {
+    background-color: #BBE8EE;
+    color: #3F696F;
+    border: 3px solid #3F696F;
+}
+
+.botao-quimica:hover {
+    background-color: #a2cacf;
+}
+
+.select-areas {
+    width: 85%;
+    height: 45px;
+    border: 3px solid #3F696F;
+    background-color: #E9EFF0;
+    font-size: 22px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.itens-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+    color: #3F696F;
+}
+
+.itens {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid #3F696F;
+    background-color: #E9EFF0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.itens:hover {
+    background-color: #ced4d5;
+}
+
+.itens img {
+    height: auto;
+    width: auto;
+    object-fit: cover;
+}
+
+.historicos {
+    flex: 1;
+    background-color: #F0F4F9;
+    border-top: 3px solid #3F696F;
+    border-radius: 0 0 17px 17px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.historicos button {
+    background-color: #E3EEFB;
+    border: none;
+    border-radius: 15px;
+    width: 100%;
+    height: 15%;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.conteudo {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+.chat-container {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    border: 3px solid #3F696F;
+    border-radius: 15px;
+    background-color: #F0F4F9;
+    padding: 8px 10px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+#chat {
+    flex: 1;
+    height: 50px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    background: transparent;
+}
+
+#enviar {
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    background-color: #1EB4C3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#enviar:hover {
+    background-color: #22a8b4;
+}
+
+#enviar img {
+    height: 23px;
+}
+
+#logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 70px;
+}
