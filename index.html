@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poligera</title>
+    <!-- Arquivo CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <aside class="barra-lateral">
+        <header class="menu-header">
+            <h2 class="aba ativa" id="aba-criacao">
+                Criação
+                <img src="images/creation-icon.png" alt="icone criacao" class="icone" id="icone-criacao">
+            </h2>
+            <h2 class="aba" id="aba-historico">
+                Histórico
+                <img src="images/history-icon.png" alt="icone historico" class="icone" id="icone-historico">
+            </h2>
+        </header>
+
+        <section class="requerimentos" id="conteudo-criacao">
+            <div class="botoes-areas">
+                <button class="botao botao-fisica">Física</button>
+                <button class="botao botao-quimica">Química</button>
+                <select class="select-areas" id="areas">
+                    <option value="" selected disabled hidden>Áreas</option>
+                    <option value="mecanica">Mêcanica</option>
+                    <option value="eletrica">Elétrica</option>
+                    <option value="optica">Óptica</option>
+                </select>
+            </div>
+            <div class="itens-container">
+                <div class="item">
+                    <button class="itens"><img src="images/chave-icon.png" alt="chave"></button>
+                    <p>Chave</p>
+                </div>
+                <div class="item">
+                    <button class="itens"><img src="images/resistor - icon.png" alt="resistor"></button>
+                    <p>Resistor</p>
+                </div>
+                <div class="item">
+                    <button class="itens"><img src="images/capacitor - icon.png" alt="capacitor"></button>
+                    <p>Capacitor</p>
+                </div>
+                <div class="item">
+                    <button class="itens"><img src="images/ddp - icon.png" alt="ddp"></button>
+                    <p>DDP</p>
+                </div>
+                <div class="item">
+                    <button class="itens"><img src="images/voltimetro - icon.png" alt="voltimetro"></button>
+                    <p>Voltímetro</p>
+                </div>
+                <div class="item">
+                    <button class="itens"><img src="images/amperímetro - icon.png" alt="amperimetro"></button>
+                    <p>Amperímetro</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="historicos hidden" id="conteudo-historico">
+            <button>exemplo1</button>
+            <button>exemplo1</button>
+            <button>exemplo1</button>
+            <button>exemplo1</button>
+            <button>exemplo1</button>
+            <button>exemplo1</button>
+            <button>exemplo1</button>
+        </section>
+
+    </aside>
+    
+    <main class="conteudo">
+        <div class="chat-container">
+            <input type="text" id="chat">
+            <button id="enviar">
+                <img src="images/Arrow 1.png" alt="enviar">
+            </button>
+        </div>
+        <img src="images/Logo poliedro.png" alt="logo" id="logo">
+    </main>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
