@@ -11,6 +11,17 @@ body {
     display: none;
 }
 
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px; 
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
 .barra-lateral {
     width: 30%;
     background-color: #D2D7DC;
@@ -103,13 +114,110 @@ body {
 }
 
 .select-areas {
-    width: 85%;
+    width: 97%;
     height: 45px;
     border: 3px solid #3F696F;
     background-color: #E9EFF0;
     font-size: 22px;
     border-radius: 10px;
     margin-top: 10px;
+}
+
+.combobox-customizado-container {
+    position: relative;
+    width: 97%;
+    flex-shrink: 0;
+}
+
+.combobox-customizado {
+    height: 45px;
+    border: 3px solid #3F696F;
+    background-color: #E9EFF0;
+    font-size: 22px;
+    color: #3F696F;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    box-sizing: border-box; 
+}
+
+.combobox-customizado::after {
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-bottom: 3px solid #3F696F;
+    border-right: 3px solid #3F696F;
+    transform: translateY(-75%) rotate(45deg);
+    transition: transform 0.2s ease;
+}
+
+.combobox-customizado.open::after {
+    transform: translateY(-25%) rotate(225deg);
+}
+
+.opcoes {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #E9EFF0;
+    border: 3px solid #3F696F;
+    border-radius: 10px;
+    z-index: 100;
+    list-style: none;
+    margin-top: 8px;
+    padding: 0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.opcoes.active {
+    display: block;
+}
+
+.opcoes li {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: #3F696F;
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.opcoes li img {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.opcoes #icone-eletrica {
+    height: 27px;
+    width: 27px;
+    margin-left: -3px;
+    margin-top: 6px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.opcoes #icone-optica {
+    height: 25px;
+    width: 25px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.opcoes li:hover {
+    background-color: #d4dcdf;
 }
 
 .itens-container {

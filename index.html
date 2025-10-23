@@ -32,12 +32,29 @@
             <div class="botoes-areas">
                 <button class="botao botao-fisica">Física</button>
                 <button class="botao botao-quimica">Química</button>
-                <select class="select-areas" id="areas">
+                <select class="select-areas visually-hidden" id="areas">
                     <option value="" selected disabled hidden>Áreas</option>
                     <option value="mecanica">Mêcanica</option>
                     <option value="eletrica">Elétrica</option>
                     <option value="optica">Óptica</option>
                 </select>
+                <div class="combobox-customizado-container">
+                    <div class="combobox-customizado">Áreas</div>
+                    <ul class="opcoes">
+                        <li data-value="mecanica">
+                            <img src="images/mecânica - icon.png" alt="icone-mecanica" id="icone-mecanica">
+                            Mêcanica
+                        </li>
+                        <li data-value="eletrica">
+                            <img src="images/elétrica - icon.png" alt="icone-eletrica" id="icone-eletrica">
+                            Elétrica
+                        </li>
+                        <li data-value="optica">
+                            <img src="images/óptica - icon.png" alt="icone-optica" id="icone-optica">
+                            Óptica
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="itens-container">
                 <div class="item">
@@ -78,7 +95,7 @@
         </section>
 
     </aside>
-    
+
     <main class="conteudo">
         <div class="chat-container">
             <input type="text" id="chat">
