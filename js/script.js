@@ -60,6 +60,15 @@ todasOpcoes.forEach(option => {
         selectVerdadeiro.value = selectedValue;
         opcoes.classList.remove('active');
         combobox.classList.remove('open');
+
+        const todosConteudos = document.querySelectorAll('.conteudo-fisica');
+        todosConteudos.forEach(conteudo => {
+            conteudo.classList.remove('active');
+        });
+        const conteudoSelecionado = document.querySelector(`.conteudo-fisica.${selectedValue}`);
+        if (conteudoSelecionado) {
+            conteudoSelecionado.classList.add('active');
+        }
     });
 });
 
