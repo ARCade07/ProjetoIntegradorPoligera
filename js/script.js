@@ -21,6 +21,10 @@ abaHistorico.addEventListener('click', () => {
 
 const botaoFisica = document.querySelector('.botao-fisica');
 const botaoQuimica = document.querySelector('.botao-quimica');
+const conteudoQuimica = document.querySelector('.conteudo-quimica')
+const conteudoFisica = document.querySelectorAll('.conteudo-fisica')
+const comboboxContainer = document.querySelector('.combobox-customizado-container');
+const selectVerdadeiro = document.getElementById('areas');
 
 function selecionarMateria(selecionado, naoSelecionado) {
     selecionado.style.backgroundColor = '#1EB4C3'
@@ -34,17 +38,30 @@ function selecionarMateria(selecionado, naoSelecionado) {
 
 botaoFisica.addEventListener('click', () => {
     selecionarMateria(botaoFisica, botaoQuimica);
+    conteudoQuimica.classList.remove('active');
+    comboboxContainer.style.display = '';
+    const selectedValue = selectedVerdadeiro.value;
+    if (selectedValue) {
+        const conteudoSelecionado = document.querySelector (`.conteudo-fisica.${selectedValue}`);
+        if (conteudoSelecionado) {
+            conteudoSelecionado.classList.add('active');
+        }
+    }
 });
 
 botaoQuimica.addEventListener('click', () => {
     selecionarMateria(botaoQuimica, botaoFisica);
+    comboboxContainer.style.display = 'none';
+    conteudoFisica.forEach(conteudo => {
+        conteudo.classList.remove('active');
+    });
+    conteudoQuimica.classList.add('active')
+
 });
 
-const comboboxContainer = document.querySelector('.combobox-customizado-container');
 const combobox = comboboxContainer.querySelector('.combobox-customizado');
 const opcoes = comboboxContainer.querySelector('.opcoes');
 const todasOpcoes = comboboxContainer.querySelectorAll('.opcoes li');
-const selectVerdadeiro = document.getElementById('areas');
 
 combobox.addEventListener('click', (e) => {
     e.stopPropagation();

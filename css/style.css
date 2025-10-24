@@ -234,6 +234,16 @@ body {
     display: grid;
 }
 
+.conteudo-quimica {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+}
+
+.conteudo-quimica.active {
+    display: grid;
+}
+
 .item {
     display: flex;
     flex-direction: column;
