@@ -5,3 +5,7 @@ async function criarHash(texto) {
     return bcrypt.hash(texto, salt);
 }
 
+async function compararHash(texto, hash) {
+    return bcrypt.compare(texto, hash);
+}
+
