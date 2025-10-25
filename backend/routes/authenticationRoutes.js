@@ -50,7 +50,11 @@ router.post('/login', async (req, res) => {
 
     try {
         const secret = process.env.SECRET;
-        const token = jwt.sign({ id: user._id, secret });
+        const token = jwt.sign(
+            { id: user._id},
+            secret,
+            { expiresIn: '1h' }
+            );
         res
             .status(200)
             .json({ msg: 'Autentiação realizada com sucesso', token });
