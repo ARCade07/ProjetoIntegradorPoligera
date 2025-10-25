@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const { criarHash, compararHash } = require('../util/cript');
+const enviarEmail = require('../util/mail')
 const User = require('../models/User');
 
 router.post('/cadastrar', async (req, res) => {
@@ -55,6 +55,32 @@ router.post('/login', async (req, res) => {
             .json({ msg: 'Autentiação realizada com sucesso', token });
     } catch (erro) {
         res.status(500).json({ msg: 'Erro ao gerar token' });
+    }
+});
+
+router.post('esqueceu-senha', async (req, res) => {
+    try {
+        // Checa se o email do usuário existe
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res
+                .status(404)
+                .json({ msg: "O usuário com esse mail não existe."});
+        }
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        const tokenHash = await criarHash(resetToken);
+        user.resetTokenHash = tokenHash;
+        user.resetTokenExpires = Date.now() + 3600000; // 1 hora
+
+        await user.save();
+
+        await enviarEmail(user, resetToken);
+        res
+            .status(200)
+            .json({ msg: "Token para recuperação gerado e enviado com sucesso!"})
+    } catch (erro) {
+        console.log(erro)
+        return res.status(500).json({ msg: 'Erro interno do servidor.' })
     }
 });
 
