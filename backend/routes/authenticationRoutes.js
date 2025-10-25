@@ -83,5 +83,33 @@ router.post('esqueceu-senha', async (req, res) => {
         return res.status(500).json({ msg: 'Erro interno do servidor.' })
     }
 });
+//Rota para resetar senha:
+route.post('redefinir-senha', async (req, res) => {
+    try {
+        const { email, resetToken, newPassword } = req.body;
+        const user = await User.findOne({ email });
+        const isToken = await compararHash(resetToken, user.resetTokenHash);
+        if (!user) {
+            return res.status(404).json({ msg: 'Usuário não encontrado!' });
+        }
+        if(!isToken || user.resetTokenExpires < Date.now()) {
+            return res.status(400,json({ msg: "Token inválido ou expirado."}));
+        }
+        const passwordHash = await criarHash(newPassword);
+
+        user.password = passwordHash;
+        user.resetTokenHash = undefined;
+        user. resetTokenExpires = undefined;
+
+        await user.save();
+
+        return res.status(200).json({ msg: 'Senha redefina com sucesso! '})
+    } catch (erro) {
+        console.log(erro)
+        return res.status(500).json({ msg: 'Erro interno do servidor.' })
+    }
+});
+
+
 
 module.exports = router;
