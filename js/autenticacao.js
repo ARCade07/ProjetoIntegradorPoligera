@@ -29,3 +29,25 @@ async function cadastrarUsuario () {
     }
 
 }
+async function fazerLogin() {
+    let emailLoginInput = document.querySelector('#email-login');
+    let passwordLoginInput = document.querySelector('#senha-login');
+    let emailLogin = emailLoginInput.value;
+    let passwordLogin = passwordLoginInput.value;
+    if (usuarioLogin && passwordLogin) {
+        try {
+            const loginEndpoint = '/login';
+            const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${loginEndpoint}`;
+            const response = await axios.post(
+                URLcompleta,
+                {email: emailLogin, password: passwordLogin}
+            );
+            console.log(response.data);
+            emailLoginInput.value = '';
+            passwordLoginInput.value = '';
+        } catch(erro) {
+            console.log(erro);
+        }
+    }
+
+}
