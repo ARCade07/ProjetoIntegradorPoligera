@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.post('esqueceu-senha', async (req, res) => {
+router.post('/esqueceu-senha', async (req, res) => {
     try {
         // Checa se o email do usuário existe
         const user = await User.findOne({ email: req.body.email });
@@ -84,7 +84,7 @@ router.post('esqueceu-senha', async (req, res) => {
     }
 });
 //Rota para resetar senha:
-router.post('redefinir-senha', async (req, res) => {
+router.post('/redefinir-senha', async (req, res) => {
     try {
         const { email, resetToken, newPassword } = req.body;
         const user = await User.findOne({ email });
