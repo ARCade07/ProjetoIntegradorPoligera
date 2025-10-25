@@ -9,4 +9,4 @@ async function compararHash(texto, hash) {
     return bcrypt.compare(texto, hash);
 }
 
-module.exports = criarHash, compararHash;
+module.exports = { criarHash, compararHash };
