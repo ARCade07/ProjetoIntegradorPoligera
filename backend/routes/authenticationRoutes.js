@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { criarHash, compararHash } = require('../util/cript');
+const jwt = require('jsonwebtoken')
 const enviarEmail = require('../util/mail')
 const crypto = require('crypto')
 const User = require('../models/User');
