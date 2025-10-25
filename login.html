@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Poligera</title>
+    <!-- Booststrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- Arquivo CSS -->
     <link rel="stylesheet" href="./css/login.css">
+    <!-- Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -14,21 +19,40 @@
 </head>
 
 <body>
-    <div class="login-container">
-        <div class="login-logo">
+    <main class="login-container">
+        <header class="login-logo">
             <img src="images/Logo.jpg" alt="Logo Poligera">
+        </header>
+        <section class="row justify-content-center">
+            <article class="col-10 col-sm-8 col-md-12">
+                <form class="login">
+                    <h2>Login - Poligera</h2>
+                    <input type="text" id="e-mail" name="e-mail" required placeholder="E-mail">
+                    <input type="password" id="senha" name="senha" required placeholder="Senha">
+                    <div class='row' style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <nav class="col-md">
+                            <a href="esqueci_senha.html" id="esqueci_senha">Esqueci a senha</a>
+                        </nav>
+                        <div class="col-md">
+                            <button type="submit" class="btn-entrar">Entrar</button>
+                        </div>
+                    </div>
+                    <a href="cadastro.html" id="cadastro">Não tem conta? Faça cadastro</a>
+                </form>
+            </article>
+        </section>
+    </main>
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
         </div>
-        <form class="login">
-            <h2>Login - Poligera</h2>
-            <input type="text" id="e-mail" name="e-mail" required placeholder="E-mail">
-            <input type="password" id="senha" name="senha" required placeholder="Senha">
-            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                <a href="esqueci_senha.html" id="esqueci_senha">Esqueci senha</a>
-                <button type="submit" class="btn-entrar">Entrar</button>
-            </div>
-            <a href="cadastro.html" id="cadastro">Não tem conta? Faça cadastro</a>
-        </form>
     </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="https://app.embed.im/accessibility.js" defer></script>
 </body>
 
 </html>

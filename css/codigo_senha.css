@@ -1,4 +1,5 @@
 body {
+    background-color: #E9E9E9;
     height: 100vh;
     margin: 0;
     font-family: "Inter", sans-serif;
@@ -15,7 +16,7 @@ body {
 }
 
 .codigo {
-    background: #F1EDE2;
+    background: #F7F7F7;
     padding: 40px 30px;
     border-radius: 12px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
@@ -31,8 +32,8 @@ body {
 .logo img {
     width: 150px;
     height: 150px;
-    border-radius: 20%;
-    border: 2px solid #EC2252;
+    border-radius: 10%;
+    border: 2px solid #3F696F;
     display: inline-block;
 }
 
@@ -40,7 +41,7 @@ body {
     text-align: center;
     margin-top: 0px;
     margin-bottom: 24px;
-    color: #ED2152;
+    color: #000000;
 }
 
 .codigo p {
@@ -53,7 +54,7 @@ body {
     width: 97%;
     padding: 10px;
     margin-bottom: 18px;
-    border: 1px solid #F3EFEC;
+    border: 1px solid #bab6ac;
     border-radius: 6px;
     font-size: 16px;
 }
@@ -68,8 +69,8 @@ body {
     margin: 0 auto 10px auto;
     width: 50%;
     padding: 12px;
-    background: #CC4014;
-    color: #F1EDE2;
+    background: #1EB4C3;
+    color: #00363C;
     border: none;
     border-radius: 6px;
     font-size: 16px;
@@ -79,7 +80,7 @@ body {
 }
 
 .codigo button:hover {
-    background: #d55c38 !important;
+    background: #22a8b4 !important;
 }
 
 #cancelar {
@@ -87,7 +88,7 @@ body {
     width: 25%;
     margin: 0 auto;
     padding: 8px;
-    color: #0F0F0F;
+    color: #EC2252;
     border-radius: 6px;
     text-align: center;
     font-size: 16px;
