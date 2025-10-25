@@ -28,6 +28,7 @@ router.post('/cadastrar', async (req, res) => {
     });
 
     try {
+        await user.save();
         res.status(201).json({ msg: 'Usuário criado com sucesso!' });
     } catch (erro) {
         res
