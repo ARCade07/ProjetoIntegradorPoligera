@@ -28,3 +28,4 @@ async function enviarEmail(user, resetToken) {
     });
 }
 
+module.exports = enviarEmail;
