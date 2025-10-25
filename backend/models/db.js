@@ -6,8 +6,7 @@ const connectDB = async () => {
 
     try {
         await mongoose.connect(
-            `mongodb+srv://${dbUser}:${dbPassword}@poligera.qx9tlbw.mongodb.net
-            /?retryWrites=true&w=majority&appName=Poligera`
+            `mongodb+srv://${dbUser}:${dbPassword}@poligera.qx9tlbw.mongodb.net/?retryWrites=true&w=majority&appName=Poligera`
         )
         console.log('Conectado ao Banco de Dados com sucesso');
     } catch (erro) {
