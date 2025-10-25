@@ -19,8 +19,7 @@ router.post('/cadastrar', async (req, res) => {
         return res.status(422).json({ msg: 'Por favor, utilize outro e-mail!' });
     }
 
-    const salt = await bcrypt.genSalt(12);
-    const passwordHash = await bcrypt.hash(password, salt);
+    const passwordHash = await criarHash(password)
 
     const user = new User({
         name,
@@ -45,7 +44,7 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(422).json({ msg: 'Usuário não encontrado.' });
 
-    const checkPassword = await bcrypt.compare(password, user.password);
+    const checkPassword = await compararHash(password, user.password);
     if (!checkPassword) return res.status(422).json({ msg: 'Senha inválida!' });
 
     try {
