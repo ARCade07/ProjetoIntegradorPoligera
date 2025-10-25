@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { criarHash, compararHash } = require('../util/cript');
 const enviarEmail = require('../util/mail')
+const crypto = require('crypto')
 const User = require('../models/User');
 
 router.post('/cadastrar', async (req, res) => {
