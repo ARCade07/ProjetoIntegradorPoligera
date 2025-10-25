@@ -34,7 +34,7 @@ async function fazerLogin() {
     let passwordLoginInput = document.querySelector('#senha-login');
     let emailLogin = emailLoginInput.value;
     let passwordLogin = passwordLoginInput.value;
-    if (usuarioLogin && passwordLogin) {
+    if (emailLogin && passwordLogin) {
         try {
             const loginEndpoint = '/login';
             const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${loginEndpoint}`;
