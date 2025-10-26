@@ -51,3 +51,20 @@ async function fazerLogin() {
     }
 
 }
+async function esquecerSenha() {
+    let emailRecuperarInput = document.querySelector('#email-recuperar');
+    let emailRecuperar = emailRecuperarInput.value;
+    if (emailRecuperar) {
+        try {
+            const esquecerSenhaEndpoint = '/esqueceu-senha';
+            const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${esquecerSenhaEndpoint}`;
+            const response = await axios.post(
+                URLcompleta,
+                {email: emailRecuperar}
+            );
+            emailRecuperarInput.value = '';
+        } catch (erro) {
+            console.log(erro);
+        }
+    }
+}
