@@ -99,13 +99,13 @@ router.post('/redefinir-senha', async (req, res) => {
         }
         const isToken = await compararHash(resetToken, user.resetTokenHash);
         if(!isToken || user.resetTokenExpires < Date.now()) {
-            return res.status(400,json({ msg: "Token inválido ou expirado."}));
+            return res.status(400).json({ msg: "Token inválido ou expirado."});
         }
         const passwordHash = await criarHash(newPassword);
 
         user.password = passwordHash;
         user.resetTokenHash = undefined;
-        user. resetTokenExpires = undefined;
+        user.resetTokenExpires = undefined;
 
         await user.save();
 
