@@ -68,3 +68,35 @@ async function esquecerSenha() {
         }
     }
 }
+async function redefinirSenha() {
+    let passwordRedefinirInput = document.querySelector('#senha-redefinir');
+    let confirmPasswordRedefinirInput = document.querySelector('#confirmar-senha-redefinir');
+
+    let passwordRedefinir = passwordRedefinirInput.value;
+    let confirmPasswordRedefinir = confirmPasswordRedefinirInput.value;
+
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get('email');
+    const resetToken = params.get('token');
+    
+    if(!email || !resetToken) {
+        alert('Link inválido. Por favor, solicite uma nova redefinição de senha');
+    }
+    if (passwordRedefinir && confirmPasswordRedefinir) {
+        if (passwordRedefinir !== confirmPasswordRedefinir) {
+            alert('As senhas não conferem');
+        }
+        try {
+            const redefinirSenhaEnpoint = '/redefinir-senha';
+            const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${redefinirSenhaEnpoint}`;
+            await axios.post(
+                URLcompleta,
+                { email, resetToken, newPassword: passwordRedefinir }
+            );
+            passwordRedefinirInput.value = '';
+            confirmPasswordRedefinirInput.value = '';
+        } catch (erro) {
+            console.log(erro);
+        }
+    }
+}
