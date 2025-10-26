@@ -17,7 +17,7 @@ const User = mongoose.model('User', {
         type: String
     },
     resetTokenExpires: {
-        type: String
+        type: Date
     }
 });
 
