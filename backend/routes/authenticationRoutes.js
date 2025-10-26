@@ -94,10 +94,10 @@ router.post('/redefinir-senha', async (req, res) => {
     try {
         const { email, resetToken, newPassword } = req.body;
         const user = await User.findOne({ email });
-        const isToken = await compararHash(resetToken, user.resetTokenHash);
         if (!user) {
             return res.status(404).json({ msg: 'Usuário não encontrado!' });
         }
+        const isToken = await compararHash(resetToken, user.resetTokenHash);
         if(!isToken || user.resetTokenExpires < Date.now()) {
             return res.status(400,json({ msg: "Token inválido ou expirado."}));
         }
