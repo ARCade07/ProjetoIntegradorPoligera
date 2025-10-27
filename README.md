@@ -22,7 +22,7 @@ Projeto de extensão, realizado pelos alunos do Instituto Mauá de Tecnologia em
 - `HTML`
 - `CSS`
 - `Javascript`
-- `MySQL workbench`
+- `MongoDB`
 - `Python`
 
 # :bust_in_silhouette: Autores
