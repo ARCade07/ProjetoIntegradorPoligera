@@ -300,10 +300,18 @@ body {
     flex: 1;
     position: relative;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
     padding: 20px;
+    gap: 10px;
 }
+
+.loading {
+   display: none;
+   font-size: 18px;
+}
+
 
 .chat-container {
     display: flex;
@@ -341,6 +349,10 @@ body {
 
 #enviar:hover {
     background-color: #22a8b4;
+}
+
+#enviar:disabled {
+    background-color: #ccc;
 }
 
 #enviar img {
