@@ -1,8 +1,6 @@
 body {
     font-family: "Inter", sans-serif;
     background-color: #FFFFFF;
-    display: flex;
-    height: 100vh;
     margin: 0;
     padding: 0;
 }
@@ -23,7 +21,9 @@ body {
 }
 
 .barra-lateral {
-    width: 30%;
+    flex-basis: 30%;
+    max-width: 450px;
+    min-width: 300px;
     background-color: #D2D7DC;
     border-radius: 17px;
     display: flex;
@@ -259,6 +259,19 @@ body {
     border-radius: 50%;
     border: 3px solid #3F696F;
     background-color: #E9EFF0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.item-mobile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #1EB4C3;
+    background-color: #F0F4F9;
     display: flex;
     align-items: center;
     justify-content: center;
