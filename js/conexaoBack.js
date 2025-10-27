@@ -1,14 +1,13 @@
-const campo_texto = document.querySelector('#form-prompt');
 const mensagem_usuario = document.querySelector('#chat');
 const botao = document.querySelector('#enviar');
 const loading = document.querySelector(".loading");
-const resposta_gerada = documnt.querySelector(".resposta-gerada");
+const resposta_gerada = document.querySelector(".reposta");
 const protocolo = "http://";
 const baseURL = "localhost:5000";
 const chatEndpoint = "/chat";
 
 mensagem_usuario.addEventListener('input', function() {
-    if(prompt_enviado.value.trim().length > 0) {
+    if(mensagem_usuario.value.trim().length > 0) {
         botao.disabled = false;
     }
     else {
@@ -17,7 +16,7 @@ mensagem_usuario.addEventListener('input', function() {
 })
 
 async function tratamentoPrompt(event) {
-    constURLcompleta = `${protocolo}${baseURL}${chatEndpoint}`
+    const URLcompleta = `${protocolo}${baseURL}${chatEndpoint}`
 
     event.preventDefault();
 
@@ -26,10 +25,10 @@ async function tratamentoPrompt(event) {
     mensagem_usuario.value = '';
     
     loading.style.display = 'block';
-    resposta_gerada.innerHTML = '';
+    // resposta_gerada.innerHTML = '';
     
     try {
-        const response = await axios.post(URLcompleta, {prompt: 'prompt'})
+        const response = await axios.post(URLcompleta, {prompt: prompt})
 
         resposta_gerada.innerHTML = `
         <h3>${response.data.message}</h3>
@@ -45,4 +44,13 @@ async function tratamentoPrompt(event) {
     }
 }
 
-campo_texto.addEventListener('submit', tratamentoPrompt)
+
+botao.addEventListener('click', tratamentoPrompt);
+
+if(mensagem_usuario) {
+    mensagem_usuario.addEventListener('keypress', function(e) {
+        if(e.key === 'Enter') {
+            tratamentoPrompt(e);
+        }
+    });
+}
