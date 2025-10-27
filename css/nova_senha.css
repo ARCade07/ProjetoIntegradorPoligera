@@ -5,26 +5,17 @@ body {
     font-family: "Inter", sans-serif;
 }
 
-.cadastro-container {
+.login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     width: 100%;
-    margin-top: -20px;
+    /* margin-top: -20px; */
 }
 
-.logo-poliedro img {
-    margin-bottom: 25px;
-    width: 150px;
-    height: 150px;
-    border-radius: 10%;
-    border: 2px solid #3F696F;
-    display: inline-block;
-}
-
-.campos-preenchimento {
+.login {
     background: #F7F7F7;
     padding: 80px 30px;
     border-radius: 12px;
@@ -33,14 +24,27 @@ body {
     max-width: 550px;
 }
 
-h2 {
+.login-logo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-logo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10%;
+    border: 2px solid #3F696F;
+    display: inline-block;
+}
+
+.login h2 {
     text-align: center;
     margin-top: 0px;
     margin-bottom: 24px;
     color: #000000;
 }
 
-input {
+.login input {
     width: 97%;
     padding: 10px;
     margin-bottom: 18px;
@@ -49,15 +53,15 @@ input {
     font-size: 16px;
 }
 
-.campos-preenchimento input::placeholder {
+.login input::placeholder {
     color: #444549;
     font-weight: 500;
 }
 
-.btn-cadastrar button {
+.login button {
     width: 100%;
     padding: 12px;
-    background: #1EB4C3;
+    background: #1eb4c3;
     color: #00363C;
     border: none;
     border-radius: 6px;
@@ -67,17 +71,34 @@ input {
     transition: 0.2s;
 }
 
-.btn-cadastrar:hover {
+.btn-confirmar:hover {
     background: #22a8b4 !important;
-    border-radius: 6px;
 }
 
-#btn-cancelar {
+.btn-confirmar {
+    flex: 1.5;
+}
+
+#esqueci_senha {
+    flex: 1;
+    align-self: center;
+    text-align: center;
+    text-decoration: underline;
+    color: #0F0F0F;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 8px;
+}
+
+#cancelar {
     display: block;
     width: 40%;
     margin: 0 auto;
     padding: 8px;
-    color: #EC2252;
+    color: #0F0F0F;
     border-radius: 6px;
     text-align: center;
     font-size: 12px;
