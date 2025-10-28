@@ -38,3 +38,11 @@ Desktop.ini
 .idea/
 .history/
 *.code-workspace
+
+# --- Arquivos do Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdm.toml
+*.python-version
