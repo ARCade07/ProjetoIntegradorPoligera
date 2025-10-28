@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
+import io
+import base64
 
 # o parâmetro config refere-se ao json da imagem
 def desenharCopoLivre(json):
@@ -150,8 +152,24 @@ def desenharCopoLivre(json):
     # para que os rótulos não se sobreponham e caibam bem na figura
     plt.tight_layout()
 
-    plt.show()
+    # plt.show()
 
+    # criação temporária de um arquivo na memória RAM
+    buffer = io.BytesIO()
+    # como buffer não é o nome de um arquivo, os bytes da imagem são despejados dentro dele
+    plt.savefig(buffer, format='png', bbox_inches='tight')
+    plt.close(fig)
+
+    # pega o que tem dentro do buffer
+    img_data = buffer.getvalue()
+
+    # transforma o conjunto de bytes em algo que o navegador consiga entender
+    img_base64 = base64.b64encode(img_data).decode('utf-8')
+    data_uri = f"data:image/png;base64,{img_base64}"
+
+    return data_uri
+
+    
 if __name__ == "__main__":
     # Criar um exemplo de configuração
     config_exemplo ={
@@ -190,4 +208,6 @@ if __name__ == "__main__":
   ]
 }
     
-desenharCopoLivre(config_exemplo)
+url = desenharCopoLivre(config_exemplo)
+
+print(url)
