@@ -1,6 +1,7 @@
 import time
-from flask import Flask, request, jsonify # type: ignore
-from flask_cors import CORS # type: ignore
+from flask import Flask, request, jsonify 
+from flask_cors import CORS
+from agente_gemini import resposta_ia
 
 # inicialização do Flask
 app = Flask(__name__)
@@ -18,9 +19,11 @@ def processamentoResposta():
     # pega os valores associados a chave 'prompt' dicionário
     prompt = dados.get('prompt')
 
+    resposta = resposta_ia(prompt)
+
     # envia a resposta para o front
     return jsonify({
-        'message': f"Seu prompt foi {prompt}"
+        'message': f"{resposta}"
     })
 
 # rodará o código no modo debug na porta 5000 apenas se for executado o código em si
