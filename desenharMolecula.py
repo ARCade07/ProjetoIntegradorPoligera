@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 import numpy as np
+import io
+import base64
 
 class Moleculas:
     def __init__(self):
@@ -94,11 +96,28 @@ class Moleculas:
         ax.axis('off')
 
         plt.tight_layout()
-        plt.show()
+        # plt.show()
+
+        # criação temporária de um arquivo na memória RAM
+        buffer = io.BytesIO()
+        # como buffer não é o nome de um arquivo, os bytes da imagem são despejados dentro dele
+        plt.savefig(buffer, format='png', bbox_inches='tight')
+        plt.close(fig)
+
+        # pega o que tem dentro do buffer
+        img_data = buffer.getvalue()
+
+        # transforma o conjunto de bytes em algo que o navegador consiga entender
+        img_base64 = base64.b64encode(img_data).decode('utf-8')
+        data_uri = f"data:image/png;base64,{img_base64}"
+
+        return data_uri
 
     def carregarJson(self, json):
         json_molecula = json
         self.desenharMolecula(json_molecula)
+
+        return self.desenharMolecula(json_molecula)
 
 
 if __name__ == "__main__":
@@ -112,4 +131,5 @@ if __name__ == "__main__":
   "ligações": [[0, 1, 1]]
 }
     
-    molecula.carregarJson(acido_cloridrico)
+    uri = molecula.carregarJson(acido_cloridrico)
+    print(uri)
