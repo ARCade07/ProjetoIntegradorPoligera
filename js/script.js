@@ -138,6 +138,10 @@ if (mobileHeader && mobileFooter) {
         mobileConteudoFisicaTodos.forEach(conteudo => {
             conteudo.classList.add('active');
         });
+        const primeiraFisica = mobileFooter.querySelector('.conteudo-fisica.eletrica')
+        if (primeiraFisica) {
+            primeiraFisica.classList.add('active')
+        }
     });
     
     mobileBotaoQuimica.addEventListener('click', () => {

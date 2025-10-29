@@ -366,3 +366,31 @@ body {
     right: 0;
     height: 70px;
 }
+
+.itens-container-mobile {
+    width: 100%;
+}
+
+.tres-pontos {
+    border: none;
+    background-color: #FFFFFF;
+}
+
+.areas-fisica {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.botao-area {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #3F696F;
+    border-radius: 50%;
+    background-color: #BBC3CD;
+    margin: 0px 10px 0px 10px;
+}
+
+.botao-area img {
+    object-fit: contain;
+}
