@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
+import io
+import base64
 
-class CircuitGenerator:
+class CircuitoEletrico:
 
     def __init__(self, json_config):
         
@@ -207,13 +209,26 @@ class CircuitGenerator:
         self.desenharFio(x + 0.5, y, x + 0.5, y - 3)
         self.desenharFio(x + 0.5, y - 3, 1, y - 3)
         self.desenharFio(1, y - 3, 1, y)
-
-    def render(self):
         
         self.ax.set_aspect('equal')
         self.ax.axis('off')
         plt.tight_layout()
-        plt.show()
+        # plt.show()
+
+        # criação temporária de um arquivo na memória RAM
+        buffer = io.BytesIO()
+        # como buffer não é o nome de um arquivo, os bytes da imagem são despejados dentro dele
+        plt.savefig(buffer, format='png', bbox_inches='tight')
+        plt.close()  
+
+        # pega o que tem dentro do buffer
+        img_data = buffer.getvalue()
+
+        # transforma o conjunto de bytes em algo que o navegador consiga entender
+        img_base64 = base64.b64encode(img_data).decode('utf-8')
+        data_uri = f"data:image/png;base64,{img_base64}"
+
+        return data_uri
 
 circuito_teste = {
     "voltagem": 12,
@@ -267,6 +282,8 @@ circuito_teste = {
     ]
 }
 
-generator = CircuitGenerator(circuito_teste)
-generator.gerarCircuito()
-generator.render()
+circuito_eletrico = CircuitoEletrico(circuito_teste)
+uri = circuito_eletrico.gerarCircuito()
+
+print(uri)
+
