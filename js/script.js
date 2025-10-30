@@ -102,3 +102,10 @@ combobox.addEventListener('keydown', (e) => {
         combobox.click();
     }
 });
+
+document.addEventListener("click", function (e) {
+  const img = e.target;
+  if (img.closest(".resposta img")) {
+    img.classList.toggle("ampliada");
+  }
+});
