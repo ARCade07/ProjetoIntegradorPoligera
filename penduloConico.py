@@ -1,3 +1,7 @@
+import matplotlib
+# utilização de um ambiente não interativo
+# dessa forma o matplotlib gerará os gráficos apenas na memória e não tentará abrir uma janela para mostrá-lo
+matplotlib.use("Agg")
 import json
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches

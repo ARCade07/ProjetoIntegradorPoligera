@@ -1,3 +1,7 @@
+import matplotlib
+# utilização de um ambiente não interativo
+# dessa forma o matplotlib gerará os gráficos apenas na memória e não tentará abrir uma janela para mostrá-lo
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import io
 import base64
@@ -230,60 +234,60 @@ class CircuitoEletrico:
 
         return data_uri
 
-circuito_teste = {
-    "voltagem": 12,
-    "sections": [
-        {
-            "tipo": "serie",
-            "components": [
-                {
-                    "tipo": "resistor",
-                    "value": 100,
-                    "label": "R1"
-                }
-            ]
-        },
-        {
-            "tipo": "paralelo",
-            "branches": [
-                [
-                    {
-                        "tipo": "resistor",
-                        "value": 200,
-                        "label": "R2"
-                    }
-                ],
-                [
-                    {
-                        "tipo": "resistor",
-                        "value": 300,
-                        "label": "R3"
-                    }
-                ],
-                [
-                    {
-                        "tipo": "resistor",
-                        "value": 400,
-                        "label": "R4"
-                    }
-                ]
-            ]
-        },
-        {
-            "tipo": "serie",
-            "components": [
-                {
-                    "tipo": "resistor",
-                    "value": 50,
-                    "label": "R5"
-                }
-            ]
-        }
-    ]
-}
+# circuito_teste = {
+#     "voltagem": 12,
+#     "sections": [
+#         {
+#             "tipo": "serie",
+#             "components": [
+#                 {
+#                     "tipo": "resistor",
+#                     "value": 100,
+#                     "label": "R1"
+#                 }
+#             ]
+#         },
+#         {
+#             "tipo": "paralelo",
+#             "branches": [
+#                 [
+#                     {
+#                         "tipo": "resistor",
+#                         "value": 200,
+#                         "label": "R2"
+#                     }
+#                 ],
+#                 [
+#                     {
+#                         "tipo": "resistor",
+#                         "value": 300,
+#                         "label": "R3"
+#                     }
+#                 ],
+#                 [
+#                     {
+#                         "tipo": "resistor",
+#                         "value": 400,
+#                         "label": "R4"
+#                     }
+#                 ]
+#             ]
+#         },
+#         {
+#             "tipo": "serie",
+#             "components": [
+#                 {
+#                     "tipo": "resistor",
+#                     "value": 50,
+#                     "label": "R5"
+#                 }
+#             ]
+#         }
+#     ]
+# }
 
-circuito_eletrico = CircuitoEletrico(circuito_teste)
-uri = circuito_eletrico.gerarCircuito()
+# circuito_eletrico = CircuitoEletrico(circuito_teste)
+# uri = circuito_eletrico.gerarCircuito()
 
-print(uri)
+# print(uri)
 
