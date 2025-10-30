@@ -1,3 +1,7 @@
+import matplotlib
+# utilização de um ambiente não interativo
+# dessa forma o matplotlib gerará os gráficos apenas na memória e não tentará abrir uma janela para mostrá-lo
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
@@ -170,44 +174,44 @@ def desenharCopoLivre(json):
     return data_uri
 
     
-if __name__ == "__main__":
-    # Criar um exemplo de configuração
-    config_exemplo ={
-  "objeto": {
-    "tipo": "retangulo",
-    "tamanho": [1, 1],
-    "cor": "gray",
-    "massa": 5.0
-  },
-  "plano_inclinado": {
-    "ativo": True,
-    "angulo": 30,
-  },
-  "forcas": [
-    {
-      "nome": "Peso (P)",
-      "magnitude": 49.0,
-      "angulo": 270,
-      "cor": "darkgreen",
-      "ponto_aplicacao": [0, 0]
-    },
-    {
-      "nome": "Normal (N)",
-      "magnitude": 42.4,
-      "angulo": 120,
-      "cor": "blue",
-      "ponto_aplicacao": [0, 0]
-    },
-    {
-      "nome": "Atrito (Fat)",
-      "magnitude": 10.0,
-      "angulo": 210,
-      "cor": "red",
-      "ponto_aplicacao": [0, 0]
-    }
-  ]
-}
+# if __name__ == "__main__":
+#     # Criar um exemplo de configuração
+#     config_exemplo ={
+#   "objeto": {
+#     "tipo": "retangulo",
+#     "tamanho": [1, 1],
+#     "cor": "gray",
+#     "massa": 5.0
+#   },
+#   "plano_inclinado": {
+#     "ativo": True,
+#     "angulo": 30,
+#   },
+#   "forcas": [
+#     {
+#       "nome": "Peso (P)",
+#       "magnitude": 49.0,
+#       "angulo": 270,
+#       "cor": "darkgreen",
+#       "ponto_aplicacao": [0, 0]
+#     },
+#     {
+#       "nome": "Normal (N)",
+#       "magnitude": 42.4,
+#       "angulo": 120,
+#       "cor": "blue",
+#       "ponto_aplicacao": [0, 0]
+#     },
+#     {
+#       "nome": "Atrito (Fat)",
+#       "magnitude": 10.0,
+#       "angulo": 210,
+#       "cor": "red",
+#       "ponto_aplicacao": [0, 0]
+#     }
+#   ]
+# }
     
-url = desenharCopoLivre(config_exemplo)
+# url = desenharCopoLivre(config_exemplo)
 
-print(url)
+# print(url)
