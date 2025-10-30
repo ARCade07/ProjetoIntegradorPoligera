@@ -37,7 +37,7 @@ async function tratamentoPrompt(event) {
         const response = await axios.post(URLcompleta, {prompt: prompt})
 
         resposta_gerada.innerHTML = `
-        <h3>${response.data.message}</h3>
+        <img src="${response.data.resposta}">
         `;
     }
     catch (e) {
