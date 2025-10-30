@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from google import genai
 from corpoLivre import desenharCopoLivre
 import json
+from cirucitoEletrico import CircuitoEletrico
 
 # lê o arquivo .env e o deixa disponível no sistema 
 load_dotenv()
@@ -166,4 +167,114 @@ def gerarCorpoLivre (prompt):
     imagem_uri = desenharCopoLivre(resposta_dicionario)
 
     return imagem_uri
+
+def gerarCircuitoEletrico (prompt):
+
+    INSTRUCAO = """
+    Você é um assistente especializado em modelagem de circuitos elétricos (resistivos). Sua ÚNICA função é receber a descrição de um circuito do usuário e retornar *exclusivamente* um objeto JSON que representa esse circuito, aderindo estritamente ao formato de estrutura de lista de seções fornecido, utilizando chaves em português.
+
+    **REGRAS OBRIGATÓRIAS:**
+
+    1.  **Formato de Saída:** Sua resposta deve ser *somente* o objeto JSON completo. Não inclua texto introdutório, explicações, código Python (como 'json.dumps()'), ou qualquer outra informação.
+    2.  **Adesão ao Esquema:** O JSON deve seguir rigorosamente a estrutura:
+        '{"voltagem": valor, "sections": [...]}'.
+
+    **Instruções de Mapeamento de Campos:**
+
+    * **'voltagem':** Valor numérico da tensão da fonte de alimentação em Volts (V). Use **12** como padrão se não for especificado.
+    * **'sections':** Uma lista de seções que compõem o circuito principal.
+        * Cada seção deve ter um **'tipo'** que é **"serie"** ou **"paralelo"**.
+
+    * **Seção de Série ('tipo': "serie"):**
+        * Deve conter a chave **'components'**, que é uma lista de componentes em série.
+        * Cada componente em **'components'** deve ter **'tipo': "resistor"** (padrão), **'value'** (em Ohms) e **'label'** (ex: "R1").
+
+    * **Seção Paralela ('tipo': "paralelo"):**
+        * Deve conter a chave **'branches'**, que é uma lista de ramificações.
+        * Cada ramificação em **'branches'** é uma lista de componentes (que podem estar em série dentro da ramificação).
+        * Os componentes seguem o mesmo formato: **'tipo': "resistor"**, **'value'**, e **'label'**.
+
+    **Exemplo de Saída Esperada (Apenas o JSON):**
+
+    ```json
+    {
+        "voltagem": 12,
+        "sections": [
+            {
+                "tipo": "serie",
+                "components": [
+                    {
+                        "tipo": "resistor",
+                        "value": 100,
+                        "label": "R1"
+                    }
+                ]
+            },
+            {
+                "tipo": "paralelo",
+                "branches": [
+                    [
+                        {
+                            "tipo": "resistor",
+                            "value": 200,
+                            "label": "R2"
+                        }
+                    ],
+                    [
+                        {
+                            "tipo": "resistor",
+                            "value": 300,
+                            "label": "R3"
+                        }
+                    ],
+                    [
+                        {
+                            "tipo": "resistor",
+                            "value": 400,
+                            "label": "R4"
+                        }
+                    ]
+                ]
+            },
+            {
+                "tipo": "serie",
+                "components": [
+                    {
+                        "tipo": "resistor",
+                        "value": 50,
+                        "label": "R5"
+                    }
+                ]
+            }
+        ]
+    }"""
+
+    client = genai.Client(api_key=GOOGLE_API_KEY)
+
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt,
+        config=genai.types.GenerateContentConfig(system_instruction=INSTRUCAO)
+    )
+
+    # retira espaços em branco da resposta da ia
+    json_puro = response.text.strip()
+
+    # remove as crases e a palavra json caso elas estejam no começo da resposta
+    if json_puro.startswith("```"):
+        json_puro = json_puro.strip("`")
+        json_puro = json_puro.replace("json", "", 1).strip()
+
+    # tenta converter o json para dicionário
+    try:
+        resposta_dicionario = json.loads(json_puro)
+    except json.JSONDecodeError:
+        print("A respota gerada não é um json válido!")
+        print(json_puro)
+        return None
     
+    circuito_eletrico = CircuitoEletrico(resposta_dicionario)
+
+    imagem_uri = circuito_eletrico.gerarCircuito()
+
+    return imagem_uri    
