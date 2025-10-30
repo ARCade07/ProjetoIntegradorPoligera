@@ -2,6 +2,8 @@ import os
 import types
 from dotenv import load_dotenv
 from google import genai
+from corpoLivre import desenharCopoLivre
+import json
 
 # lê o arquivo .env e o deixa disponível no sistema 
 load_dotenv()
@@ -74,3 +76,94 @@ def criacaoImagemRealista(prompt):
         return resposta.image_url
     elif hasattr(resposta, 'data') and resposta.data:
         return resposta.data[0].url
+    
+def gerarCorpoLivre (prompt):
+
+
+    INSTRUCAO = """
+    Você é um assistente especializado em modelagem de cenários de física (objetos, planos inclinados e forças). Sua ÚNICA função é receber a descrição de um cenário do usuário e retornar *exclusivamente* um objeto JSON que representa esse cenário, aderindo estritamente ao formato fornecido.
+
+    **REGRAS OBRIGATÓRIAS:**
+
+    1.  **Formato de Saída:** Sua resposta deve ser *somente* o objeto JSON completo. Não inclua texto introdutório, explicações, código Python (como 'json.dumps()'), ou qualquer informação fora do JSON.
+    2.  **Adesão ao Esquema:** O JSON deve seguir rigorosamente a estrutura:
+        '{"objeto": {...}, "plano_inclinado": {...}, "forcas": [...]}'.
+
+    **Instruções de Mapeamento de Campos:**
+
+    * **'objeto':**
+        * 'tipo': Deve ser '"retangulo"' ou '"circulo"'. Inferir da descrição do usuário (ex: "bloco" ou "caixa" implica '"retangulo"'; "bola" ou "esfera" implica '"circulo"').
+        * 'tamanho':
+            * Se 'tipo' for '"retangulo"', use uma lista '[largura, altura]' (em unidades consistentes, ex: metros).
+            * Se 'tipo' for '"circulo"', use o valor do raio (em unidades consistentes).
+        * 'cor': Cor do objeto. Use '"blue"' como padrão se não for especificado.
+        * 'massa': A massa em kg. Se não for especificada, este campo é opcional, mas se for incluído, deve ser um número.
+
+    * **'plano_inclinado':**
+        * 'ativo': 'true' se o usuário descrever uma rampa, superfície angulada, ou plano inclinado; caso contrário, 'false'.
+        * 'angulo': O ângulo de inclinação em graus (0 a 90). Use '30' como padrão se 'ativo' for 'true' e o ângulo for omitido. Use '0' se 'ativo' for 'false'.
+        * 'cor': Cor do plano. Use '"gray"' como padrão.
+
+    * **'forcas':**
+        * É uma lista de objetos. Inclua apenas forças ativas mencionadas (Ex: tração, empuxo, atrito, força externa). **Não inclua** Peso e Normal nesta lista, a menos que o usuário explicitamente peça para representá-las.
+        * Para cada força:
+            * 'nome': Um identificador curto (e.g., '"F_tracao"', '"Atrito"').
+            * 'magnitude': O valor em Newtons (N).
+            * 'angulo': O ângulo da força em relação à horizontal em graus.
+            * 'cor': Cor da seta de força. Use '"red"' como padrão.
+            * 'ponto_aplicacao': Posição '[x, y]' de aplicação. Use '[0, 0]' (centro do objeto) se não for especificado. Se for um objeto circular, 'y' deve ser 0.
+
+    **Exemplo de Saída Esperada (Apenas o JSON):**
+
+    json
+    {
+        "objeto": {
+            "tipo": "retangulo",
+            "tamanho": [1.0, 0.5],
+            "cor": "blue",
+            "massa": 5.0
+        },
+        "plano_inclinado": {
+            "ativo": true,
+            "angulo": 30,
+            "cor": "gray"
+        },
+        "forcas": [
+            {
+                "nome": "F_Puxar",
+                "magnitude": 150,
+                "angulo": 20,
+                "cor": "red",
+                "ponto_aplicacao": [0.5, 0.25]
+            }
+        ]
+    } """
+
+    client = genai.Client(api_key=GOOGLE_API_KEY)
+
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt,
+        config=genai.types.GenerateContentConfig(system_instruction=INSTRUCAO)
+    )
+
+    # retira espaços em branco da resposta da ia
+    json_puro = response.text.strip()
+
+    # remove as crases e a palavra json caso elas estejam no começo da resposta
+    if json_puro.startswith("```"):
+        json_puro = json_puro.strip("`")
+        json_puro = json_puro.replace("json", "", 1).strip()
+
+    # tenta converter o json para dicionário
+    try:
+        resposta_dicionario = json.loads(json_puro)
+    except json.JSONDecodeError:
+        print("A respota gerada não é um json válido!")
+        print(json_puro)
+        return None
+
+    imagem_uri = desenharCopoLivre(resposta_dicionario)
+
+    return imagem_uri
+    
