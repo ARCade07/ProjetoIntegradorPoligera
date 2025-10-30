@@ -224,23 +224,23 @@ body {
     margin-top: 25px;
 }
 
-.conteudo-fisica {
+.barra-lateral .conteudo-fisica {
     display: none;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 15px;
 }
 
-.conteudo-fisica.active {
+.barra-lateral .conteudo-fisica.active {
     display: grid;
 }
 
-.conteudo-quimica {
+.barra-lateral .conteudo-quimica {
     display: none;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 15px;
 }
 
-.conteudo-quimica.active {
+.barra-lateral .conteudo-quimica.active {
     display: grid;
 }
 
@@ -259,19 +259,6 @@ body {
     border-radius: 50%;
     border: 3px solid #3F696F;
     background-color: #E9EFF0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.item-mobile {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid #1EB4C3;
-    background-color: #F0F4F9;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -389,8 +376,75 @@ body {
     border-radius: 50%;
     background-color: #BBC3CD;
     margin: 0px 10px 0px 10px;
+    transition: background-color 0.2s; 
 }
 
 .botao-area img {
     object-fit: contain;
+}
+
+.item-mobile-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #3F696F;
+    background-color: #E9EFF0;
+    padding: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.item-mobile-icon:hover {
+    background-color: #ced4d5;
+}
+
+.item-mobile-icon img {
+    height: 25px;
+    width: auto;
+    object-fit: contain;
+}
+
+.icones-scroll-wrapper {
+    display: none;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 5px;
+    margin-bottom: 15px;
+    background: #E9EFF0;
+    border-radius: 10px;
+    border: 2px solid #D2D7DC;
+}
+
+.mobile-footer .icones-lista {
+    display: none;
+}
+
+.mobile-footer .icones-lista.active {
+    display: flex;
+    gap: 15px;
+}
+
+.mobile-footer .conteudo-fisica, .mobile-footer .conteudo-quimica {
+    display: none;
+}
+
+.mobile-footer .conteudo-fisica.active, .mobile-footer .conteudo-quimica.active {
+    display: block;
+}
+
+.mobile-footer .conteudo-fisica.area-selecionada .icones-scroll-wrapper {
+    display: block;
+}
+
+.mobile-footer .conteudo-quimica.active .icones-scroll-wrapper {
+    display: block;
+}
+
+.botao-area.selecionado {
+    background-color: #7B9CC6;
+    border-color: #3F696F;
 }

@@ -50,9 +50,6 @@ if (desktopContainer) {
         desktopComboboxContainer.style.display = '';
         let selectedValue = selectVerdadeiro.value;
         if (!selectedValue) {
-            selectedValue = 'mecanica';
-            selectVerdadeiro.value = 'mecanica';
-            
             const combobox = desktopComboboxContainer.querySelector('.combobox-customizado');
             const defaultOption = desktopComboboxContainer.querySelector('.opcoes li[data-value="mecanica"]');
             if (combobox && defaultOption) {
@@ -64,7 +61,7 @@ if (desktopContainer) {
             conteudo.classList.remove('active');
         });
 
-        const conteudoSelecionado = desktopContainer.querySelector(`.conteudo-fisica.${selectedValue}`);
+        const conteudoSelecionado = desktopContainer.querySelector(`.barra-lateral .conteudo-fisica.${selectedValue}`);
         if (conteudoSelecionado) {
             conteudoSelecionado.classList.add('active');
         }
@@ -101,7 +98,7 @@ if (desktopContainer) {
             desktopConteudoFisicaTodos.forEach(conteudo => {
                 conteudo.classList.remove('active');
             });
-            const conteudoSelecionado = desktopContainer.querySelector(`.conteudo-fisica.${selectedValue}`);
+            const conteudoSelecionado = desktopContainer.querySelector(`.barra-lateral .conteudo-fisica.${selectedValue}`);
             if (conteudoSelecionado) {
                 conteudoSelecionado.classList.add('active');
             }
@@ -121,6 +118,8 @@ if (desktopContainer) {
             combobox.click();
         }
     });
+
+    desktopBotaoFisica.click();
 }
 
 const mobileHeader = document.querySelector('.mobile-header');
@@ -129,26 +128,66 @@ const mobileFooter = document.querySelector('.mobile-footer');
 if (mobileHeader && mobileFooter) {
     const mobileBotaoFisica = mobileHeader.querySelector('.botao-fisica');
     const mobileBotaoQuimica = mobileHeader.querySelector('.botao-quimica');
+    const mobileConteudoFisica = mobileFooter.querySelector('.conteudo-fisica');
     const mobileConteudoQuimica = mobileFooter.querySelector('.conteudo-quimica');
-    const mobileConteudoFisicaTodos = mobileFooter.querySelectorAll('.conteudo-fisica');
+    const mobileAreasFisica = mobileFooter.querySelector('.areas-fisica');
+    const mobileConteudoMecanica = mobileFooter.querySelector('.icones-lista.mecanica');
+    const mobileConteudoEletrica = mobileFooter.querySelector('.icones-lista.eletrica');
+    const mobileConteudoOptica = mobileFooter.querySelector('.icones-lista.optica');
     
+    const mobileBotoesArea = mobileAreasFisica.querySelectorAll('.botao-area');
+
+    function resetMobileView() {
+        mobileConteudoFisica.classList.remove('active');
+        mobileConteudoQuimica.classList.remove('active');
+        
+        if (mobileConteudoMecanica) mobileConteudoMecanica.classList.remove('active');
+        if (mobileConteudoEletrica) mobileConteudoEletrica.classList.remove('active');
+        if (mobileConteudoOptica) mobileConteudoOptica.classList.remove('active');
+
+        mobileConteudoFisica.classList.remove('area-selecionada');
+
+        mobileBotoesArea.forEach(btn => {
+            btn.classList.remove('selecionado');
+        });
+    }
+
     mobileBotaoFisica.addEventListener('click', () => {
         selecionarMateria(mobileBotaoFisica, mobileBotaoQuimica);
-        mobileConteudoQuimica.classList.remove('active');
-        mobileConteudoFisicaTodos.forEach(conteudo => {
-            conteudo.classList.add('active');
-        });
-        const primeiraFisica = mobileFooter.querySelector('.conteudo-fisica.eletrica')
-        if (primeiraFisica) {
-            primeiraFisica.classList.add('active')
-        }
+        resetMobileView();
+        
+        mobileConteudoFisica.classList.add('active');
     });
     
     mobileBotaoQuimica.addEventListener('click', () => {
         selecionarMateria(mobileBotaoQuimica, mobileBotaoFisica);
-        mobileConteudoFisicaTodos.forEach(conteudo => {
-            conteudo.classList.remove('active');
-        });
+        resetMobileView();
+        
         mobileConteudoQuimica.classList.add('active');
     });
+
+    mobileBotoesArea.forEach(botao => {
+        botao.addEventListener('click', () => {
+            const area = botao.dataset.area;
+
+            mobileBotoesArea.forEach(btn => btn.classList.remove('selecionado'));
+            botao.classList.add('selecionado');
+
+            mobileConteudoFisica.classList.add('area-selecionada');
+
+            if (mobileConteudoMecanica) mobileConteudoMecanica.classList.remove('active');
+            if (mobileConteudoEletrica) mobileConteudoEletrica.classList.remove('active');
+            if (mobileConteudoOptica) mobileConteudoOptica.classList.remove('active');
+
+            if (area === 'mecanica' && mobileConteudoMecanica) {
+                mobileConteudoMecanica.classList.add('active');
+            } else if (area === 'eletrica' && mobileConteudoEletrica) {
+                mobileConteudoEletrica.classList.add('active');
+            } else if (area === 'optica' && mobileConteudoOptica) {
+                mobileConteudoOptica.classList.add('active');
+            }
+        });
+    });
+
+    mobileBotaoFisica.click();
 }
