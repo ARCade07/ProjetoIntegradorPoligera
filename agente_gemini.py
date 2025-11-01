@@ -66,11 +66,11 @@ def criacaoImagemRealista(prompt):
     
     modelo = "gemini-2.5-flash-image"
 
-    # instruções que serão passadas de como a imagem deverá ser criada
-    chat_config = types.GenerateContentConfig(system_instruction=MELHORADOR_PROMPT)
-
-    chat = client.chats.create(model=modelo, config=chat_config)
-    resposta = chat.send_message(prompt)
+    resposta = client.models.generate_content(
+        model=modelo,
+        contents=prompt,
+        config=genai.types.GenerateContentConfig(system_instruction=MELHORADOR_PROMPT)
+    )
 
     # hasattr verifica se um objeto possui determinado atributo
     if hasattr(resposta, 'image_url'):
