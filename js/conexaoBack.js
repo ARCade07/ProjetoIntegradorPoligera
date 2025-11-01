@@ -40,6 +40,9 @@ async function tratamentoPrompt(event) {
             <button onclick="copiarImagem()">
                 <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
             </button>
+            <a href="${response.data.resposta}" download="imagem-gerada.jpg">
+                <ion-icon name="download-outline"></ion-icon>
+            </a>
         `;
     }
     catch (e) {
