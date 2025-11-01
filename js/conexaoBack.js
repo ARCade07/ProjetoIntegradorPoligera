@@ -62,3 +62,26 @@ if(mensagem_usuario) {
         }
     });
 }
+
+// função que copia a imagem quando o botão é clicado
+async function copiarImagem() {
+    // pega a imagem na árvore doom
+    const imagem = document.querySelector('.imagem-gerada')
+    try{
+        // utiliza fetch para baixar a imagem atraves de seu endereço 'image.src'
+        const imagemBaixada = await fetch(imagem.src)
+        // converte a imagem baixada para blob
+        const imagemBlob = await imagemBaixada.blob()
+        // criação de um item de área de transferência
+        const clipboardItem = new ClipboardItem({ [imagemBlob.type]: imagemBlob})
+        // copia a imagem para a área de transferência
+        // navigator.clipboard.write é uma API de copiar imagens
+        await navigator.clipboard.write([clipboardItem])
+        // manda um alerta 
+        alert('Imagem copiada')
+    }
+    catch (e) {
+        console.log(e)
+        alert('Erro ao copiar imagem')
+    }
+}
