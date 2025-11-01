@@ -35,9 +35,11 @@ async function tratamentoPrompt(event) {
     try {
         // requisição post para o back que devolve a reposta gerada pela IA
         const response = await axios.post(URLcompleta, {prompt: prompt})
-
         resposta_gerada.innerHTML = `
-        <img src="${response.data.resposta}">
+            <img class="imagem-gerada" src="${response.data.resposta}" alt="imagem gerada">
+            <button onclick="copiarImagem()">
+                <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
+            </button>
         `;
     }
     catch (e) {
