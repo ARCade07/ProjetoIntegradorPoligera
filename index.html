@@ -228,7 +228,12 @@
         <div class="loading">
             Aguarde um instante, por favor!
         </div>
-        <div class="resposta"></div>
+        <div class="resposta">
+            <img class="imagem-gerada" src="" alt="imagem gerada">
+            <button onclick="copiarImagem()">
+                <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
+            </button>
+        </div>
         <div class="chat-container">
                 <input type="text" id="chat" autocomplete="off">
                 <button id="enviar" disabled>
@@ -243,6 +248,9 @@
     <script src="js/script.js"></script>
     <!-- javascript: conexão com o back -->
     <script src="js/conexaoBack.js"></script>
+    <!-- ícones -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
