@@ -109,7 +109,7 @@ router.post('/redefinir-senha', async (req, res) => {
 
         await user.save();
 
-        return res.status(200).json({ msg: 'Senha redefina com sucesso! '})
+        return res.status(200).json({ success: true, msg: 'Senha redefina com sucesso! '})
     } catch (erro) {
         console.log(erro)
         return res.status(500).json({ msg: 'Erro interno do servidor.' })
