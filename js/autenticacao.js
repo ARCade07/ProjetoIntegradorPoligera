@@ -15,7 +15,7 @@ async function cadastrarUsuario () {
         try {
             const cadastroEndpoint = '/cadastrar';
             const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${cadastroEndpoint}`;
-            await axios.post (
+            const response = await axios.post (
                 URLcompleta,
                 {name: usuarioCadastro, email: emailCadastro, password: passwordCadastro, confirmpassword: confirmPasswordCadastro}
             );
@@ -23,6 +23,9 @@ async function cadastrarUsuario () {
             emailCadastroInput.value = '';
             passwordCadastroInput.value = '';
             confirmPasswordCadastroInput.value = '';
+            if (response.data.success) {
+                window.location.href = "../login.html"
+            }
         } catch (erro) {
             console.log(erro);
         }
