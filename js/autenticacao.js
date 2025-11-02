@@ -92,12 +92,15 @@ async function redefinirSenha() {
         try {
             const redefinirSenhaEnpoint = '/redefinir-senha';
             const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${redefinirSenhaEnpoint}`;
-            await axios.post(
+            const response = await axios.post(
                 URLcompleta,
                 { email, resetToken, newPassword: passwordRedefinir }
             );
             passwordRedefinirInput.value = '';
             confirmPasswordRedefinirInput.value = '';
+            if (response.data.success) {
+                window.location.href = '../login.html';
+            }
         } catch (erro) {
             console.log(erro);
         }
