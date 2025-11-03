@@ -126,8 +126,8 @@ const mobileHeader = document.querySelector('.mobile-header');
 const mobileFooter = document.querySelector('.mobile-footer');
 
 if (mobileHeader && mobileFooter) {
-    const mobileBotaoFisica = mobileHeader.querySelector('.botao-fisica');
-    const mobileBotaoQuimica = mobileHeader.querySelector('.botao-quimica');
+    const mobileBotaoFisica = mobileFooter.querySelector('.botao-fisica');
+    const mobileBotaoQuimica = mobileFooter.querySelector('.botao-quimica');
     const mobileConteudoFisica = mobileFooter.querySelector('.conteudo-fisica');
     const mobileConteudoQuimica = mobileFooter.querySelector('.conteudo-quimica');
     const mobileAreasFisica = mobileFooter.querySelector('.areas-fisica');
@@ -151,14 +151,6 @@ if (mobileHeader && mobileFooter) {
             btn.classList.remove('selecionado');
         });
     }
-});
-
-document.addEventListener("click", function (e) {
-  const img = e.target;
-  if (img.closest(".resposta img")) {
-    img.classList.toggle("ampliada");
-  }
-});
 
     mobileBotaoFisica.addEventListener('click', () => {
         selecionarMateria(mobileBotaoFisica, mobileBotaoQuimica);
@@ -199,3 +191,10 @@ document.addEventListener("click", function (e) {
 
     mobileBotaoFisica.click();
 }
+
+document.addEventListener("click", function (e) {
+  const img = e.target;
+  if (img.closest(".resposta img")) {
+    img.classList.toggle("ampliada");
+  }
+});

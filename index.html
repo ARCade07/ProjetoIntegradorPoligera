@@ -20,8 +20,6 @@
 
 <body class="d-flex flex-column vh-100">
     <header class="mobile-header d-flex align-items-center p-3 d-md-none">
-        <button class="botao botao-fisica">Física</button>
-        <button class="botao botao-quimica">Química</button>
         <button class="tres-pontos">
             <img src="images/3 pontos - icon.png" alt="tres-pontos" class="icone" id="icone-tres-pontos">
         </button>
@@ -243,23 +241,26 @@
         </aside>
 
         <main class="conteudo flex-grow-1 position-relative">
+            <div class="loading">
+                Aguarde um instante, por favor!
+            </div>
+            <div class="resposta">
+            </div>
+            <img src="images/Logo poliedro.png" alt="logo" id="logo" class="d-none d-md-block">
             <div class="chat-container">
-                <input type="text" id="chat">
-                <button id="enviar">
+                <input type="text" id="chat" autocomplete="off">
+                <button id="enviar" disabled>
                     <img src="images/Arrow 1.png" alt="enviar">
                 </button>
             </div>
-            <img src="images/Logo poliedro.png" alt="logo" id="logo" class="d-none d-md-block">
         </main>
     </div>
 
-    <footer class="mobile-footer d-flex p-3 d-md-none">
-        <!-- <div class="chat-container">
-            <input type="text" id="chat-mobile">
-            <button id="enviar-mobile">
-                <img src="images/Arrow 1.png" alt="enviar">
-            </button>
-        </div> -->
+    <footer class="mobile-footer d-flex flex-column p-3 d-md-none">
+        <div class="botao-materias row justify-content-center">
+            <button class="botao botao-fisica">Física</button>
+            <button class="botao botao-quimica">Química</button>
+        </div>
         <div class="itens-container-mobile mt-3">
             <div class="itens-container">
                 <div class="conteudo-fisica">
@@ -326,62 +327,33 @@
                 <div class="conteudo-quimica">
                     <div class="icones-scroll-wrapper">
                         <div class="icones-lista active">
-                            <button class="itens"><img src="images/icone-elemento_carbono.png" alt="carbono"></button>
-                            <button class="itens"><img src="images/icone-elemento_hidrogenio.png"
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_carbono.png" alt="carbono"></button>
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_hidrogenio.png"
                                     alt="hidrogenio"></button>
-                            <button class="itens"><img src="images/icone-elemento_oxigenio.png" alt="oxigenio"></button>
-                            <button class="itens"><img src="images/icone-elemento_nitrogenio.png"
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_oxigenio.png" alt="oxigenio"></button>
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_nitrogenio.png"
                                     alt="nitrogenio"></button>
-                            <button class="itens"><img src="images/icone-elemento_fosforo.png" alt="fosforo"></button>
-                            <button class="itens"><img src="images/icone-elemento_fluor.png" alt="fluor"></button>
-                            <button class="itens"><img src="images/icone-elemento_cloro.png" alt="cloro"></button>
-                            <button class="itens"><img src="images/icone-elemento_bromo.png" alt="bromo"></button>
-                            <button class="itens"><img src="images/icone-elemento_iodo.png" alt="iodo"></button>
-                            <button class="itens"><img src="images/icone-elemento_enxofre.png" alt="enxofre"></button>
-                            <button class="itens"><img src="images/icone-ligacao_tripla.png"
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_fosforo.png" alt="fosforo"></button>
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_fluor.png" alt="fluor"></button>
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_cloro.png" alt="cloro"></button>
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_bromo.png" alt="bromo"></button>
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_iodo.png" alt="iodo"></button>
+                            <button class="item-mobile-icon"><img src="images/icone-elemento_enxofre.png" alt="enxofre"></button>
+                            <button class="item-mobile-icon"><img src="images/icone-ligacao_tripla.png"
                                     alt="ligacao_tripla"></button>
-                            <button class="itens"><img src="images/icone-ligacao_dupla.png"
+                            <button class="item-mobile-icon"><img src="images/icone-ligacao_dupla.png"
                                     alt="ligacao_dupla"></button>
-                            <button class="itens"><img src="images/icone-ligacao_simples.png"
+                            <button class="item-mobile-icon"><img src="images/icone-ligacao_simples.png"
                                     alt="ligacao_simples"></button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section class="historicos hidden" id="conteudo-historico">
-            <button>exemplo1</button>
-            <button>exemplo1</button>
-            <button>exemplo1</button>
-            <button>exemplo1</button>
-            <button>exemplo1</button>
-            <button>exemplo1</button>
-            <button>exemplo1</button>
-        </section>
-
-    </aside>
-
-    <main class="conteudo">
-        <div class="loading">
-            Aguarde um instante, por favor!
         </div>
-        <div class="resposta">
-        </div>
-        <div class="chat-container">
-                <input type="text" id="chat" autocomplete="off">
-                <button id="enviar" disabled>
-                    <img src="images/Arrow 1.png" alt="enviar">
-                </button>
-        </div>
-        <img src="images/Logo poliedro.png" alt="logo" id="logo">
-    </main>
+    </footer>
     <!-- axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
     <!-- javascript: elemntos da tela -->
-        </div>
-
-    </footer>
     <script src="js/script.js"></script>
     <!-- javascript: conexão com o back -->
     <script src="js/conexaoBack.js"></script>
