@@ -106,3 +106,19 @@ async function redefinirSenha() {
         }
     }
 }
+async function verificarToken() {
+    try {
+        const verificarTokenEnpoint = '/check-token';
+        const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${verificarTokenEnpoint}`;
+        const response = await axios.post(
+            URLcompleta,
+            { withCredentials: true }
+        );
+        if (response.status === 200) {
+            window.location.href = 'index.html';
+        }
+    } catch (erro) {
+        console.error('Token inválido ou ausente', erro);
+        window.location.href = 'login.html';
+    }
+}
