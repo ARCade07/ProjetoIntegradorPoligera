@@ -11,4 +11,12 @@ router.get('/:id', checkToken, async (req, res) => {
     res.status(200).json({ user });
 });
 
+router.get('/check-token', checkToken, (req, res) => {
+    try {
+        res.status(200).json({ msg: 'Token válido' });
+    } catch (erro) {
+        console.log(erro)
+    }
+});
+
 module.exports = router;
