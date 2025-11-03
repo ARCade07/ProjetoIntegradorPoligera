@@ -27,11 +27,11 @@
                 <div class="col-10 col-md-12">
                     <form class="login">
                         <h2>Redefinir Senha</h2>
-                        <input type="tpassword" id="senha" name="senha" required placeholder="Digite sua nova senha">
-                        <input type="password" id="confirmacao" name="confirmacao" required
+                        <input type="password" id="senha-redefinir" name="senha" required placeholder="Digite sua nova senha">
+                        <input type="password" id="confirmar-senha-redefinir" name="confirmacao" required
                             placeholder="Confirme sua nova senha">
                         <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                            <button type="submit" class="btn-confirmar">Confirmar</button>
+                            <button type="button" class="btn-confirmar" onclick="redefinirSenha()">Confirmar</button>
                         </div>
                         <a href="login.html" id="cancelar">Cancelar</a>
                     </form>
@@ -49,6 +49,8 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="https://app.embed.im/accessibility.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/autenticacao.js"></script>
 </body>
 
 </html>

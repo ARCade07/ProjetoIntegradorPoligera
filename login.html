@@ -27,14 +27,14 @@
             <article class="col-10 col-sm-8 col-md-12">
                 <form class="login">
                     <h2>Login - Poligera</h2>
-                    <input type="text" id="e-mail" name="e-mail" required placeholder="E-mail">
-                    <input type="password" id="senha" name="senha" required placeholder="Senha">
+                    <input type="text" id="email-login" name="e-mail" required placeholder="E-mail">
+                    <input type="password" id="senha-login" name="senha" required placeholder="Senha">
                     <div class='row' style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <nav class="col-md">
                             <a href="esqueci_senha.html" id="esqueci_senha">Esqueci a senha</a>
                         </nav>
                         <div class="col-md">
-                            <button type="submit" class="btn-entrar">Entrar</button>
+                            <button type="button" class="btn-entrar" onclick="fazerLogin()">Entrar</button>
                         </div>
                     </div>
                     <a href="cadastro.html" id="cadastro">Não tem conta? Faça cadastro</a>
@@ -53,6 +53,8 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="https://app.embed.im/accessibility.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/autenticacao.js"></script>
 </body>
 
 </html>
