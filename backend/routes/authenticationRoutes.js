@@ -3,6 +3,7 @@ const { criarHash, compararHash } = require('../util/cript');
 const jwt = require('jsonwebtoken')
 const enviarEmail = require('../util/mail')
 const crypto = require('crypto')
+const cookie = require('cookie')
 const User = require('../models/User');
 
 router.post('/cadastrar', async (req, res) => {
@@ -56,6 +57,12 @@ router.post('/login', async (req, res) => {
             secret,
             { expiresIn: '1h' }
             );
+        const cookieOption = {
+            httpOnly: true,
+            maxAge: 3600000,
+            path: '/'
+        }
+        res.cookie('Set-Cookie', cookie.serialize('token', token, cookieOption));
         res
             .status(200)
             .json({ msg: 'Autentiação realizada com sucesso', token });
@@ -115,6 +122,7 @@ router.post('/redefinir-senha', async (req, res) => {
         return res.status(500).json({ msg: 'Erro interno do servidor.' })
     }
 });
+
 
 
 
