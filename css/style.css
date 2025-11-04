@@ -506,6 +506,12 @@ body:has(.resposta img.ampliada)::before {
     gap: 20px;
 }
 
+.mobile-footer .botao {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 35%; 
+}
+
 .areas-fisica {
     display: flex;
     justify-content: center;
@@ -543,6 +549,11 @@ body:has(.resposta img.ampliada)::before {
 
 .item-mobile-icon:hover {
     background-color: #ced4d5;
+}
+
+.item-mobile-icon.selecionado {
+    background-color: #9fe0ba;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 .item-mobile-icon img {
