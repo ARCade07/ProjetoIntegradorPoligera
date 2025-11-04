@@ -1,8 +1,14 @@
+:root {
+    --escala-barra: 0.8; 
+}
+
 body {
     font-family: "Inter", sans-serif;
     background-color: #FFFFFF;
     margin: 0;
     padding: 0;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 .hidden {
@@ -22,8 +28,8 @@ body {
 
 .barra-lateral {
     flex-basis: 30%;
-    max-width: 450px;
-    min-width: 300px;
+    max-width: calc(450px * var(--escala-barra)); /* ALTERADO */
+    min-width: calc(300px * var(--escala-barra)); /* ALTERADO */
     background-color: #D2D7DC;
     border-radius: 17px;
     display: flex;
@@ -33,7 +39,7 @@ body {
 
 .menu-header {
     display: flex;
-    height: 15vh;
+    height: calc(15 * var(--escala-barra) * 1vh);
 }
 
 .aba {
@@ -43,7 +49,7 @@ body {
     justify-content: center;
     background-color: transparent;
     cursor: pointer;
-    font-size: 30px;
+    font-size: calc(30px * var(--escala-barra));
     font-weight: bold;
     border-radius: 17px 17px 0 0;
     transition: background 0.2s;
@@ -61,11 +67,11 @@ body {
 }
 
 #icone-criacao {
-    height: 45px;
+    height: calc(40px * var(--escala-barra));
 }
 
 #icone-historico {
-    height: 40px;
+    height: calc(35px * var(--escala-barra));
 }
 
 .requerimentos {
@@ -86,8 +92,8 @@ body {
 
 .botao {
     flex: 1 1 40%;
-    height: 60px;
-    font-size: 22px;
+    height: calc(60px * var(--escala-barra));
+    font-size: calc(22px * var(--escala-barra));
     border-radius: 18px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     cursor: pointer;
@@ -115,10 +121,10 @@ body {
 
 .select-areas {
     width: 97%;
-    height: 45px;
+    height: calc(45px * var(--escala-barra));
     border: 3px solid #3F696F;
     background-color: #E9EFF0;
-    font-size: 22px;
+    font-size: calc(22px * var(--escala-barra));
     border-radius: 10px;
     margin-top: 10px;
 }
@@ -130,10 +136,10 @@ body {
 }
 
 .combobox-customizado {
-    height: 45px;
+    height: calc(45px * var(--escala-barra));
     border: 3px solid #3F696F;
     background-color: #E9EFF0;
-    font-size: 22px;
+    font-size: calc(22px * var(--escala-barra));
     color: #3F696F;
     border-radius: 10px;
     display: flex;
@@ -186,7 +192,7 @@ body {
 .opcoes li {
     display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: calc(20px * var(--escala-barra)); /* ALTERADO */
     color: #3F696F;
     padding: 12px 15px;
     cursor: pointer;
@@ -249,13 +255,14 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-size: 15px;
+    font-size: calc(15px * var(--escala-barra));
     color: #3F696F;
 }
 
 .itens {
-    width: 130px;
-    height: 130px;
+    width: calc(130px * var(--escala-barra));
+    height: calc(130px * var(--escala-barra));
+    overflow: hidden;
     border-radius: 50%;
     border: 3px solid #3F696F;
     background-color: #E9EFF0;
@@ -276,9 +283,9 @@ body {
 }
 
 .itens img {
-    height: auto;
+    height: 55%;
     width: auto;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .historicos {
