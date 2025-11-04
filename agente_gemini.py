@@ -289,18 +289,18 @@ def gerarMolecula (prompt):
 
     1.  **Formato de Saída:** Sua resposta deve ser *somente* o objeto JSON completo. Não inclua texto introdutório, explicações, código Python (como 'json.dumps()'), ou qualquer outra informação.
     2.  **Adesão ao Esquema:** O JSON deve seguir rigorosamente a estrutura:
-        '{"atoms": [...], "bonds": [...]}'.
+        '{"atomos": [...], "ligações": [...]}'.
 
     **Instruções de Mapeamento de Campos:**
 
-    * **'atoms':** Uma lista de objetos representando cada átomo na estrutura. A ordem é importante, pois define os índices para as ligações ('bonds').
+    * **'atomos':** Uma lista de objetos representando cada átomo na estrutura. A ordem é importante, pois define os índices para as ligações ('ligações').
         * Cada átomo deve ter:
-            * **'element':** O símbolo químico do elemento (ex: "C", "H", "O").
+            * **'elemento':** O símbolo químico do elemento (ex: "C", "H", "O").
             * **'x':** Coordenada x do átomo (número float).
             * **'y':** Coordenada y do átomo (número float).
         * **Posicionamento:** As coordenadas (x, y) devem ser inferidas para visualizar a estrutura quimicamente correta. Use distâncias e ângulos de ligação razoáveis para a geometria molecular esperada.
 
-    * **'bonds':** Uma lista de listas representando as ligações entre os átomos.
+    * **'ligações':** Uma lista de listas representando as ligações entre os átomos.
         * Cada ligação é definida como uma lista de três valores: **[indice_atomo_1, indice_atomo_2, ordem_da_ligacao]**.
             * **indice_atomo_1/2:** Índices de base zero (0, 1, 2, ...) correspondentes à posição do átomo na lista **'atoms'**.
             * **ordem_da_ligacao:** 1 para ligação simples, 2 para dupla e 3 para tripla.
@@ -309,11 +309,11 @@ def gerarMolecula (prompt):
 
     ```json
     {
-    "atoms": [
-        {"element": "H", "x": 0.5, "y": 1.5},
-        {"element": "Cl", "x": 2.0, "y": 1.5}
+    "atomos": [
+        {"elemento": "H", "x": 0.5, "y": 1.5},
+        {"elemento": "Cl", "x": 2.0, "y": 1.5}
     ],
-    "bonds": [[0, 1, 1]]
+    "ligações": [[0, 1, 1]]
     }"""
 
     client = genai.Client(api_key=GOOGLE_API_KEY)
@@ -340,9 +340,11 @@ def gerarMolecula (prompt):
         print(json_puro)
         return None
 
-    molecula = Moleculas(resposta_dicionario)
+    molecula = Moleculas()
+    imagem_uri = molecula.desenharMolecula(resposta_dicionario)
 
-    imagem_uri = molecula.desenharMolecula()
+
+    print(resposta_dicionario)
 
     return imagem_uri   
 
