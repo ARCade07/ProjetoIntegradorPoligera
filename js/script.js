@@ -72,6 +72,14 @@ function atualizarSelecionados (botao) {
     console.log("Itens selecionados (na ordem):", itensSelecionados);
 }
 
+function limparSelecao() {
+    itensSelecionados = [];
+    sincronizarItens();
+    console.clear();
+    console.log("Seleção limpa.");
+    console.log("Itens selecionados (na ordem):", itensSelecionados);
+}
+
 const desktopContainer = document.querySelector('.barra-lateral');
 
 if (desktopContainer) {
@@ -84,6 +92,7 @@ if (desktopContainer) {
     const itens = document.querySelectorAll('.itens');
     
     desktopBotaoFisica.addEventListener('click', () => {
+        limparSelecao();
         selecionarMateria(desktopBotaoFisica, desktopBotaoQuimica);
         desktopConteudoQuimica.classList.remove('active');
         desktopComboboxContainer.style.display = '';
@@ -107,6 +116,7 @@ if (desktopContainer) {
     });
 
     desktopBotaoQuimica.addEventListener('click', () => {
+        limparSelecao();
         selecionarMateria(desktopBotaoQuimica, desktopBotaoFisica);
         desktopComboboxContainer.style.display = 'none';
         desktopConteudoFisicaTodos.forEach(conteudo => {
@@ -129,6 +139,12 @@ if (desktopContainer) {
         option.addEventListener('click', () => {
             const selectedText = option.textContent.trim();
             const selectedValue = option.dataset.value;
+            
+            const areaAnterior = selectVerdadeiro.value;
+            if (areaAnterior !== selectedValue) {
+                limparSelecao();
+            }
+
             combobox.textContent = selectedText;
             selectVerdadeiro.value = selectedValue;
             opcoes.classList.remove('active');
@@ -198,6 +214,7 @@ if (mobileHeader && mobileFooter) {
     }
 
     mobileBotaoFisica.addEventListener('click', () => {
+        limparSelecao();
         selecionarMateria(mobileBotaoFisica, mobileBotaoQuimica);
         resetMobileView();
         
@@ -205,6 +222,7 @@ if (mobileHeader && mobileFooter) {
     });
     
     mobileBotaoQuimica.addEventListener('click', () => {
+        limparSelecao();
         selecionarMateria(mobileBotaoQuimica, mobileBotaoFisica);
         resetMobileView();
         
@@ -215,6 +233,16 @@ if (mobileHeader && mobileFooter) {
         botao.addEventListener('click', () => {
             const area = botao.dataset.area;
 
+            const areaAtiva = mobileAreasFisica.querySelector('.botao-area.selecionado');
+            let areaAnterior; 
+            if (areaAtiva) {
+                areaAnterior = areaAtiva.dataset.area;
+            } else {
+                areaAnterior = "";
+            }
+            if (areaAnterior !== area){
+                limparSelecao();
+            }
             mobileBotoesArea.forEach(btn => btn.classList.remove('selecionado'));
             botao.classList.add('selecionado');
 
