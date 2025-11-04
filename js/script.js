@@ -74,6 +74,24 @@ function atualizarSelecionados (botao) {
 
 const desktopContainer = document.querySelector('.barra-lateral');
 
+let materiaArea = {
+    materia: 'fisica',
+    area: 'mecanica'
+}
+
+function atualizarAreaSelecionada(materia, area = null) {
+    materiaArea.materia = materia;
+    if (area) {
+        materiaArea.area = area;
+    }
+}
+
+// função para enviar a matéria e a área selecionadas para o backend.js
+function obterMateriaArea() {
+    console.log('→ Obtendo área selecionada:', materiaArea);
+    return materiaArea;
+}
+
 if (desktopContainer) {
     const desktopBotaoFisica = desktopContainer.querySelector('.botao-fisica');
     const desktopBotaoQuimica = desktopContainer.querySelector('.botao-quimica');
@@ -85,6 +103,7 @@ if (desktopContainer) {
     
     desktopBotaoFisica.addEventListener('click', () => {
         selecionarMateria(desktopBotaoFisica, desktopBotaoQuimica);
+        atualizarAreaSelecionada('fisica')
         desktopConteudoQuimica.classList.remove('active');
         desktopComboboxContainer.style.display = '';
         let selectedValue = selectVerdadeiro.value;
@@ -108,6 +127,7 @@ if (desktopContainer) {
 
     desktopBotaoQuimica.addEventListener('click', () => {
         selecionarMateria(desktopBotaoQuimica, desktopBotaoFisica);
+        atualizarAreaSelecionada('quimica')
         desktopComboboxContainer.style.display = 'none';
         desktopConteudoFisicaTodos.forEach(conteudo => {
             conteudo.classList.remove('active');
@@ -129,6 +149,7 @@ if (desktopContainer) {
         option.addEventListener('click', () => {
             const selectedText = option.textContent.trim();
             const selectedValue = option.dataset.value;
+            atualizarAreaSelecionada('fisica', selectedValue)
             combobox.textContent = selectedText;
             selectVerdadeiro.value = selectedValue;
             opcoes.classList.remove('active');
@@ -200,6 +221,7 @@ if (mobileHeader && mobileFooter) {
     mobileBotaoFisica.addEventListener('click', () => {
         selecionarMateria(mobileBotaoFisica, mobileBotaoQuimica);
         resetMobileView();
+        atualizarAreaSelecionada('fisica', 'mecanica')
         
         mobileConteudoFisica.classList.add('active');
     });
@@ -207,6 +229,7 @@ if (mobileHeader && mobileFooter) {
     mobileBotaoQuimica.addEventListener('click', () => {
         selecionarMateria(mobileBotaoQuimica, mobileBotaoFisica);
         resetMobileView();
+        atualizarAreaSelecionada('quimica')
         
         mobileConteudoQuimica.classList.add('active');
     });
@@ -214,6 +237,7 @@ if (mobileHeader && mobileFooter) {
     mobileBotoesArea.forEach(botao => {
         botao.addEventListener('click', () => {
             const area = botao.dataset.area;
+            atualizarAreaSelecionada('fisica', area)
 
             mobileBotoesArea.forEach(btn => btn.classList.remove('selecionado'));
             botao.classList.add('selecionado');

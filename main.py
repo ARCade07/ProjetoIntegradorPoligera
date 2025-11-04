@@ -1,7 +1,7 @@
 import time
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
-from agente_gemini import gerarCorpoLivre
+from agente_gemini import gerarCorpoLivre, gerarCircuitoEletrico, gerarMolecula, gerarPendulo
 
 # inicialização do Flask
 app = Flask(__name__)
@@ -19,7 +19,19 @@ def processamentoResposta():
     # pega os valores associados a chave 'prompt' dicionário
     prompt = dados.get('prompt')
 
-    resposta = gerarCorpoLivre(prompt)
+    # pega os valores associados a chave 'materia' e 'area' do dicionario
+    materia = dados.get('materia')
+    area = dados.get('area')
+
+    if materia == 'fisica':
+        if area == 'mecanica':
+            resposta = gerarCorpoLivre(prompt)
+        elif area == 'eletrica':
+            resposta = gerarMolecula(prompt)
+        elif area == 'optica':
+            print('Área indisponível para a geração de imagens')
+    elif materia == 'quimica':
+        resposta = gerarMolecula(prompt)
 
     # envia a resposta para o front
     return jsonify({

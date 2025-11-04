@@ -31,10 +31,12 @@ async function tratamentoPrompt(event) {
     
     // mostra a mensagem de loading
     loading.style.display = 'block';
+
+    const materiaInfo = obterMateriaArea()
     
     try {
         // requisição post para o back que devolve a reposta gerada pela IA
-        const response = await axios.post(URLcompleta, {prompt: prompt})
+        const response = await axios.post(URLcompleta, {prompt: prompt, materia: materiaInfo.materia, area: materiaInfo.area})
         resposta_gerada.innerHTML = `
             <img class="imagem-gerada" src="${response.data.resposta}" alt="imagem gerada">
             <button onclick="copiarImagem()">
