@@ -72,6 +72,10 @@ function atualizarSelecionados (botao) {
     console.log("Itens selecionados (na ordem):", itensSelecionados);
 }
 
+function enviarItensSelecionados () {
+    return itensSelecionados;
+}
+
 const desktopContainer = document.querySelector('.barra-lateral');
 
 let materiaArea = {
