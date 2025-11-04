@@ -24,14 +24,52 @@ if (abaCriacao && abaHistorico) {
 
 function selecionarMateria(selecionado, naoSelecionado) {
     if (selecionado && naoSelecionado) {
-        selecionado.style.backgroundColor = '#1EB4C3'
-        selecionado.style.color = '#00363C'
+        selecionado.style.backgroundColor = '#1EB4C3';
+        selecionado.style.color = '#00363C';
         selecionado.style.border = 'none';
 
         naoSelecionado.style.backgroundColor = '#BBE8EE';
-        naoSelecionado.style.color = '#3F696F'
+        naoSelecionado.style.color = '#3F696F';
         naoSelecionado.style.border = '3px solid #3F696F';
     }
+}
+
+let itensSelecionados = [];
+
+function sincronizarItens () {
+    const todosBotoes = document.querySelectorAll('.itens, .item-mobile-icon');
+
+    todosBotoes.forEach(botao => {
+        const img = botao.querySelector('img');
+        if (!img) return;
+        const identificador = img.alt;
+
+        if (itensSelecionados.includes(identificador)) {
+            botao.classList.add('selecionado');
+        }
+        else {
+            botao.classList.remove('selecionado');
+        }
+    })
+}
+
+function atualizarSelecionados (botao) {
+    const img = botao.querySelector('img');
+    if (!img) return;
+    const identificador = img.alt;
+    const index = itensSelecionados.indexOf(identificador);
+
+    if (index >= 0) {
+        itensSelecionados.splice(index, 1);
+    }
+    else {
+        itensSelecionados.push(identificador);
+    }
+
+    sincronizarItens();
+
+    console.clear();
+    console.log("Itens selecionados (na ordem):", itensSelecionados);
 }
 
 const desktopContainer = document.querySelector('.barra-lateral');
@@ -43,6 +81,7 @@ if (desktopContainer) {
     const desktopConteudoFisicaTodos = desktopContainer.querySelectorAll('.conteudo-fisica');
     const desktopComboboxContainer = desktopContainer.querySelector('.combobox-customizado-container');
     const selectVerdadeiro = document.getElementById('areas');
+    const itens = document.querySelectorAll('.itens');
     
     desktopBotaoFisica.addEventListener('click', () => {
         selecionarMateria(desktopBotaoFisica, desktopBotaoQuimica);
@@ -119,6 +158,12 @@ if (desktopContainer) {
         }
     });
 
+    itens.forEach(item =>{
+        item.addEventListener('click', () =>{
+            atualizarSelecionados(item);
+        })
+    })
+
     desktopBotaoFisica.click();
 }
 
@@ -134,8 +179,8 @@ if (mobileHeader && mobileFooter) {
     const mobileConteudoMecanica = mobileFooter.querySelector('.icones-lista.mecanica');
     const mobileConteudoEletrica = mobileFooter.querySelector('.icones-lista.eletrica');
     const mobileConteudoOptica = mobileFooter.querySelector('.icones-lista.optica');
-    
     const mobileBotoesArea = mobileAreasFisica.querySelectorAll('.botao-area');
+    const itensMobile = mobileFooter.querySelectorAll('.item-mobile-icon');
 
     function resetMobileView() {
         mobileConteudoFisica.classList.remove('active');
@@ -188,6 +233,12 @@ if (mobileHeader && mobileFooter) {
             }
         });
     });
+
+    itensMobile.forEach(item => {
+        item.addEventListener('click', () =>{
+            atualizarSelecionados(item);
+        })
+    })
 
     mobileBotaoFisica.click();
 }

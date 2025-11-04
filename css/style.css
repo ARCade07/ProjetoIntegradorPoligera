@@ -270,6 +270,11 @@ body {
     background-color: #ced4d5;
 }
 
+.itens.selecionado {
+    background-color: #9fe0ba;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
 .itens img {
     height: auto;
     width: auto;
