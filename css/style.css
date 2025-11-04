@@ -1,8 +1,6 @@
 body {
     font-family: "Inter", sans-serif;
     background-color: #FFFFFF;
-    display: flex;
-    height: 100vh;
     margin: 0;
     padding: 0;
 }
@@ -23,7 +21,9 @@ body {
 }
 
 .barra-lateral {
-    width: 30%;
+    flex-basis: 30%;
+    max-width: 450px;
+    min-width: 300px;
     background-color: #D2D7DC;
     border-radius: 17px;
     display: flex;
@@ -224,23 +224,23 @@ body {
     margin-top: 25px;
 }
 
-.conteudo-fisica {
+.barra-lateral .conteudo-fisica {
     display: none;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 15px;
 }
 
-.conteudo-fisica.active {
+.barra-lateral .conteudo-fisica.active {
     display: grid;
 }
 
-.conteudo-quimica {
+.barra-lateral .conteudo-quimica {
     display: none;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 15px;
 }
 
-.conteudo-quimica.active {
+.barra-lateral .conteudo-quimica.active {
     display: grid;
 }
 
@@ -268,6 +268,11 @@ body {
 
 .itens:hover {
     background-color: #ced4d5;
+}
+
+.itens.selecionado {
+    background-color: #9fe0ba;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 .itens img {
@@ -479,4 +484,103 @@ body:has(.resposta img.ampliada)::before {
     
     /* animação de entrada */
     animation: slideDown 0.3s ease;
+}
+
+.itens-container-mobile {
+    width: 100%;
+}
+
+.tres-pontos {
+    border: none;
+    background-color: #FFFFFF;
+}
+
+.botao-materias {
+    gap: 20px;
+}
+
+.areas-fisica {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.botao-area {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #3F696F;
+    border-radius: 50%;
+    background-color: #BBC3CD;
+    margin: 0px 10px 0px 10px;
+    transition: background-color 0.2s; 
+}
+
+.botao-area img {
+    object-fit: contain;
+}
+
+.item-mobile-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #3F696F;
+    background-color: #E9EFF0;
+    padding: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.item-mobile-icon:hover {
+    background-color: #ced4d5;
+}
+
+.item-mobile-icon img {
+    height: 25px;
+    width: auto;
+    object-fit: contain;
+}
+
+.icones-scroll-wrapper {
+    display: none;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 5px;
+    margin-bottom: 15px;
+    background: #E9EFF0;
+    border-radius: 10px;
+    border: 2px solid #D2D7DC;
+}
+
+.mobile-footer .icones-lista {
+    display: none;
+}
+
+.mobile-footer .icones-lista.active {
+    display: flex;
+    gap: 15px;
+}
+
+.mobile-footer .conteudo-fisica, .mobile-footer .conteudo-quimica {
+    display: none;
+}
+
+.mobile-footer .conteudo-fisica.active, .mobile-footer .conteudo-quimica.active {
+    display: block;
+}
+
+.mobile-footer .conteudo-fisica.area-selecionada .icones-scroll-wrapper {
+    display: block;
+}
+
+.mobile-footer .conteudo-quimica.active .icones-scroll-wrapper {
+    display: block;
+}
+
+.botao-area.selecionado {
+    background-color: #7B9CC6;
+    border-color: #3F696F;
 }
