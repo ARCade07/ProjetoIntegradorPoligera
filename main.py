@@ -22,10 +22,13 @@ def processamentoResposta():
     # pega os valores associados a chave 'materia' e 'area' do dicionario
     materia = dados.get('materia')
     area = dados.get('area')
-    itens_selecionados = dados.get('elementos')
+    itens_selecionados = dados.get('elementos', [])
 
-    itens_selecionados_conteudo = ", ".join(itens_selecionados)
-    prompt_final = f"{itens_selecionados_conteudo}.{prompt}"
+    if itens_selecionados:
+        itens_selecionados_conteudo = ", ".join(itens_selecionados)
+        prompt_final = f"{itens_selecionados_conteudo}.{prompt}"
+    else:
+        prompt_final = prompt
 
     if materia == 'fisica':
         if area == 'mecanica':
