@@ -2,16 +2,16 @@ import matplotlib
 # utilização de um ambiente não interativo
 # dessa forma o matplotlib gerará os gráficos apenas na memória e não tentará abrir uma janela para mostrá-lo
 matplotlib.use("Agg")
-import json
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
+import io
+import base64
 
 class PenduloConico:
-    def __init__(self, config_file):
-        
-        with open(config_file, 'r') as f:
-            config = json.load(f)
+    def __init__(self, config):
+
+        self.config = config
 
         self.L = config.get('comprimento', 3.0)
         self.theta = np.radians(config.get('angulo_conico', 30))
@@ -103,22 +103,37 @@ class PenduloConico:
         ax.axis('off')
 
         plt.tight_layout()
-        plt.show()
+        # plt.show()
 
-if __name__ == "__main__":
-    config_exemplo = {
-        "comprimento": 3.0,
-        "angulo_conico": 30,
-        "raio_massa": 0.3,
-        "raio_posicoes": 0.15,
-        "cor_massa": "#4169E1",
-        "cor_fio": "black",
-        "mostrar_seta_gravidade": True
-    }
+        # criação temporária de um arquivo na memória RAM
+        buffer = io.BytesIO()
+        # como buffer não é o nome de um arquivo, os bytes da imagem são despejados dentro dele
+        plt.savefig(buffer, format='png', bbox_inches='tight')
+        plt.close(fig)
+
+        # pega o que tem dentro do buffer
+        img_data = buffer.getvalue()
+
+        # transforma o conjunto de bytes em algo que o navegador consiga entender
+        img_base64 = base64.b64encode(img_data).decode('utf-8')
+        data_uri = f"data:image/png;base64,{img_base64}"
+
+        return data_uri
+
+# if __name__ == "__main__":
+#     config_exemplo = {
+#         "comprimento": 3.0,
+#         "angulo_conico": 30,
+#         "raio_massa": 0.3,
+#         "raio_posicoes": 0.15,
+#         "cor_massa": "#4169E1",
+#         "cor_fio": "black",
+#         "mostrar_seta_gravidade": True
+#     }
 
 
-    with open('pendulo_config.json', 'w') as f:
-        json.dump(config_exemplo, f, indent=4)
+#     with open('pendulo_config.json', 'w') as f:
+#         json.dump(config_exemplo, f, indent=4)
 
-    pendulo = PenduloConico('pendulo_config.json')
-    pendulo.gerar_imagem('pendulo_conico.png')
+#     pendulo = PenduloConico('pendulo_config.json')
+#     pendulo.gerar_imagem('pendulo_conico.png')
