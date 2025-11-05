@@ -122,3 +122,17 @@ async function verificarToken() {
         window.location.href = 'login.html';
     }
 }
+
+function exibirAlerta(seletor, innerHTML, classesToAdd, classesToRemove, timeout) {
+    let alert = document.querySelector(seletor)
+    alert.innerHTML = innerHTML
+    //"..." é o spread operator
+    //quado aplicado a um array, ele "desmembra" o array
+    //depois disso, passamos os elementos do array como argumentos para add e remove
+    alert.classList.add(...classesToAdd)
+    alert.classList.remove(...classesToRemove)
+    setTimeout(() => {
+        alert.classList.remove('show')
+        alert.classList.add('d-none')
+    }, timeout)
+}
