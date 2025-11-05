@@ -32,7 +32,11 @@ def processamentoResposta():
 
     if materia == 'fisica':
         if area == 'mecanica':
-            resposta = gerarCorpoLivre(prompt_final)
+            for i in itens_selecionados:
+                if i == 'pendulo':
+                    resposta = gerarPendulo(prompt_final)
+                else:
+                    resposta = gerarCorpoLivre(prompt_final)
         elif area == 'eletrica':
             resposta = gerarCircuitoEletrico(prompt_final)
         elif area == 'optica':
