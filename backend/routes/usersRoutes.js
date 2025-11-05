@@ -6,7 +6,7 @@ router.get('/:id', checkToken, async (req, res) => {
     const id = req.params.id;
 
     const user = await User.findById(id, '-password');
-    if (!user) return res.status(404).json({ msg: 'Usuário não encontrado '});
+    if (!user) return res.status(404).json({ msg: 'Usuário não encontrado ' });
 
     res.status(200).json({ user });
 });
@@ -15,7 +15,7 @@ router.get('/check-token', checkToken, (req, res) => {
     try {
         res.status(200).json({ msg: 'Token válido' });
     } catch (erro) {
-        console.log(erro)
+        console.log(erro);
     }
 });
 

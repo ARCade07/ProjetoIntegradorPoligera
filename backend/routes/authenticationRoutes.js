@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const { criarHash, compararHash } = require('../util/cript');
-const jwt = require('jsonwebtoken')
-const enviarEmail = require('../util/mail')
-const crypto = require('crypto')
-const cookie = require('cookie')
+const jwt = require('jsonwebtoken');
+const enviarEmail = require('../util/mail');
+const crypto = require('crypto');
+const cookie = require('cookie');
 const User = require('../models/User');
 
 router.post('/cadastrar', async (req, res) => {
@@ -21,7 +21,7 @@ router.post('/cadastrar', async (req, res) => {
         return res.status(422).json({ msg: 'Por favor, utilize outro e-mail!' });
     }
 
-    const passwordHash = await criarHash(password)
+    const passwordHash = await criarHash(password);
 
     const user = new User({
         name,
@@ -53,10 +53,10 @@ router.post('/login', async (req, res) => {
     try {
         const secret = process.env.SECRET;
         const token = jwt.sign(
-            { id: user._id},
+            { id: user._id },
             secret,
             { expiresIn: '1h' }
-            );
+        );
         const cookieOption = {
             httpOnly: true,
             maxAge: 3600000,
@@ -78,7 +78,7 @@ router.post('/esqueceu-senha', async (req, res) => {
         if (!user) {
             return res
                 .status(404)
-                .json({ msg: "O usuário com esse mail não existe."});
+                .json({ msg: "O usuário com esse mail não existe." });
         }
         const resetToken = crypto.randomBytes(20).toString('hex');
         const tokenHash = await criarHash(resetToken);
@@ -90,7 +90,7 @@ router.post('/esqueceu-senha', async (req, res) => {
         await enviarEmail(user, resetToken);
         res
             .status(200)
-            .json({ msg: "Token para recuperação gerado e enviado com sucesso!"})
+            .json({ msg: "Token para recuperação gerado e enviado com sucesso!" })
     } catch (erro) {
         console.log(erro)
         return res.status(500).json({ msg: 'Erro interno do servidor.' })
@@ -105,8 +105,8 @@ router.post('/redefinir-senha', async (req, res) => {
             return res.status(404).json({ msg: 'Usuário não encontrado!' });
         }
         const isToken = await compararHash(resetToken, user.resetTokenHash);
-        if(!isToken || user.resetTokenExpires < Date.now()) {
-            return res.status(400).json({ msg: "Token inválido ou expirado."});
+        if (!isToken || user.resetTokenExpires < Date.now()) {
+            return res.status(400).json({ msg: "Token inválido ou expirado." });
         }
         const passwordHash = await criarHash(newPassword);
 
@@ -116,10 +116,10 @@ router.post('/redefinir-senha', async (req, res) => {
 
         await user.save();
 
-        return res.status(200).json({ success: true, msg: 'Senha redefina com sucesso! '})
+        return res.status(200).json({ success: true, msg: 'Senha redefina com sucesso! ' });
     } catch (erro) {
         console.log(erro)
-        return res.status(500).json({ msg: 'Erro interno do servidor.' })
+        return res.status(500).json({ msg: 'Erro interno do servidor.' });
     }
 });
 
