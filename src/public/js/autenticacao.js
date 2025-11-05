@@ -1,6 +1,6 @@
 const protocolo = 'http://';
 const baseURL = 'localhost:3000';
-const endpointAutenticacao = "/autenticacao"
+const endpointAutenticacao = "/auth"
 
 async function cadastrarUsuario () {
     let usuarioCadastroInput = document.querySelector('#nome');

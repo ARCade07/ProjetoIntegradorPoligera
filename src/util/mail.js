@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 });
 
 async function enviarEmail(user, resetToken) {
-    resetLink = `http://localhost:3000/reset-password?token=${resetToken}&email=${user.email}`;
+    resetLink = `http://localhost:3000/auth/reset-password?token=${resetToken}&email=${user.email}`;
     await transporter.sendMail({
         from: `"Equipe Poligera" <${process.env.EMAIL_USER}>`,
         to: user.email,

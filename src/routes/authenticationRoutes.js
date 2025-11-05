@@ -4,8 +4,12 @@ const jwt = require('jsonwebtoken')
 const enviarEmail = require('../util/mail')
 const crypto = require('crypto')
 const cookie = require('cookie')
+const path = require('path');
 const User = require('../models/User');
 
+router.get('/cadastrar', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'cadastro.html'));
+})
 router.post('/cadastrar', async (req, res) => {
     const { name, email, password, confirmpassword } = req.body;
 
@@ -39,6 +43,10 @@ router.post('/cadastrar', async (req, res) => {
     }
 });
 
+router.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'login.html'));
+})
+
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     if (!email) return res.status(422).json({ msg: 'O email é obrigatório' });
@@ -71,6 +79,10 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.get('/esqueceu-senha', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'esqueci_senha.html'));
+})
+
 router.post('/esqueceu-senha', async (req, res) => {
     try {
         // Checa se o email do usuário existe
@@ -97,6 +109,10 @@ router.post('/esqueceu-senha', async (req, res) => {
     }
 });
 //Rota para resetar senha:
+router.get('/redefinir-senha', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'nova_senha.html'));
+})
+
 router.post('/redefinir-senha', async (req, res) => {
     try {
         const { email, resetToken, newPassword } = req.body;
