@@ -1,12 +1,12 @@
 const protocolo = 'http://';
 const baseURL = 'localhost:3000';
-const endpointAutenticacao = "/autenticacao"
+const endpointAutenticacao = '/autenticacao';
 
-async function cadastrarUsuario () {
+async function cadastrarUsuario() {
     let usuarioCadastroInput = document.querySelector('#nome');
     let emailCadastroInput = document.querySelector('#email-cadastro');
     let passwordCadastroInput = document.querySelector('#senha');
-    let confirmPasswordCadastroInput = document.querySelector('#confirmar-senha')
+    let confirmPasswordCadastroInput = document.querySelector('#confirmar-senha');
     let usuarioCadastro = usuarioCadastroInput.value;
     let emailCadastro = emailCadastroInput.value;
     let passwordCadastro = passwordCadastroInput.value;
@@ -15,20 +15,26 @@ async function cadastrarUsuario () {
         try {
             const cadastroEndpoint = '/cadastrar';
             const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${cadastroEndpoint}`;
-            const response = await axios.post (
+            const response = await axios.post(
                 URLcompleta,
-                {name: usuarioCadastro, email: emailCadastro, password: passwordCadastro, confirmpassword: confirmPasswordCadastro}
+                { name: usuarioCadastro, email: emailCadastro, password: passwordCadastro, confirmpassword: confirmPasswordCadastro }
             );
             usuarioCadastroInput.value = '';
             emailCadastroInput.value = '';
             passwordCadastroInput.value = '';
             confirmPasswordCadastroInput.value = '';
+            exibirAlerta('.alert-form-cadastro', 'Cadastro efetuado com sucesso!', ['show', 'alert-success'], ['d-none', 'alert-danger'], 2000);
             if (response.data.success) {
-                window.location.href = "../login.html"
+                setTimeout(() => {
+                    window.location.href = '../login.html'
+                }, 2000);
             }
         } catch (erro) {
-            console.log(erro);
+            exibirAlerta('.alert-form-cadastro', 'Não foi possível realizar o cadastro', ['show', 'alert-danger'], ['d-none', 'alert-sucess'], 2000);
         }
+    }
+    else {
+        exibirAlerta('.alert-form-cadastro', 'Preencha todos os campos', ['show', 'alert-warning'], ['d-none', 'alert-success'], 2000);
     }
 
 }
@@ -43,14 +49,18 @@ async function fazerLogin() {
             const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${loginEndpoint}`;
             const response = await axios.post(
                 URLcompleta,
-                {email: emailLogin, password: passwordLogin}
+                { email: emailLogin, password: passwordLogin }
             );
             console.log(response.data);
             emailLoginInput.value = '';
             passwordLoginInput.value = '';
-        } catch(erro) {
-            console.log(erro);
+            exibirAlerta('.alert-form-login', 'Login efetuado com sucesso!', ['show', 'alert-success'], ['d-none', 'alert-danger'], 2000);
+        } catch (erro) {
+            exibirAlerta('.alert-form-login', 'O e-mail e/ou senha digitados estão incorretos.', ['show', 'alert-danger'], ['d-none', 'alert-sucess'], 2000);
         }
+    }
+    else {
+        exibirAlerta('.alert-form-login', 'Preencha todos os campos', ['show', 'alert-warning'], ['d-none', 'alert-success'], 2000);
     }
 
 }
@@ -63,12 +73,16 @@ async function esquecerSenha() {
             const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${esquecerSenhaEndpoint}`;
             const response = await axios.post(
                 URLcompleta,
-                {email: emailRecuperar}
+                { email: emailRecuperar }
             );
             emailRecuperarInput.value = '';
+            exibirAlerta('.alert-form-esquecersenha', 'O email para recuperação de senha foi enviado.', ['show', 'alert-success'], ['d-none', 'alert-danger'], 2000);
         } catch (erro) {
-            console.log(erro);
+            exibirAlerta('.alert-form-esquecersenha', 'Não existe usuário vinculado à esse endereço de email.', ['show', 'alert-danger'], ['d-none', 'alert-success'], 2000);
         }
+    }
+    else {
+        exibirAlerta('.alert-form-esquecersenha', 'Digite um email válido.', ['show', 'alert-warning'], ['d-none', 'alert-success'], 2000);
     }
 }
 async function redefinirSenha() {
@@ -81,29 +95,34 @@ async function redefinirSenha() {
     const params = new URLSearchParams(window.location.search);
     const email = params.get('email');
     const resetToken = params.get('token');
-    
-    if(!email || !resetToken) {
-        alert('Link inválido. Por favor, solicite uma nova redefinição de senha');
+    if (!email || !resetToken) {
+        exibirAlerta('.alert-form-redefinirsenha', 'Link inválido. Por favor, solicite uma nova redefinição de senha.', ['show', 'alert-danger'], ['d-none', 'alert-success'], 2000);
     }
     if (passwordRedefinir && confirmPasswordRedefinir) {
         if (passwordRedefinir !== confirmPasswordRedefinir) {
-            alert('As senhas não conferem');
+            exibirAlerta('.alert-form-redefinirsenha', 'É necessário que as ambas as senhas sejam iguais.', ['show', 'alert-danger'], ['d-none', 'alert-success'], 2000);
         }
-        try {
-            const redefinirSenhaEnpoint = '/redefinir-senha';
-            const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${redefinirSenhaEnpoint}`;
-            const response = await axios.post(
-                URLcompleta,
-                { email, resetToken, newPassword: passwordRedefinir }
-            );
-            passwordRedefinirInput.value = '';
-            confirmPasswordRedefinirInput.value = '';
-            if (response.data.success) {
-                window.location.href = '../login.html';
+        else {
+            try {
+                const redefinirSenhaEnpoint = '/redefinir-senha';
+                const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${redefinirSenhaEnpoint}`;
+                const response = await axios.post(
+                    URLcompleta,
+                    { email, resetToken, newPassword: passwordRedefinir }
+                );
+                exibirAlerta('.alert-form-redefinirsenha', 'Senha redefinida com sucesso!', ['show', 'alert-success'], ['d-none', 'alert-danger'], 2000);
+                passwordRedefinirInput.value = '';
+                confirmPasswordRedefinirInput.value = '';
+                if (response.data.success) {
+                    window.location.href = '../login.html';
+                }
+            } catch (erro) {
+                exibirAlerta('.alert-form-redefinirsenha', 'Não foi possível redefinir a senha. Tente novamente.', ['show', 'alert-danger'], ['d-none', 'alert-success'], 2000);
             }
-        } catch (erro) {
-            console.log(erro);
         }
+    }
+    else {
+        exibirAlerta('.alert-form-esquecersenha', 'Digite a sua nova senha e a sua confirmação.', ['show', 'alert-warning'], ['d-none', 'alert-success'], 2000);
     }
 }
 async function verificarToken() {
@@ -121,4 +140,18 @@ async function verificarToken() {
         console.error('Token inválido ou ausente', erro);
         window.location.href = 'login.html';
     }
+}
+
+function exibirAlerta(seletor, innerHTML, classesToAdd, classesToRemove, timeout) {
+    let alert = document.querySelector(seletor);
+    alert.innerHTML = innerHTML;
+    //'...' é o spread operator
+    //quado aplicado a um array, ele 'desmembra' o array
+    //depois disso, passamos os elementos do array como argumentos para add e remove
+    alert.classList.add(...classesToAdd);
+    alert.classList.remove(...classesToRemove);
+    setTimeout(() => {
+        alert.classList.remove('show');
+        alert.classList.add('d-none');
+    }, timeout);
 }

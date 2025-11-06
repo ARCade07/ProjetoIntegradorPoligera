@@ -22,7 +22,7 @@ async function enviarEmail(user, resetToken) {
         html: `<p>Olá ${user.name},</p>
                 <p>Você solicitou a redefinição da sua senha.</p>
                 <p>Clique no link abaixo para criar uma nova senha:</p>
-                <a href="${ resetLink }">
+                <a href="${resetLink}">
                     Redefinir senha
                 </a>
                 <p>Se você não fez essa solicitação, ignore este e-mail. Sua senha permanecerá inalterada.</p>`
