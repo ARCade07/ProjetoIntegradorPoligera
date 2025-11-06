@@ -19,18 +19,14 @@
 </head>
 
 <body class="d-flex flex-column vh-100">
-    <header class="mobile-header d-flex align-items-center p-3 d-md-none">
+    <header class="mobile-header d-flex justify-content-center p-3 d-md-none">
         <div class="switch-container">
-            <input type="radio" id="switch-tecnico" name="modo-switch" class="switch-radio" checked>
-            <label for="switch-tecnico" class="switch-label">Técnico</label>
-            
-            <input type="radio" id="switch-realista" name="modo-switch" class="switch-radio">
-            <label for="switch-realista" class="switch-label">Realista</label>
-        </div>
+            <input type="radio" id="switch-tecnico-mobile" name="modo-switch" class="switch-radio" checked>
+            <label for="switch-tecnico-mobile" class="switch-label">Técnico</label>
 
-        <button class="tres-pontos">
-            <img src="images/3 pontos - icon.png" alt="tres-pontos" class="icone" id="icone-tres-pontos">
-        </button>
+            <input type="radio" id="switch-realista-mobile" name="modo-switch" class="switch-radio">
+            <label for="switch-realista-mobile" class="switch-label">Realista</label>
+        </div>
     </header>
     <div class="d-flex flex-row flex-grow-1" style="overflow-y: auto;">
         <aside class="barra-lateral d-none d-md-flex">
@@ -46,6 +42,15 @@
             </header>
 
             <section class="requerimentos" id="conteudo-criacao">
+                <div class="switch-container">
+                    <input type="radio" id="switch-tecnico-desktop" name="modo-switch-desktop" class="switch-radio"
+                        checked>
+                    <label for="switch-tecnico-desktop" class="switch-label">Técnico</label>
+
+                    <input type="radio" id="switch-realista-desktop" name="modo-switch-desktop" class="switch-radio">
+                    <label for="switch-realista-desktop" class="switch-label">Realista</label>
+                </div>
+
                 <div class="botoes-areas">
                     <button class="botao botao-fisica">Física</button>
                     <button class="botao botao-quimica">Química</button>

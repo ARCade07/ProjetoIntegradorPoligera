@@ -500,10 +500,11 @@ body:has(.resposta img.ampliada)::before {
 .switch-container {
     display: flex;
     background-color: #BBE8EE;
+    width: 240px;
     border-radius: 20px;
     overflow: hidden;
-    margin-left: 60px;
     padding: 2px;
+    justify-content: center;
 }
 
 .switch {
@@ -527,6 +528,11 @@ body:has(.resposta img.ampliada)::before {
     margin-bottom: 0;
     line-height: 1.5;
     border-radius: 20px;
+}
+
+.barra-lateral .switch-container {
+    margin-bottom: calc(15px * var(--escala-barra));
+    margin-left: calc(47.5px * var(--escala-barra));
 }
 
 .switch-radio:checked + .switch-label {
