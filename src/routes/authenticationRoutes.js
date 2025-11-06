@@ -70,7 +70,7 @@ router.post('/login', async (req, res) => {
             maxAge: 3600000,
             path: '/'
         }
-        res.cookie('Set-Cookie', cookie.serialize('token', token, cookieOption));
+        res.cookie('token', token, cookieOption);
         res
             .status(200)
             .json({ msg: 'Autentiação realizada com sucesso', token });
