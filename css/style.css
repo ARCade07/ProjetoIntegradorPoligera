@@ -504,6 +504,7 @@ body:has(.resposta img.ampliada)::before {
     border-radius: 20px;
     overflow: hidden;
     padding: 2px;
+    margin-right: 20px;
     justify-content: center;
 }
 
@@ -645,4 +646,26 @@ body:has(.resposta img.ampliada)::before {
 .botao-area.selecionado {
     background-color: #7B9CC6;
     border-color: #3F696F;
+}
+
+.mobile-header .navbar {
+    position: relative;
+}
+
+.mobile-header .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    min-width: 150px;
+    background-color: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-header .navbar-nav .nav-link {
+    font-weight: bold;
 }
