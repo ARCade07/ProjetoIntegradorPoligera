@@ -161,7 +161,8 @@
                         <p>Carbono</p>
                     </div>
                     <div class="item">
-                        <button class="itens"><img src="/images/icone-elemento_hidrogenio.png" alt="hidrogenio"></button>
+                        <button class="itens"><img src="/images/icone-elemento_hidrogenio.png"
+                                alt="hidrogenio"></button>
                         <p>Hidrogênio</p>
                     </div>
                     <div class="item">
@@ -169,7 +170,8 @@
                         <p>Oxigênio</p>
                     </div>
                     <div class="item">
-                        <button class="itens"><img src="/images/icone-elemento_nitrogenio.png" alt="nitrogenio"></button>
+                        <button class="itens"><img src="/images/icone-elemento_nitrogenio.png"
+                                alt="nitrogenio"></button>
                         <p>Nitrogênio</p>
                     </div>
                     <div class="item">
@@ -205,7 +207,8 @@
                         <p>Ligação Dupla</p>
                     </div>
                     <div class="item">
-                        <button class="itens"><img src="/images/icone-ligacao_simples.png" alt="ligacao_simples"></button>
+                        <button class="itens"><img src="/images/icone-ligacao_simples.png"
+                                alt="ligacao_simples"></button>
                         <p>Ligação Simples</p>
                     </div>
                 </div>
@@ -234,6 +237,13 @@
         <img src="/images/Logo poliedro.png" alt="logo" id="logo">
     </main>
     <script src="/js/script.js"></script>
+    <script src="/js/autenticacao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            verificarToken();
+        });
+    </script>
 </body>
 
 </html>
