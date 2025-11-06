@@ -16,6 +16,110 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
+        <!-- elétrica, moléculas, vetor -->
+    <style>
+        .fisica-eletrica .item,
+        .conteudo-fisica.eletrica .item,
+        .fisica-eletrica .icone-item,
+        .conteudo-fisica.eletrica .item-mobile-icon,
+
+        .fisica-mecanica .item.selecionavel,
+        .conteudo-fisica.mecanica .item.selectable,
+        .fisica-mecanica .icone-item.selecionavel,
+        .conteudo-fisica.mecanica .item-mobile-icon.selectable,
+
+        .quimica .item,
+        .conteudo-quimica .item,
+        .quimica .icone-item,
+        .conteudo-quimica .item-mobile-icon {
+            position: relative;
+        }
+
+
+
+        .controle-quantidade,
+        .multi-control {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 6;
+        }
+
+
+        .botao-contador,
+        .multi-control .multi-btn {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #0d6efd;
+            color: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+            line-height: 1;
+        }
+
+
+        .valor-contador,
+        .multi-control .multi-count {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 14px;
+            background: #ffffff;
+            color: #0d6efd;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 0 6px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+        }
+
+       
+        .icone-item .controle-quantidade,
+        .item-mobile-icon .multi-control,
+        .icone-item .multi-control {
+            top: 4px;
+            right: 4px;
+        }
+
+        .icone-item .botao-contador,
+        .item-mobile-icon .multi-control .multi-btn {
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
+        }
+
+        .icone-item .valor-contador,
+        .item-mobile-icon .multi-control .multi-count {
+            min-width: 20px;
+            height: 20px;
+            font-size: 11px;
+            border-radius: 10px;
+            padding: 0 5px;
+        }
+
+   
+        .item.selecionado,
+        .icone-item.selecionado,
+        .item.multi-selected,
+        .item-mobile-icon.multi-selected,
+        .valor-contador.selecionado,
+        .multi-control .multi-selected {
+            outline: 2px solid rgba(13, 110, 253, 0.35);
+            border-radius: 6px;
+        }
+    </style>
+
 </head>
 
 <body class="d-flex flex-column vh-100">
@@ -75,7 +179,7 @@
                 </div>
                 <div class="itens-container">
                     <div class="conteudo-fisica mecanica">
-                        <div class="item">
+                        <div class="item selectable">
                             <button class="itens"><img src="images/icone-vetor.png" alt="vetor"></button>
                             <p>Vetor</p>
                         </div>
@@ -274,7 +378,8 @@
                 <div class="conteudo-fisica">
                     <div class="icones-scroll-wrapper">
                         <div class="conteudo-fisica mecanica icones-lista">
-                            <button class="item-mobile-icon"><img src="images/icone-vetor.png" alt="vetor"></button>
+                            <button class="item-mobile-icon selectable"><img src="images/icone-vetor.png"
+                                    alt="vetor"></button>
                             <button class="item-mobile-icon"><img src="images/icone-forca_peso.png"
                                     alt="forca_peso"></button>
                             <button class="item-mobile-icon"><img src="images/icone-forca_normal.png"
@@ -373,6 +478,118 @@
     <script src="js/script.js"></script>
     <!-- javascript: conexão com o back -->
     <script src="js/conexaoBack.js"></script>
+    <script>
+       
+        document.addEventListener('DOMContentLoaded', function () {
+
+            function atualizarDestaque(host, count) {
+               
+                if (count > 0) {
+                    host.classList.add('selecionado');
+                    host.classList.add('multi-selected'); 
+                } else {
+                    host.classList.remove('selecionado');
+                    host.classList.remove('multi-selected');
+                }
+            }
+
+            function criarControle(host, inicial = 1) {
+                
+                let existente = host.querySelector('.controle-quantidade, .multi-control');
+                if (existente) return existente;
+
+                const grupo = document.createElement('div');
+                grupo.className = 'controle-quantidade';
+                grupo.classList.add('multi-control');   
+                grupo.dataset.count = String(Math.max(0, inicial));
+
+                const botaoMenos = document.createElement('button');
+                botaoMenos.type = 'button';
+                botaoMenos.className = 'botao-contador botao-menos';
+                botaoMenos.classList.add('multi-btn', 'multi-minus'); 
+                botaoMenos.title = 'Diminuir';
+                botaoMenos.textContent = '−';
+
+                const valor = document.createElement('div');
+                valor.className = 'valor-contador';
+                valor.classList.add('multi-count'); 
+                valor.textContent = grupo.dataset.count;
+
+                const botaoMais = document.createElement('button');
+                botaoMais.type = 'button';
+                botaoMais.className = 'botao-contador botao-mais';
+                botaoMais.classList.add('multi-btn', 'multi-plus');
+                botaoMais.title = 'Adicionar';
+                botaoMais.textContent = '+';
+
+                botaoMais.addEventListener('click', function (ev) {
+                    ev.stopPropagation();
+                    let c = parseInt(grupo.dataset.count || '0', 10) + 1;
+                    grupo.dataset.count = String(c);
+                    valor.textContent = c;
+                    atualizarDestaque(host, c);
+                });
+
+                botaoMenos.addEventListener('click', function (ev) {
+                    ev.stopPropagation();
+                    let c = parseInt(grupo.dataset.count || '0', 10) - 1;
+                    if (c <= 0) {
+                        grupo.remove();
+                        atualizarDestaque(host, 0);
+                        return;
+                    }
+                    grupo.dataset.count = String(c);
+                    valor.textContent = c;
+                    atualizarDestaque(host, c);
+                });
+
+                grupo.appendChild(botaoMenos);
+                grupo.appendChild(valor);
+                grupo.appendChild(botaoMais);
+
+                host.appendChild(grupo);
+                atualizarDestaque(host, parseInt(grupo.dataset.count, 10));
+
+                return grupo;
+            }
+
+            function incrementarHost(host) {
+                
+                let grupo = host.querySelector('.controle-quantidade, .multi-control');
+                if (!grupo) {
+                    criarControle(host, 1);
+                    return;
+                }
+                const valor = grupo.querySelector('.valor-contador, .multi-count');
+                let c = parseInt(grupo.dataset.count || '0', 10) + 1;
+                grupo.dataset.count = String(c);
+                if (valor) valor.textContent = c;
+                atualizarDestaque(host, c);
+            }
+
+            function ligarIncremento(seletor, resolverHost) {
+                document.querySelectorAll(seletor).forEach(function (el) {
+                    el.addEventListener('click', function (ev) {
+                        
+                        if (ev.target.closest('.controle-quantidade, .multi-control')) return;
+                        const host = resolverHost ? resolverHost(el) : (el.closest('.item') || el);
+                        if (!host) return;
+                        incrementarHost(host);
+                    });
+                });
+            }
+
+            
+            ligarIncremento('.conteudo-fisica.eletrica .item .itens', function (el) { return el.closest('.item'); });
+            ligarIncremento('.conteudo-fisica.eletrica .item-mobile-icon');
+            ligarIncremento('.conteudo-quimica .item .itens', function (el) { return el.closest('.item'); });
+            ligarIncremento('.conteudo-quimica .item-mobile-icon');
+            ligarIncremento('.conteudo-fisica.mecanica .item.selectable .itens', function (el) { return el.closest('.item'); });
+            ligarIncremento('.conteudo-fisica.mecanica .item-mobile-icon.selectable');
+
+        });
+    </script>
+    
     <!-- ícones -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
