@@ -16,6 +16,7 @@ router.get('/check-token', checkToken, (req, res) => {
         res.status(200).json({ msg: 'Token válido' });
     } catch (erro) {
         console.log(erro);
+        res.status(401).json({ msg: 'Token inválido' })
     }
 });
 
