@@ -1,4 +1,4 @@
-const mensagem_usuario = document.querySelector('#chat');
+const mensagemUsuario = document.querySelector('#chat');
 const botao = document.querySelector('#enviar');
 const loading = document.querySelector(".loading");
 const resposta_gerada = document.querySelector(".resposta");
@@ -7,13 +7,13 @@ const baseURL = "localhost:5000";
 const chatEndpoint = "/chat";
 
 function ativarBotaoEnviar () {
-    const escreveuPrompt = mensagem_usuario.value.trim().length > 0
+    const escreveuPrompt = mensagemUsuario.value.trim().length > 0
     const selecionouIcones = itensSelecionados.length > 0
 
     botao.disabled = !(escreveuPrompt || selecionouIcones)
 }
 
-mensagem_usuario.addEventListener('input', ativarBotaoEnviar)
+mensagemUsuario.addEventListener('input', ativarBotaoEnviar)
 
 // declaração da função callback 
 // (função passada como parâmetro de outra função para ser posteriormente executada em resposta a ocorrência de determinado evento)
@@ -23,9 +23,9 @@ async function tratamentoPrompt(event) {
     // para que o navegador não recarregue a página
     event.preventDefault();
 
-    const prompt = mensagem_usuario.value;
+    const prompt = mensagemUsuario.value;
 
-    mensagem_usuario.value = '';
+    mensagemUsuario.value = '';
     
     // mostra a mensagem de loading
     loading.style.display = 'block';
@@ -61,8 +61,8 @@ async function tratamentoPrompt(event) {
 botao.addEventListener('click', tratamentoPrompt);
 
 // adiciona um listener para quando o usuário digitar o prompt e pressionar a tecla enter do teclado
-if(mensagem_usuario) {
-    mensagem_usuario.addEventListener('keypress', function(e) {
+if(mensagemUsuario) {
+    mensagemUsuario.addEventListener('keypress', function(e) {
         if(e.key === 'Enter') {
             tratamentoPrompt(e);
         }
