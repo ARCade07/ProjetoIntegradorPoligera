@@ -306,3 +306,6 @@ document.addEventListener("click", function (e) {
     img.classList.toggle("ampliada");
   }
 });
+
+const tipoImagemSelecionado = document.querySelector('input[name="modo-switch"]:checked')
+const labelImagemSelecionada = document.querySelector(`label[for="${tipoImagemSelecionado.id}"]`)

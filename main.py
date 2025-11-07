@@ -1,7 +1,7 @@
 import time
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
-from agente_gemini import gerarCorpoLivre, gerarCircuitoEletrico, gerarMolecula, gerarPendulo
+from agente_gemini import gerarCorpoLivre, gerarCircuitoEletrico, gerarMolecula, gerarPendulo, criacaoImagemRealista
 
 # inicialização do Flask
 app = Flask(__name__)
@@ -23,6 +23,7 @@ def processamentoResposta():
     materia = dados.get('materia')
     area = dados.get('area')
     itens_selecionados = dados.get('elementos', [])
+    tipo_imagem_selecionada = dados.get('tipo')
 
     if itens_selecionados:
         itens_selecionados_conteudo = ", ".join(itens_selecionados)
@@ -30,19 +31,23 @@ def processamentoResposta():
     else:
         prompt_final = prompt
 
-    if materia == 'fisica':
-        if area == 'mecanica':
-            for i in itens_selecionados:
-                if i == 'pendulo':
-                    resposta = gerarPendulo(prompt_final)
-                else:
-                    resposta = gerarCorpoLivre(prompt_final)
-        elif area == 'eletrica':
-            resposta = gerarCircuitoEletrico(prompt_final)
-        elif area == 'optica':
-            print('Área indisponível para a geração de imagens')
-    elif materia == 'quimica':
-        resposta = gerarMolecula(prompt_final)
+
+    if tipo_imagem_selecionada == "Técnico":
+        resposta = criacaoImagemRealista(prompt_final)
+    else:
+        if materia == 'fisica':
+            if area == 'mecanica':
+                for i in itens_selecionados:
+                    if i == 'pendulo':
+                        resposta = gerarPendulo(prompt_final)
+                    else:
+                        resposta = gerarCorpoLivre(prompt_final)
+            elif area == 'eletrica':
+                resposta = gerarCircuitoEletrico(prompt_final)
+            elif area == 'optica':
+                print('Área indisponível para a geração de imagens')
+        elif materia == 'quimica':
+            resposta = gerarMolecula(prompt_final)
 
     # envia a resposta para o front
     return jsonify({
