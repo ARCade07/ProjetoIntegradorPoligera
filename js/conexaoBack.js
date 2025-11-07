@@ -32,6 +32,17 @@ async function tratamentoPrompt(event) {
 
     const materiaInfo = obterMateriaArea()
     const itensSelecionados = enviarItensSelecionados()
+
+    let tipoImagemSelecionado = document.querySelector('input[name="modo-switch-desktop"]:checked')
+    if (!tipoImagemSelecionado) {
+        tipoImagemSelecionado = document.querySelector('input[name="modo-switch"]:checked')
+    }
+
+    const labelImagemSelecionada = tipoImagemSelecionado ? 
+        document.querySelector(`label[for="${tipoImagemSelecionado.id}"]`).textContent.trim() : 
+        'Técnico';
+    
+    console.log('Tipo de imagem selecionada:', labelImagemSelecionada);
     
     try {
         // requisição post para o back que devolve a reposta gerada pela IA

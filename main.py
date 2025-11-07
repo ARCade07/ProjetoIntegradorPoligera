@@ -24,6 +24,7 @@ def processamentoResposta():
     area = dados.get('area')
     itens_selecionados = dados.get('elementos', [])
     tipo_imagem_selecionada = dados.get('tipo')
+    print(tipo_imagem_selecionada)
 
     if itens_selecionados:
         itens_selecionados_conteudo = ", ".join(itens_selecionados)
@@ -32,9 +33,9 @@ def processamentoResposta():
         prompt_final = prompt
 
 
-    if tipo_imagem_selecionada == "Técnico":
+    if tipo_imagem_selecionada == "Realista":
         resposta = criacaoImagemRealista(prompt_final)
-    else:
+    elif tipo_imagem_selecionada == "Técnico":
         if materia == 'fisica':
             if area == 'mecanica':
                 for i in itens_selecionados:
