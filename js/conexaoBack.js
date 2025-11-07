@@ -6,16 +6,14 @@ const protocolo = "http://";
 const baseURL = "localhost:5000";
 const chatEndpoint = "/chat";
 
-// so habilitará o botão quando o usuário tiver escrevido alguma coisa no campo do prompt
-mensagem_usuario.addEventListener('input', function() {
-    // trim() elimina espaços em branco
-    if(mensagem_usuario.value.trim().length > 0) {
-        botao.disabled = false;
-    }
-    else {
-        botao.disabled = true;
-    }
-})
+function ativarBotaoEnviar () {
+    const escreveuPrompt = mensagem_usuario.value.trim().length > 0
+    const selecionouIcones = itensSelecionados.length > 0
+
+    botao.disabled = !(escreveuPrompt || selecionouIcones)
+}
+
+mensagem_usuario.addEventListener('input', ativarBotaoEnviar)
 
 // declaração da função callback 
 // (função passada como parâmetro de outra função para ser posteriormente executada em resposta a ocorrência de determinado evento)

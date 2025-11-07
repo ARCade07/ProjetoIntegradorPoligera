@@ -67,6 +67,7 @@ function atualizarSelecionados (botao) {
     }
 
     sincronizarItens();
+    ativarBotaoEnviar();
 
     console.clear();
     console.log("Itens selecionados (na ordem):", itensSelecionados);
