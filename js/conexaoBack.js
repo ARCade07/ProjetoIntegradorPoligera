@@ -3,7 +3,7 @@ const botao = document.querySelector('#enviar');
 const loading = document.querySelector(".loading");
 const resposta_gerada = document.querySelector(".resposta");
 const protocolo = "http://";
-const baseURL = "localhost:5000";
+const baseURL = "127.0.0.1:5000";
 const chatEndpoint = "/chat";
 
 function ativarBotaoEnviar () {
