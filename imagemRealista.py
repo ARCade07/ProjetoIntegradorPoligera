@@ -2,6 +2,7 @@ import time
 import requests
 import json
 import os
+import base64
 
 def gerarImgemRealista(prompt):
     
@@ -66,8 +67,11 @@ def gerarImgemRealista(prompt):
                     
                     # converte o json em um dicionário python
                     url_dicionario = json.loads(url_json)
-                    final_url = url_dicionario['resultUrls'][0]
-                    return final_url
+                    url = url_dicionario['resultUrls'][0]
+
+                    uri = base64.b64encode(url.content).decode('utf-8')
+
+                    return uri
                     
                 elif state == "waiting" or state == "running":
                     continue
