@@ -1,7 +1,8 @@
 import time
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
-from agente_gemini import gerarCorpoLivre, gerarCircuitoEletrico, gerarMolecula, gerarPendulo, criacaoImagemRealista
+from agente_gemini import gerarCorpoLivre, gerarCircuitoEletrico, gerarMolecula, gerarPendulo
+from imagemRealista import gerarImgemRealista
 
 # inicialização do Flask
 app = Flask(__name__)
@@ -34,7 +35,7 @@ def processamentoResposta():
 
 
     if tipo_imagem_selecionada == "Realista":
-        resposta = criacaoImagemRealista(prompt_final)
+        resposta = gerarImgemRealista(prompt_final)
     elif tipo_imagem_selecionada == "Técnico":
         if materia == 'fisica':
             if area == 'mecanica':
