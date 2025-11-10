@@ -77,6 +77,16 @@ def desenharCopoLivre(json):
     else:
         pos_x_objeto = 0
         pos_y_objeto = 0
+        # desenha uma linha horizontal representando o chão
+        ax.plot([-4, 4], [-3, -3], 'k-', linewidth=3)
+
+        # posiciona o objeto sobre essa linha
+        if objeto.get('tipo', 'retangulo') == 'retangulo':
+            altura_obj = objeto.get('tamanho', [1, 1])[1]
+            pos_y_objeto = -3 + altura_obj / 2  # metade da altura acima da linha
+        else:
+            raio_obj = objeto.get('tamanho', 0.5)
+            pos_y_objeto = -3 + raio_obj  # o centro do círculo fica acima da linha
 
     # pega a forma do objeto, caso não esteja especificado será um retângulo
     tipo_objeto = objeto.get('tipo', 'retangulo')
@@ -93,15 +103,11 @@ def desenharCopoLivre(json):
 
             # cria um ângulo de rotação para que o retângulo gire e se alinhe com o plano
             angulo_rotacao = patches.transforms.Affine2D().rotate(angulo_rad) + ax.transData
-            ret = patches.Rectangle((pos_x_objeto - largura/2, pos_y_objeto - altura/2),
-                                   largura, altura, linewidth=2,
-                                edgecolor='black', facecolor=cor, transform=angulo_rotacao)
+            ret = patches.Rectangle((pos_x_objeto - largura/2, pos_y_objeto - altura/2),largura, altura, linewidth=2,edgecolor='black', facecolor=cor, transform=angulo_rotacao)
 
         # desenha o objeto caso o plano não seja inclinado
         else:
-            ret = patches.Rectangle((pos_x_objeto - largura/2, pos_y_objeto - altura/2),
-                                   largura, altura, linewidth=2,
-                                   edgecolor='black', facecolor=cor)
+            ret = patches.Rectangle((pos_x_objeto - largura/2, pos_y_objeto - altura/2),largura, altura, linewidth=2,edgecolor='black', facecolor=cor)
         # adiciona o retângulo no plano
         ax.add_patch(ret)
 
@@ -123,11 +129,7 @@ def desenharCopoLivre(json):
 
     for forca in forcas:
         nome = forca.get('nome', '')
-        # magnitude = forca.get('magnitude', 0)
-        if nome == "Atrito (Fat)":
-          angulo = forca.get('angulo', 0) - 180
-        else:
-          angulo = forca.get('angulo', 0)   
+        angulo = forca.get('angulo', 0)   
         cor = forca.get('cor', 'red')
         ponto = forca.get('ponto_aplicacao', [0, 0])
 
@@ -142,9 +144,7 @@ def desenharCopoLivre(json):
 
         # vetor das forças
         # (onde a força é aplicada em x, onde a força é aplicada em y, componente x da força, componete y da força [os outros argmentos definem o design da seta])
-        ax.arrow(ponto[0] + pos_x_objeto, ponto[1] + pos_y_objeto, dx, dy,
-                head_width=0.2, head_length=0.15, fc=cor, ec=cor,
-                linewidth=2, length_includes_head=True)
+        ax.arrow(ponto[0] + pos_x_objeto, ponto[1] + pos_y_objeto, dx, dy,head_width=0.2, head_length=0.15, fc=cor, ec=cor,linewidth=2, length_includes_head=True)
 
         # calcula o posicionamento do nome da força
         label_x = ponto[0] + pos_x_objeto + dx * 1.2
@@ -172,46 +172,3 @@ def desenharCopoLivre(json):
     data_uri = f"data:image/png;base64,{img_base64}"
 
     return data_uri
-
-    
-# if __name__ == "__main__":
-#     # Criar um exemplo de configuração
-#     config_exemplo ={
-#   "objeto": {
-#     "tipo": "retangulo",
-#     "tamanho": [1, 1],
-#     "cor": "gray",
-#     "massa": 5.0
-#   },
-#   "plano_inclinado": {
-#     "ativo": True,
-#     "angulo": 30,
-#   },
-#   "forcas": [
-#     {
-#       "nome": "Peso (P)",
-#       "magnitude": 49.0,
-#       "angulo": 270,
-#       "cor": "darkgreen",
-#       "ponto_aplicacao": [0, 0]
-#     },
-#     {
-#       "nome": "Normal (N)",
-#       "magnitude": 42.4,
-#       "angulo": 120,
-#       "cor": "blue",
-#       "ponto_aplicacao": [0, 0]
-#     },
-#     {
-#       "nome": "Atrito (Fat)",
-#       "magnitude": 10.0,
-#       "angulo": 210,
-#       "cor": "red",
-#       "ponto_aplicacao": [0, 0]
-#     }
-#   ]
-# }
-    
-# url = desenharCopoLivre(config_exemplo)
-
-# print(url)
