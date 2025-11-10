@@ -493,6 +493,13 @@ body:has(.resposta img.ampliada)::before {
     animation: slideDown 0.3s ease;
 }
 
+@media (max-width: 760px) {
+    .loading{
+        top: 500px;
+        left: 50%;
+    }
+}
+
 .itens-container-mobile {
     width: 100%;
 }
