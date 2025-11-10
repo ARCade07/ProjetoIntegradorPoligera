@@ -20,7 +20,7 @@ def gerarImgemRealista(prompt):
         "input": {
             "prompt": prompt,
             "output_format": "jpeg",
-            "image_size": "auto"
+            "image_size": "16:9"
         }
     }
 
@@ -35,7 +35,7 @@ def gerarImgemRealista(prompt):
             task_id = requisicao_json["data"].get("taskId")
         else:
             print(f'ERRO: {requisicao_json.get("message")}')
-            return None
+            return requisicao_json.get("message")
         
         # utiliando o taskId é necessario fazer consultas sobre o status da tarefa
         # esse processo rebe o nome de polling
@@ -63,7 +63,7 @@ def gerarImgemRealista(prompt):
                     
                     if not url_json:
                         print("[ERRO] resultJson está vazio")
-                        return None
+                        return "[ERRO] resultJson está vazio"
                     
                     # converte o json em um dicionário python
                     url_dicionario = json.loads(url_json)
@@ -74,20 +74,30 @@ def gerarImgemRealista(prompt):
                     return uri
                     
                 elif state == "waiting" or state == "running":
+                    contador += 1
                     continue
                     
                 elif state == "failed":
                     mensagem_state_falha = data.get("failMsg", "erro")
                     print(f"Tarefa falhou: {mensagem_state_falha}")
-                    return None
+                    return mensagem_state_falha
                     
                 else:
                     print('Estado não tratado')
+                    return image_json.get("code")
                 
             else:
                 return f'{image_json.get("code")}: erro ao gerar imagem'
         
-        return f"EMPO EXPIRADO"
+        contador += 1
         
+        return f"TEMPO EXPIRADO"
+        
+    except requests.exceptions.RequestException as e:
+        erro_msg = f"Erro de requisição: {str(e)}"
+        print(erro_msg)
+        return erro_msg
     except Exception as e:
-        return e
+        erro_msg = f"Erro inesperado: {str(e)}"
+        print(erro_msg)
+        return erro_msg
