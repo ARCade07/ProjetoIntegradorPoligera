@@ -62,14 +62,19 @@ def gerarImgemRealista(prompt):
                     url_json = data.get("resultJson", "")
                     
                     if not url_json:
-                        print("[ERRO] resultJson está vazio")
-                        return "[ERRO] resultJson está vazio"
+                        print("resultJson vazio")
+                        return "resultJson vazio"
                     
                     # converte o json em um dicionário python
                     url_dicionario = json.loads(url_json)
                     url = url_dicionario['resultUrls'][0]
 
-                    uri = base64.b64encode(url.content).decode('utf-8')
+                    imagem_baixada = requests.get(url, timeout=30)
+                    imagem_baixada.raise_for_status
+
+                    img_base64 = base64.b64encode(imagem_baixada.content).decode('utf-8')
+                    uri = f"data:image/png;base64,{img_base64}"
+                    print("Imagem convertida para base64")
 
                     return uri
                     
@@ -83,13 +88,15 @@ def gerarImgemRealista(prompt):
                     return mensagem_state_falha
                     
                 else:
-                    print('Estado não tratado')
-                    return image_json.get("code")
+                    erro_msg = f'Estado não tratado: {state}'
+                    print(erro_msg)
+                    contador += 1
+                    continue
                 
             else:
-                return f'{image_json.get("code")}: erro ao gerar imagem'
-        
-        contador += 1
+                erro_msg = f'Código {image_json.get("code")}: erro ao consultar status'
+                print(erro_msg)
+                return erro_msg
         
         return f"TEMPO EXPIRADO"
         
