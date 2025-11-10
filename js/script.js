@@ -307,3 +307,43 @@ document.addEventListener("click", function (e) {
   }
 });
 
+const switchInputs = document.querySelectorAll('input[name="modo-switch"], input[name="modo-switch-desktop"]');
+
+const botoesAreasDesktop = document.querySelector('.barra-lateral .botoes-areas');
+const itensContainerDesktop = document.querySelector('.barra-lateral .itens-container');
+const botoesAreasMobile = document.querySelector('.mobile-footer .botao-materias');
+const itensContainerMobile = document.querySelector('.mobile-footer .itens-container-mobile');
+
+
+function atualizarModo() {
+    const realistaSelecionado = document.getElementById('switch-realista-mobile').checked || document.getElementById('switch-realista-desktop').checked;
+    if (realistaSelecionado) {
+        botoesAreasDesktop.classList.add('d-none')
+        itensContainerDesktop.classList.add('hidden')
+        botoesAreasMobile.classList.add('hidden')
+        itensContainerMobile.classList.add('hidden')
+    }
+    else {
+        botoesAreasDesktop.classList.remove('d-none')
+        itensContainerDesktop.classList.remove('hidden')
+        botoesAreasMobile.classList.remove('hidden')
+        itensContainerMobile.classList.remove('hidden')
+    }
+}
+
+switchInputs.forEach(input => {
+    input.addEventListener('change', () => {
+        const isRealista = input.id.includes('realista');
+        if (isRealista) {
+            document.getElementById('switch-realista-mobile').checked = true;
+            document.getElementById('switch-realista-desktop').checked = true;
+        } else {
+            document.getElementById('switch-tecnico-mobile').checked = true;
+            document.getElementById('switch-tecnico-desktop').checked = true;
+        }
+        
+        atualizarModo();
+    });
+});
+
+atualizarModo();
