@@ -52,6 +52,27 @@ def gerarCorpoLivre (prompt):
             * 'cor': Cor da seta de força. Use '"red"' como padrão.
             * 'ponto_aplicacao': Posição '[x, y]' de aplicação. Use '[0, 0]' (centro do objeto) se não for especificado. Se for um objeto circular, 'y' deve ser 0.
 
+    **Instruções de Física e Direções das Forças:**
+
+    Ao gerar o cenário, respeite as direções físicas corretas das forças:
+
+    1. **Força Peso (P):**
+       - Sempre **vertical para baixo**, saindo do centro do objeto.
+       - Representada pela letra **P**.
+
+    2. **Força Normal (N):**
+       - Representada pela letra **N**.
+
+    3. **Força de Atrito (Fat):**
+       - Possui a mesma angulação do plano inclinado.
+       - Direção **oposta ao movimento (ou à tendência de movimento)**.
+       - Representada pela abreviação **Fat**.
+       - Quando em plano inclinado, aponta para cima.
+       
+    5. **Rótulos:**
+       - Utilize exatamente as letras **P**, **N** e **Fat** para identificar as forças no diagrama.
+       - Posicione os rótulos próximos às setas, evitando sobreposição com o objeto.
+
     **Exemplo de Saída Esperada (Apenas o JSON):**
 
     json
@@ -69,7 +90,7 @@ def gerarCorpoLivre (prompt):
         },
         "forcas": [
             {
-                "nome": "F_Puxar",
+                "nome": "F",
                 "magnitude": 150,
                 "angulo": 20,
                 "cor": "red",
