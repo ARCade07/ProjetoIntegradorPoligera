@@ -253,6 +253,11 @@
                         </div>
                     </div>
                 </div>
+
+                <button type="button" class="botao botao-estatisticas" data-bs-toggle="modal"
+                    data-bs-target="#modalEstatisticas">
+                    Ver Estatísticas
+                </button>
             </section>
 
             <section class="historicos hidden" id="conteudo-historico">
@@ -386,6 +391,22 @@
             </div>
         </div>
     </footer>
+
+    <div class="modal fade" id="modalEstatisticas" tabindex="-1" aria-labelledby="modalEstatisticasLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fs-5" id="modalEstatisticasLabel">Estatísticas</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="images/Logo poliedro.png" alt="Logo" class="img-fluid">
+                    <canvas></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
     <!-- javascript: elemntos da tela -->

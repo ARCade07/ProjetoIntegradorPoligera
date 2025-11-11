@@ -677,3 +677,24 @@ body:has(.resposta img.ampliada)::before {
 .mobile-header .navbar-nav .nav-link {
     font-weight: bold;
 }
+
+.botao-estatisticas {
+    border: none;
+    background-color: #1EB4C3;
+    color: #00363C;
+    width: 97%;
+    margin-top: 20px;
+    box-sizing: border-box; 
+    flex-basis: 97%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.botao-estatisticas:hover {
+    background-color: #22a8b4;
+}
+
+.modal-header .btn-close {
+    padding: 0.5rem;
+    margin: -0.5rem -0.5rem -0.5rem auto;
+}
