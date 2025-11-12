@@ -709,10 +709,17 @@ body:has(.resposta img.ampliada)::before {
 
 .chart-container {
     flex: 1 1 45%;
-    min-width: 300px;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.chart-container-icones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 500px;
 }
 
 .chart-container canvas {
