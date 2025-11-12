@@ -394,15 +394,33 @@
 
     <div class="modal fade" id="modalEstatisticas" tabindex="-1" aria-labelledby="modalEstatisticasLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fs-5" id="modalEstatisticasLabel">Estatísticas</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <img src="images/Logo poliedro.png" alt="Logo" class="img-fluid">
-                    <canvas></canvas>
+                    <div class="chart-container">
+                        <label for="graficoHorarios">Horários de acesso</label>
+                        <canvas id="graficoHorarios"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <label for="graficoTipoImagem">Tipo de imagens</label>
+                        <canvas id="graficoTipoImagem"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <label for="graficoAreas">Matérias/Áreas</label>
+                        <canvas id="graficoAreas"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <label for="graficoContinuidade">Voltas ao site</label>
+                        <canvas id="graficoContinuidade"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <label for="graficoIcones">Ícones</label>
+                        <canvas id="graficoIcones"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -416,6 +434,9 @@
     <!-- ícones -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- chartjs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/graficos.js"></script>
 </body>
 
 </html>
