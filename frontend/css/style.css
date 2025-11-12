@@ -683,11 +683,12 @@ body:has(.resposta img.ampliada)::before {
     background-color: #1EB4C3;
     color: #00363C;
     width: 97%;
-    margin-top: 20px;
+    margin-top: 325px;
     box-sizing: border-box; 
     flex-basis: 97%;
     margin-left: auto;
     margin-right: auto;
+    transition: margin-top 0.3s ease;
 }
 
 .botao-estatisticas:hover {
@@ -719,4 +720,10 @@ body:has(.resposta img.ampliada)::before {
     height: auto !important;
 }
 
+.itens-container:not(.hidden):has(.active) + .botao-estatisticas {
+    margin-top: 20px;
+}
+
+.itens-container.hidden + .botao-estatisticas {
+    margin-top: 450px;
 }
