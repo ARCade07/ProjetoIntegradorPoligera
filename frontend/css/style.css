@@ -778,3 +778,34 @@ body:has(.resposta img.ampliada)::before {
     top: 10px;
     right: 10px;
 }
+
+.contador {
+    position: absolute;
+    left: 90px;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    padding: 2px 6px;
+    transition: 0.2s ease;
+  }
+
+  .contador button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 0;
+  }
+
+  .contador span {
+    background: #fff;
+    color: #333;
+    font-weight: bold;
+    margin: 0 5px;
+  }

@@ -53,6 +53,24 @@ function sincronizarItens () {
     })
 }
 
+const btnDiminuirQuantidade = document.querySelector('#btnDiminuirQuantidade')
+const btnAumentarQuantidade = document.querySelector('#btnAumentarQuantidade')
+const quantidadeItem = document.querySelector('#quantidadeItem')
+
+btnDiminuirQuantidade.addEventListener('click', () => {
+    let quantidadeItemInteiro = parseInt(quantidadeItem.textContent)
+    if(quantidadeItemInteiro > 1) {
+        quantidadeItemInteiro --
+        quantidadeItem.textContent = quantidadeItemInteiro
+    }
+})
+
+btnAumentarQuantidade.addEventListener('click', () => {
+    let quantidadeItemInteiro = parseInt(quantidadeItem.textContent)
+    quantidadeItemInteiro ++
+    quantidadeItem.textContent = quantidadeItemInteiro
+})
+
 function atualizarSelecionados (botao) {
     const img = botao.querySelector('img');
     if (!img) return;
