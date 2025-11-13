@@ -1,5 +1,5 @@
 :root {
-    --escala-barra: 0.8; 
+    --escala-barra: 0.8;
 }
 
 body {
@@ -19,7 +19,7 @@ body {
     position: absolute;
     width: 1px;
     height: 1px;
-    margin: -1px; 
+    margin: -1px;
     padding: 0;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
@@ -148,7 +148,7 @@ body {
     cursor: pointer;
     user-select: none;
     position: relative;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 .combobox-customizado::after {
@@ -320,8 +320,8 @@ body {
 }
 
 .loading {
-   display: none;
-   font-size: 18px;
+    display: none;
+    font-size: 18px;
 }
 
 
@@ -498,6 +498,32 @@ body:has(.resposta img.ampliada)::before {
     .loading{
         top: 500px;
         left: 50%;
+    }
+
+    #modalEstatisticas .modal-body {
+        padding: 10px;
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-container {
+        flex: 0 1 auto;
+        width: 95%;
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    .chart-container-icones {
+        min-width: 95%;
+        width: 95%;
+        flex-shrink: 0;
+    }
+
+    .chart-container-bar {
+        min-width: 95%;
+        width: 95%;
+        flex-shrink: 0;
     }
 }
 
@@ -710,20 +736,27 @@ body:has(.resposta img.ampliada)::before {
 .chart-container {
     flex: 1 1 45%;
     max-width: 350px;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 20px;
 }
 
-.chart-container-icones {
+.chart-container-icones,
+.chart-container-bar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 500px;
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
 }
 
-.chart-container canvas {
-    max-width: 100%;
+.chart-container canvas,
+.chart-container-icones canvas,
+.chart-container-bar canvas {
+    max-width: 100% !important;
     height: auto !important;
 }
 
