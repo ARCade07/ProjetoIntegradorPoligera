@@ -257,6 +257,7 @@ body {
     text-align: center;
     font-size: calc(15px * var(--escala-barra));
     color: #3F696F;
+    position: relative;
 }
 
 .itens {
@@ -781,7 +782,9 @@ body:has(.resposta img.ampliada)::before {
 
 .contador {
     position: absolute;
-    left: 90px;
+    top: 0;
+    right: -18px; 
+    z-index: 10; 
     display: flex;
     align-items: center;
     background: white;
