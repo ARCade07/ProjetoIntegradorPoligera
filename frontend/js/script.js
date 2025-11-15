@@ -53,23 +53,78 @@ function sincronizarItens () {
     })
 }
 
-const btnDiminuirQuantidade = document.querySelector('#btnDiminuirQuantidade')
-const btnAumentarQuantidade = document.querySelector('#btnAumentarQuantidade')
-const quantidadeItem = document.querySelector('#quantidadeItem')
+const todosBotoes = document.querySelectorAll('.itens')
 
-btnDiminuirQuantidade.addEventListener('click', () => {
-    let quantidadeItemInteiro = parseInt(quantidadeItem.textContent)
-    if(quantidadeItemInteiro > 1) {
-        quantidadeItemInteiro --
-        quantidadeItem.textContent = quantidadeItemInteiro
-    }
+todosBotoes.forEach(botao => {
+    botao.addEventListener('click', () => {
+
+        //pega o container do item (para que o contador seja criado dentro da div e não do botão)
+        const itemContainer = botao.closest('.item')
+        if (!itemContainer) return
+
+        // pega o identificador do botão a partir do alt de sua imagem
+        const img = botao.querySelector('img');
+        const identificador = img.alt;
+        
+        let contador = itemContainer.querySelector('.contador')
+        
+        if (!contador) {
+            const contadorDiv = document.createElement('div')
+            contadorDiv.classList.add('contador')
+            contadorDiv.dataset.item = identificador
+            contadorDiv.innerHTML = `
+            <button class="btnDiminuirQuantidade">-</button>
+            <span class="quantidadeItem">1</span>
+            <button class="btnAumentarQuantidade">+</button>`
+            itemContainer.appendChild(contadorDiv)
+            contador = contadorDiv
+            console.log('passou por aqui')
+        }
+        else {
+            contador.classList.remove('d-none')
+        }
+        
+        
+        const btnDiminuirQuantidade = contador.querySelector('.btnDiminuirQuantidade')
+        const btnAumentarQuantidade = contador.querySelector('.btnAumentarQuantidade')
+        const quantidadeItem = contador.querySelector('.quantidadeItem')
+        let quantidadeItemInteiro = parseInt(quantidadeItem.textContent)
+
+        if(!btnDiminuirQuantidade.hasAttribute('data-listener-added')) {
+            btnDiminuirQuantidade.setAttribute('data-listener-added', 'true')
+
+            btnDiminuirQuantidade.addEventListener('click', (e) => {
+                e.stopPropagation()
+                if(quantidadeItemInteiro > 0) {
+                quantidadeItemInteiro --
+                quantidadeItem.textContent = quantidadeItemInteiro
+    
+                if (quantidadeItemInteiro == 0) {
+                    botao.classList.remove('selecionado')
+                    contador.classList.add('d-none')
+                    quantidadeItem.textContent = 1
+                    atualizarSelecionados(botao)
+                }
+            }
+            })
+
+        }
+
+        if(!btnAumentarQuantidade.hasAttribute('data-listener-added')) {
+            btnAumentarQuantidade.setAttribute('data-listener-added', 'true')
+
+            btnAumentarQuantidade.addEventListener('click', (e) => {
+                e.stopPropagation()
+                quantidadeItemInteiro ++
+                quantidadeItem.textContent = quantidadeItemInteiro
+            })
+        }
+
+        
+    })
 })
 
-btnAumentarQuantidade.addEventListener('click', () => {
-    let quantidadeItemInteiro = parseInt(quantidadeItem.textContent)
-    quantidadeItemInteiro ++
-    quantidadeItem.textContent = quantidadeItemInteiro
-})
+
 
 function atualizarSelecionados (botao) {
     const img = botao.querySelector('img');
