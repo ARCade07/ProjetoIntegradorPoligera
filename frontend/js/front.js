@@ -15,6 +15,26 @@ function ativarBotaoEnviar () {
 
 mensagemUsuario.addEventListener('input', ativarBotaoEnviar)
 
+function registrarEstatistica(tipo, materia, area, icones) {
+    try {
+        let eventos = JSON.parse(localStorage.getItem('eventosPoligera')) || [];
+        eventos.push({
+            tipo: tipo,
+            materia: materia,
+            area: area,
+            icones: icones,
+            hora: new Date().getHours(),
+            data: new Date().toISOString
+        });
+
+        localStorage.setItem('eventosPoligera', JSON.stringfy(eventos));
+        console.log('Estatística registrada: ', eventos[eventos.length - 1]);
+    }
+    catch(error) {
+        console.error('Erro ao registrar estatística no localStorage: ', error)
+    }
+}
+
 // declaração da função callback 
 // (função passada como parâmetro de outra função para ser posteriormente executada em resposta a ocorrência de determinado evento)
 async function tratamentoPrompt(event) {
@@ -56,6 +76,13 @@ async function tratamentoPrompt(event) {
                 <ion-icon name="download-outline"></ion-icon>
             </a>
         `;
+
+        registrarEstatistica(
+            labelImagemSelecionada, 
+            materiaInfo.materia, 
+            materiaInfo.area, 
+            itensSelecionados
+        );
     }
     catch (e) {
         console.log(e);
