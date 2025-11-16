@@ -92,6 +92,7 @@ async function tratamentoPrompt(event) {
     finally {
         loading.style.display = 'none';
         botao.disabled = true; 
+        limparSelecao();
     }
 }
 
