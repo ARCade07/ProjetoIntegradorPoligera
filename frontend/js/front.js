@@ -85,10 +85,18 @@ async function tratamentoPrompt(event) {
         );
     }
     catch (e) {
-        console.log(e);
+        console.error("Erro:", e);
+        resposta_gerada.innerHTML = `
+            <div class="mensagem-erro">
+                <ion-icon name="alert-circle-outline" class="icone-erro"></ion-icon>
+                <p>ERRO</p>
+                <p class="mensagem-tente-novamente">Por favor, tente novamente.</p>
+            </div>
+        `;
     
-    // é executado independentemente do bloco try ou catch
+    
     }
+    // é executado independentemente do bloco try ou catch
     finally {
         loading.style.display = 'none';
         botao.disabled = true; 

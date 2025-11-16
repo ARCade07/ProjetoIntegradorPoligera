@@ -441,7 +441,7 @@ body:has(.resposta img.ampliada)::before {
 }
 
 .resposta button:hover {
-    background-color: rgba(0, 86, 179, 0.95);
+    background-color: rgba(87, 87, 87, 0.95);
 }
 
 .copy-icon {
@@ -812,3 +812,20 @@ body:has(.resposta img.ampliada)::before {
     font-weight: bold;
     margin: 0 5px;
   }
+
+.mensagem-erro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background-color: #fee;
+    border: 2px solid #f44;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.mensagem-erro p {
+    color: #d32f2f;
+    font-weight: 500;
+}
