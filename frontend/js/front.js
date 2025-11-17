@@ -86,10 +86,24 @@ async function tratamentoPrompt(event) {
     }
     catch (e) {
         console.error("Erro:", e);
+
+        let mensagemErro = 'Erro ao conectar-se com o servidor. Verifique a sua conexão'
+
+        // para o caso de o servidor ter respondido com um erro
+        if (e.response){
+            mensagemErro = 'Verifique se você esta na área correta'
+        }
+        // requisição foi feita mas não houve resposta
+        else if (e.request){
+            mensagemErro = e.message
+            
+        }
+
         resposta_gerada.innerHTML = `
             <div class="mensagem-erro">
                 <ion-icon name="alert-circle-outline" class="icone-erro"></ion-icon>
                 <p>ERRO</p>
+                <p>${mensagemErro}</p>
                 <p class="mensagem-tente-novamente">Por favor, tente novamente.</p>
             </div>
         `;
