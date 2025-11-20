@@ -6,6 +6,9 @@ import json
 from cirucitoEletrico import CircuitoEletrico
 from molecula import Moleculas
 from penduloConico import PenduloConico
+from optica import SistemaOptico
+
+
 
 # lê o arquivo .env e o deixa disponível no sistema 
 load_dotenv()
@@ -16,7 +19,7 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 client = genai.Client(api_key=GOOGLE_API_KEY)
 
     
-def gerarCorpoLivre (prompt):
+def gerar_corpo_livre (prompt):
 
 
     INSTRUCAO = """
@@ -127,7 +130,7 @@ def gerarCorpoLivre (prompt):
 
     return imagem_uri
 
-def gerarCircuitoEletrico (prompt):
+def gerar_circuito_eletrico (prompt):
 
     INSTRUCAO = """
     Você é um assistente especializado em modelagem de circuitos elétricos (resistivos). Sua ÚNICA função é receber a descrição de um circuito do usuário e retornar *exclusivamente* um objeto JSON que representa esse circuito, aderindo estritamente ao formato de estrutura de lista de seções fornecido, utilizando chaves em português.
@@ -238,7 +241,7 @@ def gerarCircuitoEletrico (prompt):
 
     return imagem_uri    
 
-def gerarMolecula (prompt):
+def gerar_molecula (prompt):
     INSTRUCAO = """
     Você é um assistente especializado em modelagem de estruturas moleculares. Sua ÚNICA função é receber a descrição de uma molécula ou estrutura atômica do usuário e retornar *exclusivamente* um objeto JSON que representa essa estrutura, aderindo estritamente ao formato de coordenadas atômicas e ligações fornecido.
 
@@ -305,7 +308,7 @@ def gerarMolecula (prompt):
 
     return imagem_uri   
 
-def gerarPendulo (prompt):
+def gerar_pendulo (prompt):
     INSTRUCAO = """
     Você é um assistente especializado em gerar configurações de cenários de física, especificamente para sistemas como o pêndulo cônico. Sua ÚNICA função é receber a descrição de um cenário do usuário e retornar *exclusivamente* um objeto JSON que representa essa configuração, aderindo estritamente ao formato fornecido.
 
@@ -365,5 +368,144 @@ def gerarPendulo (prompt):
     pendulo = PenduloConico(resposta_dicionario)
 
     imagem_uri = pendulo.gerar_imagem()
+
+    return imagem_uri 
+
+def gerar_sistema_optico (prompt):
+    INSTRUCAO = """
+    Você é um assistente especializado em modelagem de sistemas ópticos (objetos, lentes, espelhos e formação de imagens). Sua ÚNICA função é receber a descrição de um sistema óptico do usuário e retornar *exclusivamente* um objeto JSON que representa esse sistema, aderindo estritamente ao formato fornecido.
+
+    **REGRAS OBRIGATÓRIAS:**
+
+    1.  **Formato de Saída:** Sua resposta deve ser *somente* o objeto JSON completo. Não inclua texto introdutório, explicações, código Python (como 'json.dumps()'), ou qualquer informação fora do JSON.
+    2.  **Adesão ao Esquema:** O JSON deve seguir rigorosamente a estrutura:
+        '{"elements": [...]}'.
+
+    **Instruções de Mapeamento de Campos:**
+
+    * **'elements':**
+        * É uma lista de objetos que representam os componentes do sistema óptico.
+        * A ordem dos elementos é importante: objetos primeiro, depois elementos ópticos (lentes/espelhos), e por último planos de imagem (se houver).
+
+    **Tipos de Elementos:**
+
+    1. **OBJETO (type: "object"):**
+        * 'type': Deve ser '"object"'.
+        * 'position': Posição horizontal do objeto no eixo X (número negativo, à esquerda do elemento óptico). Use '-80' como padrão se não especificado.
+        * 'height': Altura do objeto em unidades do gráfico. Use '12' como padrão.
+        * 'color': Cor do objeto. Use '"blue"' como padrão.
+        
+    2. **LENTE (type: "lens"):**
+        * 'type': Deve ser '"lens"'.
+        * 'position': Posição horizontal da lente no eixo X. Use '0' como padrão (centro do diagrama).
+        * 'focal_length': Distância focal da lente em unidades do gráfico. Valor positivo para lentes convergentes, negativo para divergentes.
+        * 'diameter': Diâmetro da lente. Use '50' como padrão.
+        * 'lens_type': Tipo da lente - '"convergent"' (biconvexa) ou '"divergent"' (bicôncava). Use '"convergent"' como padrão.
+
+    3. **ESPELHO (type: "mirror"):**
+        * 'type': Deve ser '"mirror"'.
+        * 'position': Posição horizontal do espelho no eixo X. Use '0' como padrão.
+        * 'height': Altura do espelho. Use '70' como padrão.
+        * 'mirror_type': Tipo do espelho - '"plane"' (plano), '"concave"' (côncavo) ou '"convex"' (convexo). Use '"plane"' como padrão.
+
+    4. **PLANO DE IMAGEM (type: "image_plane"):** (Opcional)
+        * 'type': Deve ser '"image_plane"'.
+        * 'position': Posição horizontal onde a imagem se forma. Calcular baseado na equação das lentes/espelhos ou usar valor estimado.
+        * 'height': Altura do plano de referência. Use '40' como padrão.
+
+    **Instruções de Física Óptica:**
+
+    1. **Equação das Lentes (Lentes Delgadas):**
+       - 1/f = 1/d_o + 1/d_i
+       - Onde: f = distância focal, d_o = distância objeto, d_i = distância imagem
+       - Para lentes convergentes: f > 0
+       - Para lentes divergentes: f < 0
+
+    2. **Convenções de Sinais:**
+       - Distâncias à esquerda do elemento óptico: negativas
+       - Distâncias à direita do elemento óptico: positivas
+       - Imagem real: d_i > 0 (à direita)
+       - Imagem virtual: d_i < 0 (à esquerda)
+
+    3. **Casos Especiais:**
+       - Objeto no foco (d_o = f): Raios saem paralelos, imagem no infinito
+       - Objeto entre foco e lente: Imagem virtual ampliada
+       - Espelho plano: Imagem virtual simétrica
+
+    4. **Inferências Padrão:**
+       - Se o usuário mencionar "lente" sem especificar tipo, assumir convergente
+       - Se mencionar "espelho" sem especificar tipo, assumir plano
+       - Se não especificar distância focal, usar valor padrão de 40-50 unidades
+       - Posicionar objeto entre 60-100 unidades à esquerda do elemento óptico
+
+    **Exemplos de Interpretação:**
+
+    * "Uma lente convergente com foco de 40cm e um objeto de 10cm a 80cm dela" →
+      - object: position=-80, height=10
+      - lens: position=0, focal_length=40, lens_type="convergent"
+
+    * "Um espelho plano com um objeto de 20cm de altura a 60cm" →
+      - object: position=-60, height=20
+      - mirror: position=0, mirror_type="plane"
+
+    * "Lente divergente com foco de 30cm, objeto pequeno longe" →
+      - object: position=-100, height=8
+      - lens: position=0, focal_length=-30, lens_type="divergent"
+
+    **Exemplo de Saída Esperada (Apenas o JSON):**
+
+    {
+        "elements": [
+            {
+                "type": "object",
+                "position": -80,
+                "height": 12,
+                "color": "blue"
+            },
+            {
+                "type": "lens",
+                "position": 0,
+                "focal_length": 40,
+                "diameter": 50,
+                "lens_type": "convergent"
+            }
+        ]
+    }
+
+    **IMPORTANTE:**
+    - Retorne APENAS o JSON, sem nenhum texto adicional
+    - Não inclua comentários no JSON
+    - Use valores numéricos sem aspas para números
+    - Use aspas duplas para strings
+    - Valide que o JSON está sintaticamente correto
+    """
+
+    client = genai.Client(api_key=GOOGLE_API_KEY)
+
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt,
+        config=genai.types.GenerateContentConfig(system_instruction=INSTRUCAO)
+    )
+
+    # retira espaços em branco da resposta da ia
+    json_puro = response.text.strip()
+
+    # remove as crases e a palavra json caso elas estejam no começo da resposta
+    if json_puro.startswith("```"):
+        json_puro = json_puro.strip("`")
+        json_puro = json_puro.replace("json", "", 1).strip()
+
+    # tenta converter o json para dicionário
+    try:
+        resposta_dicionario = json.loads(json_puro)
+    except json.JSONDecodeError:
+        print("A respota gerada não é um json válido!")
+        print(json_puro)
+        return None
+
+    sistema_optico = SistemaOptico(resposta_dicionario)
+
+    imagem_uri = sistema_optico.gerar_imagem()
 
     return imagem_uri 

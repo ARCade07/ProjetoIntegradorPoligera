@@ -1,8 +1,8 @@
 import time
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
-from agente_gemini import gerarCorpoLivre, gerarCircuitoEletrico, gerarMolecula, gerarPendulo
-from imagemRealista import gerarImgemRealista
+from agente_gemini import gerar_corpo_livre, gerar_circuito_eletrico, gerar_molecula, gerar_pendulo, gerar_sistema_optico
+from imagemRealista import gerar_imgem_realista
 
 # inicialização do Flask
 app = Flask(__name__)
@@ -35,21 +35,21 @@ def processamentoResposta():
 
     try:
         if tipo_imagem_selecionada == "Realista":
-            resposta = gerarImgemRealista(prompt_final)
+            resposta = gerar_imgem_realista(prompt_final)
         elif tipo_imagem_selecionada == "Técnico":
             if materia == 'fisica':
                 if area == 'mecanica':
                     for i in itens_selecionados:
                         if i == 'pendulo':
-                            resposta = gerarPendulo(prompt_final)
+                            resposta = gerar_pendulo(prompt_final)
                         else:
-                            resposta = gerarCorpoLivre(prompt_final)
+                            resposta = gerar_corpo_livre(prompt_final)
                 elif area == 'eletrica':
-                    resposta = gerarCircuitoEletrico(prompt_final)
+                    resposta = gerar_circuito_eletrico(prompt_final)
                 elif area == 'optica':
-                    print('Área indisponível para a geração de imagens')
+                    resposta = gerar_sistema_optico(prompt_final)
             elif materia == 'quimica':
-                resposta = gerarMolecula(prompt_final)
+                resposta = gerar_molecula(prompt_final)
 
         # verifica se a resposta for none, se é uma mensagem de erro ou se não começa com data:image
         if resposta is None or (isinstance(resposta, str) and not resposta.startswith('data:image')):

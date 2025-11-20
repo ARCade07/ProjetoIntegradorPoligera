@@ -4,7 +4,7 @@ import json
 import os
 import base64
 
-def gerarImgemRealista(prompt):
+def gerar_imgem_realista(prompt):
     
     KIE_API_KEY = os.getenv("KIE_API_KEY")
 
