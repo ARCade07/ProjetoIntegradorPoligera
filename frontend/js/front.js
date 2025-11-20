@@ -46,6 +46,7 @@ async function tratamentoPrompt(event) {
     const prompt = mensagemUsuario.value;
 
     mensagemUsuario.value = '';
+    resposta_gerada.innerHTML = "";
     
     // mostra a mensagem de loading
     loading.style.display = 'block';
