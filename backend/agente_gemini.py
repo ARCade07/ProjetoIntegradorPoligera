@@ -149,22 +149,34 @@ def gerar_circuito_eletrico (prompt):
 
     * **Seção de Série ('tipo': "serie"):**
         * Deve conter a chave **'components'**, que é uma lista de componentes em série.
-        * Cada componente em **'components'** deve ter **'tipo': "resistor"** (padrão), **'value'** (em Ohms) e **'label'** (ex: "R1").
+        * Cada componente em **'components'** pode ter:
+            * **'tipo': "resistor"** com **'value'** (em Ohms) e **'label'** (ex: "R1")
+            * **'tipo': "amperimetro"** com **'label'** (ex: "A1", "A2", padrão: "A")
+            * **'tipo': "voltimetro"** com **'label'** (ex: "V1", "V2", padrão: "V")
 
     * **Seção Paralela ('tipo': "paralelo"):**
         * Deve conter a chave **'branches'**, que é uma lista de ramificações.
         * Cada ramificação em **'branches'** é uma lista de componentes (que podem estar em série dentro da ramificação).
-        * Os componentes seguem o mesmo formato: **'tipo': "resistor"**, **'value'**, e **'label'**.
+        * Os componentes seguem o mesmo formato e podem ser resistores, amperímetros ou voltímetros.
+
+    **Regras para Instrumentos de Medição:**
+    
+    * **Amperímetros:** Devem ser colocados em **série** no circuito para medir a corrente que passa pelo ramo.
+    * **Voltímetros:** Podem ser colocados em **série** ou **paralelo**, dependendo do contexto da medição desejada.
+    * **Labels:** Use labels sequenciais (A1, A2, A3... para amperímetros; V1, V2, V3... para voltímetros).
 
     **Exemplo de Saída Esperada (Apenas o JSON):**
-
-    ```json
+```json
     {
         "voltagem": 12,
         "sections": [
             {
                 "tipo": "serie",
                 "components": [
+                    {
+                        "tipo": "amperimetro",
+                        "label": "A1"
+                    },
                     {
                         "tipo": "resistor",
                         "value": 100,
@@ -180,6 +192,10 @@ def gerar_circuito_eletrico (prompt):
                             "tipo": "resistor",
                             "value": 200,
                             "label": "R2"
+                        },
+                        {
+                            "tipo": "voltimetro",
+                            "label": "V1"
                         }
                     ],
                     [
@@ -187,6 +203,10 @@ def gerar_circuito_eletrico (prompt):
                             "tipo": "resistor",
                             "value": 300,
                             "label": "R3"
+                        },
+                        {
+                            "tipo": "voltimetro",
+                            "label": "V2"
                         }
                     ],
                     [
@@ -205,11 +225,17 @@ def gerar_circuito_eletrico (prompt):
                         "tipo": "resistor",
                         "value": 50,
                         "label": "R5"
+                    },
+                    {
+                        "tipo": "amperimetro",
+                        "label": "A2"
                     }
                 ]
             }
         ]
-    }"""
+    }
+    ```
+    **Lembre-se:** Retorne APENAS o JSON, sem qualquer texto adicional."""
 
     client = genai.Client(api_key=GOOGLE_API_KEY)
 
