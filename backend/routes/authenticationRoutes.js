@@ -20,13 +20,14 @@ router.post('/cadastrar', async (req, res) => {
     if (userExists) {
         return res.status(409).json({ msg: 'Este email já esta sendo utilizado. Por favor, utilize outro e-mail!' });
     }
-
+    const isAdmin = email.endsWith("@poliedro.com");
     const passwordHash = await criarHash(password);
 
     const user = new User({
         name,
         email,
         password: passwordHash,
+        role: isAdmin ? "admin" : "user"
     });
 
     try {
@@ -52,8 +53,10 @@ router.post('/login', async (req, res) => {
 
     try {
         const secret = process.env.SECRET;
-        const token = jwt.sign(
-            { id: user._id },
+        const token = jwt.sign({
+            id: user._id,
+            role: user.role
+        },
             secret,
             { expiresIn: '1h' }
         );
@@ -62,7 +65,15 @@ router.post('/login', async (req, res) => {
             maxAge: 3600000,
             path: '/'
         }
+            maxAge: 3600000, // 1 hora
+            sameSite: "strict",
+            secure: false
+        };
         res.cookie('token', token, cookieOption);
+        res.cookie("role", user.role, {
+            httpOnly: false,
+            sameSite: "Lax",
+        });
         res
             .status(200)
             .json({ msg: 'Autentiação realizada com sucesso', token });
