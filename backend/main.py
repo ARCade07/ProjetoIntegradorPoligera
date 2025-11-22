@@ -46,7 +46,7 @@ def processamentoResposta():
 
 
     if tipo_imagem_selecionada == "Realista":
-        resposta = gerarImgemRealista(prompt_final)
+        resposta = gerar_imgem_realista(prompt_final)
     elif tipo_imagem_selecionada == "Técnico":
         if materia == 'fisica':
             if area == 'mecanica':
