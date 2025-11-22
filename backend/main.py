@@ -11,6 +11,16 @@ app = Flask(__name__)
 # habilita o CORS para autorizar a conexão entre front e back 
 CORS(app, supports_credentials=True)
 
+def salvar_no_node(prompt, imagem_base64, user_id):
+    url = "http://localhost:3000/historico/salvar"
+
+    payload = {
+        "userId": user_id,
+        "prompt": prompt,
+        "imageBase64": imagem_base64
+    }
+
+    return requests.post(url, json=payload)
 # criação da rota para o endpoint '/chat'
 @app.route('/chat', methods=['POST'])
 
