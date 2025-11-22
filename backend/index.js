@@ -2,7 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 const app = express();
+const caminhoFrontend = path.join(__dirname, "../frontend");
 const connectDB = require('./models/db')
 
 const autenticacao = require('./routes/authenticationRoutes');
