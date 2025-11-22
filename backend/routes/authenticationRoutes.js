@@ -134,6 +134,24 @@ router.post('/redefinir-senha', async (req, res) => {
     }
 });
 
+router.post('/logout', (req, res) => {
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/'
+    });
+    res.clearCookie('role', {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/'
+    });
+
+    return res.json({ success: true, msg: 'Logout realizado!' });
+});
+
+
 
 
 
