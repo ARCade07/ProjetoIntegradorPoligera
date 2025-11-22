@@ -17,6 +17,16 @@ app.use(cookieParser())
 app.get('/', (req, res) => {
     res.status(200).json({ msg: 'Teste' });
 })
+app.get("/", (req, res) => {
+    const token = req.cookies?.token;
+    if (token) {
+        return res.sendFile(path.join(caminhoFrontend, "index.html"));
+    }
+    return res.sendFile(path.join(caminhoFrontend, "login.html"));
+});
+
+app.use(express.static(caminhoFrontend));
+
 
 app.use('/autenticacao', autenticacao);
 app.use('/usuarios', usuarios)
