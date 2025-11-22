@@ -41,7 +41,7 @@ async function cadastrarUsuario() {
 async function fazerLogin() {
     let emailLoginInput = document.querySelector('#email-login');
     let passwordLoginInput = document.querySelector('#senha-login');
-    let emailLogin = emailLoginInput.value;
+    let emailLogin = emailLoginInput.value.toLowerCase();
     let passwordLogin = passwordLoginInput.value;
     if (emailLogin && passwordLogin) {
         try {
@@ -49,7 +49,8 @@ async function fazerLogin() {
             const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${loginEndpoint}`;
             const response = await axios.post(
                 URLcompleta,
-                { email: emailLogin, password: passwordLogin }
+                { email: emailLogin, password: passwordLogin },
+                { withCredentials: true }
             );
             console.log(response.data);
             emailLoginInput.value = '';
