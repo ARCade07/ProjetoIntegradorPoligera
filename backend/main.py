@@ -2,7 +2,7 @@ import time
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
 from agente_gemini import gerarCorpoLivre, gerarCircuitoEletrico, gerarMolecula, gerarPendulo
-from imagemRealista import gerarImgemRealista
+from imagemRealista import gerar_imgem_realista
 
 # inicialização do Flask
 app = Flask(__name__)
