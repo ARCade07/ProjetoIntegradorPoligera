@@ -62,9 +62,6 @@ router.post('/login', async (req, res) => {
         );
         const cookieOption = {
             httpOnly: true,
-            maxAge: 3600000,
-            path: '/'
-        }
             maxAge: 3600000, // 1 hora
             sameSite: "strict",
             secure: false
