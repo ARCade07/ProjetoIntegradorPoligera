@@ -57,6 +57,7 @@ async function fazerLogin() {
             console.log(response.data);
             emailLoginInput.value = '';
             passwordLoginInput.value = '';
+            localStorage.setItem("userId", response.data.userId);
             exibirAlerta('.alert-form-login', 'Login efetuado com sucesso!', ['show', 'alert-success'], ['d-none', 'alert-danger'], 2000);
             setTimeout(() => {
                 window.location.href = '/';
