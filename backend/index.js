@@ -19,9 +19,6 @@ app.use(cors({
 
 app.use(cookieParser())
 
-app.get('/', (req, res) => {
-    res.status(200).json({ msg: 'Teste' });
-})
 app.get("/", (req, res) => {
     const token = req.cookies?.token;
     if (token) {
