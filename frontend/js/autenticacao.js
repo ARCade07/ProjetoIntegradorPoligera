@@ -1,6 +1,8 @@
+axios.defaults.withCredentials = true;
 const protocolo = 'http://';
 const baseURL = 'localhost:3000';
 const endpointAutenticacao = '/autenticacao';
+
 
 async function cadastrarUsuario() {
     let usuarioCadastroInput = document.querySelector('#nome');
@@ -8,7 +10,7 @@ async function cadastrarUsuario() {
     let passwordCadastroInput = document.querySelector('#senha');
     let confirmPasswordCadastroInput = document.querySelector('#confirmar-senha');
     let usuarioCadastro = usuarioCadastroInput.value;
-    let emailCadastro = emailCadastroInput.value;
+    let emailCadastro = emailCadastroInput.value.toLowerCase();
     let passwordCadastro = passwordCadastroInput.value;
     let confirmPasswordCadastro = confirmPasswordCadastroInput.value;
     if (usuarioCadastro && emailCadastro && passwordCadastro && confirmPasswordCadastro) {
