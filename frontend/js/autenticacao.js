@@ -55,6 +55,9 @@ async function fazerLogin() {
             emailLoginInput.value = '';
             passwordLoginInput.value = '';
             exibirAlerta('.alert-form-login', 'Login efetuado com sucesso!', ['show', 'alert-success'], ['d-none', 'alert-danger'], 2000);
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2500);
         } catch (erro) {
             exibirAlerta('.alert-form-login', 'O e-mail e/ou senha digitados estão incorretos.', ['show', 'alert-danger'], ['d-none', 'alert-sucess'], 2000);
         }
