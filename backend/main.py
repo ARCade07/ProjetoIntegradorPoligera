@@ -8,7 +8,7 @@ from imagemRealista import gerar_imgem_realista
 app = Flask(__name__)
 
 # habilita o CORS para autorizar a conexão entre front e back 
-CORS(app)
+CORS(app, supports_credentials=True)
 
 # criação da rota para o endpoint '/chat'
 @app.route('/chat', methods=['POST'])
