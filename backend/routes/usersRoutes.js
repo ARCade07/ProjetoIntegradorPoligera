@@ -20,23 +20,12 @@ router.post('/salvar', async (req, res) => {
   }
 });
 
-router.get('/check-token', checkToken, (req, res) => {
     try {
-        res.status(200).json({ msg: 'Token válido' });
-    } catch (erro) {
-        console.log(erro);
-        res.status(401).json({ msg: 'Token inválido' })
     }
 });
 
-router.get('/:id', checkToken, async (req, res) => {
-    const id = req.params.id;
 
-    const user = await User.findById(id, '-password');
-    if (!user) return res.status(404).json({ msg: 'Usuário não encontrado ' });
 
-    res.status(200).json({ user });
-});
 
 
 module.exports = router;
