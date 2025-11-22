@@ -11,7 +11,11 @@ const autenticacao = require('./routes/authenticationRoutes');
 const usuarios = require('./routes/usersRoutes');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
+
 app.use(cookieParser())
 
 app.get('/', (req, res) => {
