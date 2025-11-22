@@ -63,6 +63,8 @@ def processamentoResposta():
             resposta = gerarMolecula(prompt_final)
 
     # envia a resposta para o front
+    user_id = dados.get("userId")
+    salvar_no_node(prompt, resposta, user_id)
     return jsonify({
         'resposta': resposta
     })
