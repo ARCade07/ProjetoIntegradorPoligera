@@ -45,8 +45,18 @@ async function tratamentoPrompt(event) {
     console.log('Tipo de imagem selecionada:', labelImagemSelecionada);
     
     try {
+        const userId = localStorage.getItem("userId")
         // requisição post para o back que devolve a reposta gerada pela IA
-        const response = await axios.post(URLcompleta, {prompt: prompt, elementos: itensSelecionados, materia: materiaInfo.materia, area: materiaInfo.area, tipo: labelImagemSelecionada})
+        const response = await axios.post(
+            URLcompleta, {
+            prompt: prompt,
+            elementos: itensSelecionados,
+            materia: materiaInfo.materia,
+            area: materiaInfo.area,
+            tipo: labelImagemSelecionada,
+            userId
+        },
+        )
         resposta_gerada.innerHTML = `
             <img class="imagem-gerada" src="${response.data.resposta}" alt="imagem gerada">
             <button onclick="copiarImagem()">
