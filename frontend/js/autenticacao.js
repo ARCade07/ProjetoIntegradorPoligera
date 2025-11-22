@@ -142,6 +142,17 @@ async function verificarToken() {
     }
 }
 
+async function fazerLogout() {
+    try {
+        await axios.post('http://localhost:3000/autenticacao/logout', {}, {
+            withCredentials: true
+        });
+        window.location.href = 'login.html';
+    } catch (erro) {
+        console.error('Erro ao fazer logout:', erro);
+    }
+}
+
 function exibirAlerta(seletor, innerHTML, classesToAdd, classesToRemove, timeout) {
     let alert = document.querySelector(seletor);
     alert.innerHTML = innerHTML;
