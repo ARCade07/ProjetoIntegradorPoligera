@@ -22,3 +22,6 @@ async function carregarHistorico() {
         console.error("Erro ao carregar histórico:", erro);
     }
 }
+document.getElementById("aba-historico").addEventListener("click", () => {
+    carregarHistorico();
+});
