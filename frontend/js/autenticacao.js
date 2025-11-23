@@ -173,3 +173,15 @@ function exibirAlerta(seletor, innerHTML, classesToAdd, classesToRemove, timeout
         alert.classList.add('d-none');
     }, timeout);
 }
+function ativarEnter(seletor, funcao) {
+    const form = document.querySelector(seletor);
+
+    if (!form) return;
+
+    form.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            funcao();
+        }
+    });
+}
