@@ -123,7 +123,9 @@ async function redefinirSenha() {
                 passwordRedefinirInput.value = '';
                 confirmPasswordRedefinirInput.value = '';
                 if (response.data.success) {
-                    window.location.href = '../login.html';
+                    setTimeout(() => {
+                        window.location.href = '../login.html'
+                    }, 2000);
                 }
             } catch (erro) {
                 exibirAlerta('.alert-form-redefinirsenha', 'Não foi possível redefinir a senha. Tente novamente.', ['show', 'alert-danger'], 2000)
