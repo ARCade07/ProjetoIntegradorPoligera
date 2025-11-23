@@ -35,8 +35,20 @@ router.get('/buscar', async (req, res) => {
     }
 });
 
+router.delete('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const item = await Historico.findByIdAndDelete(id);
+        if (!item) {
+            return res.status(404).json({ msg: "Item não encontrado" });
+        }
 
+        res.json({ msg: "Item removido com sucesso" });
 
-
+    } catch (erro) {
+        console.error(erro);
+        res.status(500).json({ msg: "Erro interno" });
+    }
+});
 
 module.exports = router;
