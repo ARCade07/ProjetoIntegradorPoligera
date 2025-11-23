@@ -22,35 +22,36 @@ async function carregarHistorico() {
         console.error("Erro ao carregar histórico:", erro);
     }
 }
+
 function criarItemDoHistorico(container, item) {
+    // Blocos principais para cda item
     const bloco = document.createElement("div");
     bloco.classList.add("item-historico");
-
+    // Área da esquerda
     const esquerda = document.createElement("div");
     esquerda.classList.add("historico-esquerda");
-
+    // miniatura
     const img = document.createElement("img");
     img.src = item.imageBase64;
     img.classList.add("thumb");
-
+    // texto limitado a 60 char
     const texto = document.createElement("p");
     texto.classList.add("prompt-texto");
     texto.innerText =
         item.prompt.length > 60 ? item.prompt.substring(0, 60) + "..." : item.prompt;
-
+    // texto e imagem dentro da div
     esquerda.appendChild(img);
     esquerda.appendChild(texto);
-
+    // Wrapper para o menu e os 3 pontos
     const menuWrapper = document.createElement("div");
     menuWrapper.classList.add("menu-wrapper");
 
     const pontos = document.createElement("span");
     pontos.classList.add("pontos");
     pontos.innerHTML = "⋮"; 
-
+    // criando menu com opções
     const menu = document.createElement("div");
     menu.classList.add("menu-opcoes");
-
     const opc1 = document.createElement("div");
     opc1.innerText = "Copiar imagem";
     opc1.onclick = () => copiarImagem(item.imageBase64);
@@ -60,21 +61,23 @@ function criarItemDoHistorico(container, item) {
     const opc3 = document.createElement("div");
     opc3.innerText = "Apagar do histórico";
     opc3.onclick = () => apagarHistorico(item._id, bloco);
-
+    // adicionando opções ao menu
     menu.appendChild(opc1);
     menu.appendChild(opc2);
     menu.appendChild(opc3);
+    // adicionando o pontos e o menu
     menuWrapper.appendChild(pontos);
     menuWrapper.appendChild(menu);
 
     pontos.onclick = (e) => {
+        // evita que os cliques foram fechem o menu instantaneamente
         e.stopPropagation();
         menu.classList.toggle("ativo");
     };
-
+    // Montando tudo junto
     bloco.appendChild(esquerda);
     bloco.appendChild(menuWrapper);
-
+    // Adiciona ao container principal
     container.appendChild(bloco);
 }
 
@@ -86,6 +89,7 @@ function copiarPrompt(texto) {
     navigator.clipboard.writeText(texto);
     alert("Prompt copiado!");
 }
+
 function copiarImagem(base64) {
     const link = document.createElement("a");
     link.href = base64;
