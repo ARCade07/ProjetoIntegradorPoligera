@@ -9,7 +9,8 @@ const checkToken = require('./middleware/checkToken');
 const connectDB = require('./models/db')
 
 const autenticacao = require('./routes/authenticationRoutes');
-const usuarios = require('./routes/usersRoutes');
+const historico = require('./routes/historicoRoutes');
+
 
 app.use(express.json({ limit: '25mb' }))
 app.use(cors({
@@ -31,7 +32,7 @@ app.use(express.static(caminhoFrontend));
 
 
 app.use('/autenticacao', autenticacao);
-app.use('/usuarios', usuarios)
+app.use('/historico', historico);
 
 connectDB().then(() => {
     app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
