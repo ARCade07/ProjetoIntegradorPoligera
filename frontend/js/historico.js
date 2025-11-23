@@ -25,3 +25,8 @@ async function carregarHistorico() {
 document.getElementById("aba-historico").addEventListener("click", () => {
     carregarHistorico();
 });
+
+function copiarPrompt(texto) {
+    navigator.clipboard.writeText(texto);
+    alert("Prompt copiado!");
+}
