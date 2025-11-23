@@ -155,6 +155,7 @@ async function fazerLogout() {
             withCredentials: true
         });
         window.location.href = 'login.html';
+        localStorage.clear();
     } catch (erro) {
         console.error('Erro ao fazer logout:', erro);
     }
