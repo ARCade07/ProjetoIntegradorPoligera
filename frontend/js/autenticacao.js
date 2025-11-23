@@ -160,14 +160,13 @@ async function fazerLogout() {
     }
 }
 
-function exibirAlerta(seletor, innerHTML, classesToAdd, classesToRemove, timeout) {
+function exibirAlerta(seletor, innerHTML, classesToAdd, timeout) {
     let alert = document.querySelector(seletor);
+    alert.classList.add('text-center', 'mx-auto');
     alert.innerHTML = innerHTML;
-    //'...' é o spread operator
-    //quado aplicado a um array, ele 'desmembra' o array
-    //depois disso, passamos os elementos do array como argumentos para add e remove
+    alert.classList.remove('alert-success', 'alert-warning', 'alert-danger');
+    alert.classList.remove('d-none');
     alert.classList.add(...classesToAdd);
-    alert.classList.remove(...classesToRemove);
     setTimeout(() => {
         alert.classList.remove('show');
         alert.classList.add('d-none');
