@@ -1,15 +1,27 @@
 import time
+import requests
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
 from agente_gemini import gerar_corpo_livre, gerar_circuito_eletrico, gerar_molecula, gerar_pendulo, gerar_sistema_optico
+# from agente_gemini import gerarCorpoLivre, gerarCircuitoEletrico, gerarMolecula, gerarPendulo
 from imagemRealista import gerar_imgem_realista
 
 # inicialização do Flask
 app = Flask(__name__)
 
 # habilita o CORS para autorizar a conexão entre front e back 
-CORS(app)
+CORS(app, supports_credentials=True)
 
+def salvar_no_node(prompt, imagem_base64, user_id):
+    url = "http://localhost:3000/historico/salvar"
+
+    payload = {
+        "userId": user_id,
+        "prompt": prompt,
+        "imageBase64": imagem_base64
+    }
+
+    return requests.post(url, json=payload)
 # criação da rota para o endpoint '/chat'
 @app.route('/chat', methods=['POST'])
 
@@ -59,6 +71,8 @@ def processamentoResposta():
             }), 400
 
         # envia a resposta para o front
+        user_id = dados.get("userId")
+        salvar_no_node(prompt, resposta, user_id)
         return jsonify({
             'resposta': resposta
         })
@@ -68,6 +82,7 @@ def processamentoResposta():
             'erro': True,
             'mensagem': f'Erro inesperado: {str(e)}'
         }), 500
+
 
 
 # rodará o código no modo debug na porta 5000 apenas se for executado o código em si

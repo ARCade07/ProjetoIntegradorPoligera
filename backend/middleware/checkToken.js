@@ -1,16 +1,24 @@
 const jwt = require('jsonwebtoken');
 
 function checkToken(req, res, next) {
-    const token = req.cookies?.token;
+    let token = req.cookies?.token;
+    // também aceita header:
     if (!token) {
-        return res.status(401).json({ msg: 'Acesso negado' });
+        const authHeader = req.headers.authorization;
+        if (authHeader?.startsWith("Bearer ")) {
+            token = authHeader.split(" ")[1];
+        }
+    }
+    if (!token) {
+        return res.status(401).json({ msg: 'Acesso negado: token não encontrado.' });
     }
     try {
         const secret = process.env.SECRET;
-        jwt.verify(token, secret);
+        const decoded = jwt.verify(token, secret);
+        req.user = decoded;
         next();
     } catch (erro) {
-        res.status(400).json({ msg: 'Token inválido! ' });
+        res.status(401).json({ msg: 'Token inválido! ' });
     }
 }
 

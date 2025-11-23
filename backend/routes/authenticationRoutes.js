@@ -5,6 +5,8 @@ const enviarEmail = require('../util/mail');
 const crypto = require('crypto');
 const cookie = require('cookie');
 const User = require('../models/User');
+const path = require('path');
+const caminhoFrontend = path.join(__dirname, "../../frontend");
 
 router.post('/cadastrar', async (req, res) => {
     const { name, email, password, confirmpassword } = req.body;
@@ -20,13 +22,14 @@ router.post('/cadastrar', async (req, res) => {
     if (userExists) {
         return res.status(409).json({ msg: 'Este email já esta sendo utilizado. Por favor, utilize outro e-mail!' });
     }
-
+    const isAdmin = email.endsWith("@poliedro.com");
     const passwordHash = await criarHash(password);
 
     const user = new User({
         name,
         email,
         password: passwordHash,
+        role: isAdmin ? "admin" : "user"
     });
 
     try {
@@ -52,20 +55,27 @@ router.post('/login', async (req, res) => {
 
     try {
         const secret = process.env.SECRET;
-        const token = jwt.sign(
-            { id: user._id },
+        const token = jwt.sign({
+            id: user._id,
+            role: user.role
+        },
             secret,
             { expiresIn: '1h' }
         );
         const cookieOption = {
             httpOnly: true,
-            maxAge: 3600000,
-            path: '/'
-        }
+            maxAge: 3600000, // 1 hora
+            sameSite: "strict",
+            secure: false
+        };
         res.cookie('token', token, cookieOption);
+        res.cookie("role", user.role, {
+            httpOnly: false,
+            sameSite: "Lax",
+        });
         res
             .status(200)
-            .json({ msg: 'Autentiação realizada com sucesso', token });
+            .json({ msg: 'Autentiação realizada com sucesso', token, userId: user._id });
     } catch (erro) {
         res.status(500).json({ msg: 'Erro ao gerar token' });
     }
@@ -97,6 +107,10 @@ router.post('/esqueceu-senha', async (req, res) => {
     }
 });
 //Rota para resetar senha:
+router.get('/redefinir-senha', (req, res) => {
+    res.sendFile(path.join(caminhoFrontend, "nova_senha.html"));
+})
+
 router.post('/redefinir-senha', async (req, res) => {
     try {
         const { email, resetToken, newPassword } = req.body;
@@ -122,6 +136,24 @@ router.post('/redefinir-senha', async (req, res) => {
         return res.status(500).json({ msg: 'Erro interno do servidor.' });
     }
 });
+
+router.post('/logout', (req, res) => {
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/'
+    });
+    res.clearCookie('role', {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/'
+    });
+
+    return res.json({ success: true, msg: 'Logout realizado!' });
+});
+
 
 
 
