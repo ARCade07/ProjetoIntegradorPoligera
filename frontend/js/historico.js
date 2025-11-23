@@ -30,3 +30,13 @@ function copiarPrompt(texto) {
     navigator.clipboard.writeText(texto);
     alert("Prompt copiado!");
 }
+function copiarImagem(base64) {
+    const link = document.createElement("a");
+    link.href = base64;
+    link.download = "imagem.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    alert("Imagem salva! (Copiar direto para a área de transferência não é permitido por este navegador)");
+}
