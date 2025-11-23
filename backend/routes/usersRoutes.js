@@ -20,7 +20,18 @@ router.post('/salvar', async (req, res) => {
   }
 });
 
+router.get('/buscar', async (req, res) => {
+    const { userId } = req.query;
+    if (!userId) {
+        return res.status(400).json({ msg: "userId não fornecido" });
+    }
     try {
+        const historico = await Historico.find({ userId })
+            .sort({ createdAt: -1 });
+
+        res.json(historico);
+    } catch (erro) {
+        res.status(500).json({ msg: "Erro ao buscar histórico" });
     }
 });
 
