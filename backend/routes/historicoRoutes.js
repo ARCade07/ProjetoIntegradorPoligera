@@ -3,6 +3,7 @@ const User = require('../models/User');
 const checkToken = require('../middleware/checkToken');
 const Historico = require('../models/Historico')
 const jwt = require("jsonwebtoken");
+
 router.post('/salvar', async (req, res) => {
   try {
     const {userId, prompt, imageBase64 } = req.body;
