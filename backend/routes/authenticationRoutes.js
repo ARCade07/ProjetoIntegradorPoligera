@@ -5,6 +5,8 @@ const enviarEmail = require('../util/mail');
 const crypto = require('crypto');
 const cookie = require('cookie');
 const User = require('../models/User');
+const path = require('path');
+const caminhoFrontend = path.join(__dirname, "../../frontend");
 
 router.post('/cadastrar', async (req, res) => {
     const { name, email, password, confirmpassword } = req.body;
@@ -105,6 +107,10 @@ router.post('/esqueceu-senha', async (req, res) => {
     }
 });
 //Rota para resetar senha:
+router.get('/redefinir-senha', (req, res) => {
+    res.sendFile(path.join(caminhoFrontend, "nova_senha.html"));
+})
+
 router.post('/redefinir-senha', async (req, res) => {
     try {
         const { email, resetToken, newPassword } = req.body;
