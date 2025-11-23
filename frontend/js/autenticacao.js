@@ -185,3 +185,8 @@ function ativarEnter(seletor, funcao) {
         }
     });
 }
+
+ativarEnter('.login', fazerLogin);
+ativarEnter('.campos-preenchimento', cadastrarUsuario);
+ativarEnter('.recuperar', esquecerSenha);
+ativarEnter('.nova-senha-form', redefinirSenha);
