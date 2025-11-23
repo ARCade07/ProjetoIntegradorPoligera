@@ -40,3 +40,19 @@ function copiarImagem(base64) {
 
     alert("Imagem salva! (Copiar direto para a área de transferência não é permitido por este navegador)");
 }
+
+async function apagarHistorico(id, elementoHTML) {
+    if (!confirm("Tem certeza que deseja apagar este item?")) return;
+
+    try {
+        const url = `http://localhost:3000/historico/${id}`;
+
+        await axios.delete(url);
+
+        elementoHTML.remove();
+
+    } catch (err) {
+        console.error("Erro ao apagar:", err);
+        alert("Erro ao remover do histórico.");
+    }
+}
