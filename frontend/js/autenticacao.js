@@ -1,6 +1,6 @@
 axios.defaults.withCredentials = true;
-const protocolo = 'http://';
-const baseURL = 'localhost:3000';
+const protocoloAuth = 'http://';
+const baseAuthURL = 'localhost:3000';
 const endpointAutenticacao = '/autenticacao';
 
 
@@ -16,7 +16,7 @@ async function cadastrarUsuario() {
     if (usuarioCadastro && emailCadastro && passwordCadastro && confirmPasswordCadastro) {
         try {
             const cadastroEndpoint = '/cadastrar';
-            const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${cadastroEndpoint}`;
+            const URLcompleta = `${protocoloAuth}${baseAuthURL}${endpointAutenticacao}${cadastroEndpoint}`;
             const response = await axios.post(
                 URLcompleta,
                 { name: usuarioCadastro, email: emailCadastro, password: passwordCadastro, confirmpassword: confirmPasswordCadastro }
@@ -48,7 +48,7 @@ async function fazerLogin() {
     if (emailLogin && passwordLogin) {
         try {
             const loginEndpoint = '/login';
-            const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${loginEndpoint}`;
+            const URLcompleta = `${protocoloAuth}${baseAuthURL}${endpointAutenticacao}${loginEndpoint}`;
             const response = await axios.post(
                 URLcompleta,
                 { email: emailLogin, password: passwordLogin },
@@ -78,7 +78,7 @@ async function esquecerSenha() {
     if (emailRecuperar) {
         try {
             const esquecerSenhaEndpoint = '/esqueceu-senha';
-            const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${esquecerSenhaEndpoint}`;
+            const URLcompleta = `${protocoloAuth}${baseAuthURL}${endpointAutenticacao}${esquecerSenhaEndpoint}`;
             const response = await axios.post(
                 URLcompleta,
                 { email: emailRecuperar }
@@ -114,7 +114,7 @@ async function redefinirSenha() {
         else {
             try {
                 const redefinirSenhaEnpoint = '/redefinir-senha';
-                const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${redefinirSenhaEnpoint}`;
+                const URLcompleta = `${protocoloAuth}${baseAuthURL}${endpointAutenticacao}${redefinirSenhaEnpoint}`;
                 const response = await axios.post(
                     URLcompleta,
                     { email, resetToken, newPassword: passwordRedefinir }
@@ -139,7 +139,7 @@ async function redefinirSenha() {
 async function verificarToken() {
     try {
         const verificarTokenEnpoint = '/check-token';
-        const URLcompleta = `${protocolo}${baseURL}${endpointAutenticacao}${verificarTokenEnpoint}`;
+        const URLcompleta = `${protocoloAuth}${baseAuthURL}${endpointAutenticacao}${verificarTokenEnpoint}`;
         const response = await axios.post(
             URLcompleta,
             { withCredentials: true }
