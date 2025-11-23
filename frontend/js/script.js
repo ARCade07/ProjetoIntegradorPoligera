@@ -178,6 +178,28 @@ function obterMateriaArea() {
     return materiaArea;
 }
 
+function verificarPermissaoAdmin() {
+    const role = document.cookie
+        .split("; ")
+        .find(row => row.startsWith("role="))
+        ?.split("=")[1];
+
+    if (role === "admin") {
+        const btnDesktop = document.querySelector('.botao-estatisticas');
+        const btnMobile = document.querySelector('a[data-bs-target="#modalEstatisticas"]');
+
+        if (btnDesktop) {
+            btnDesktop.classList.remove('d-none');
+        }
+        
+        if (btnMobile) {
+            btnMobile.classList.remove('d-none');
+        }
+    }
+}
+
+
+
 if (desktopContainer) {
     const desktopBotaoFisica = desktopContainer.querySelector('.botao-fisica');
     const desktopBotaoQuimica = desktopContainer.querySelector('.botao-quimica');
@@ -419,4 +441,6 @@ switchInputs.forEach(input => {
     });
 });
 
-atualizarModo();
+atualizarModo(); 
+
+document.addEventListener("DOMContentLoaded", verificarPermissaoAdmin);

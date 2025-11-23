@@ -72,6 +72,7 @@ router.post('/login', async (req, res) => {
         res.cookie("role", user.role, {
             httpOnly: false,
             sameSite: "Lax",
+            path: "/" 
         });
         res
             .status(200)
