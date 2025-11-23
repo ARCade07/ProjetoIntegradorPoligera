@@ -112,3 +112,8 @@ async function apagarHistorico(id, elementoHTML) {
         alert("Erro ao remover do histórico.");
     }
 }
+
+document.addEventListener("click", () => {
+    document.querySelectorAll(".menu-opcoes.ativo")
+        .forEach(menu => menu.classList.remove("ativo"));
+});
