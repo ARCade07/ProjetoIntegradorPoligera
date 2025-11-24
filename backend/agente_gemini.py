@@ -22,12 +22,12 @@ client = genai.Client(api_key=GOOGLE_API_KEY)
 def gerar_corpo_livre (prompt):
 
 
-    INSTRUCAO = """
+    INSTRUCAO = INSTRUCAO = """
     Você é um assistente especializado em modelagem de cenários de física (objetos, planos inclinados e forças). Sua ÚNICA função é receber a descrição de um cenário do usuário e retornar *exclusivamente* um objeto JSON que representa esse cenário, aderindo estritamente ao formato fornecido.
 
     **REGRAS OBRIGATÓRIAS:**
 
-    1.  **Formato de Saída:** Sua resposta deve ser *somente* o objeto JSON completo. Não inclua texto introdutório, explicações, código Python (como 'json.dumps()'), ou qualquer informação fora do JSON.
+    1.  **Formato de Saída:** Sua resposta deve ser *somente* o objeto JSON completo. NÃO inclua texto introdutório, explicações, código Python (como 'json.dumps()'), ou qualquer informação fora do JSON.
     2.  **Adesão ao Esquema:** O JSON deve seguir rigorosamente a estrutura:
         '{"objeto": {...}, "plano_inclinado": {...}, "forcas": [...]}'.
 
@@ -47,38 +47,47 @@ def gerar_corpo_livre (prompt):
         * 'cor': Cor do plano. Use '"gray"' como padrão.
 
     * **'forcas':**
-        * É uma lista de objetos. Inclua apenas forças ativas mencionadas (Ex: tração, empuxo, atrito, força externa). **Não inclua** Peso e Normal nesta lista, a menos que o usuário explicitamente peça para representá-las.
+        * É uma lista de objetos que representa TODAS as forças atuantes no cenário.
+        * **Inclua também forças adicionais mencionadas:** tração, empuxo, força externa aplicada, etc.
         * Para cada força:
-            * 'nome': Um identificador curto (e.g., '"F_tracao"', '"Atrito"').
-            * 'magnitude': O valor em Newtons (N).
+            * 'nome': Um identificador curto (e.g., '"P"', '"N"', '"Fat"', '"F_tracao"').
+            * 'magnitude': O valor em Newtons (N). Use valores proporcionais razoáveis se não especificado.
             * 'angulo': O ângulo da força em relação à horizontal em graus.
             * 'cor': Cor da seta de força. Use '"red"' como padrão.
-            * 'ponto_aplicacao': Posição '[x, y]' de aplicação. Use '[0, 0]' (centro do objeto) se não for especificado. Se for um objeto circular, 'y' deve ser 0.
+            * 'ponto_aplicacao': Posição '[x, y]' de aplicação. Use '[0, 0]' (centro do objeto) como padrão.
 
     **Instruções de Física e Direções das Forças:**
 
     Ao gerar o cenário, respeite as direções físicas corretas das forças:
 
     1. **Força Peso (P):**
-       - Sempre **vertical para baixo**, saindo do centro do objeto.
-       - Representada pela letra **P**.
+    - Sempre **vertical para baixo** (ângulo = 270° ou -90°)
+    - Saindo do centro do objeto
+    - Representada pela letra **P**
+    - Magnitude: use massa × 10 (aproximação de g) se massa for fornecida
 
     2. **Força Normal (N):**
-       - Representada pela letra **N**.
+    - **Perpendicular à superfície de contato**
+    - Em superfície horizontal: vertical para cima (ângulo = 90°)
+    - Em plano inclinado: perpendicular ao plano (ângulo = 90° + ângulo_do_plano)
+    - Representada pela letra **N**
 
     3. **Força de Atrito (Fat):**
-       - Possui a mesma angulação do plano inclinado.
-       - Direção **oposta ao movimento (ou à tendência de movimento)**.
-       - Representada pela abreviação **Fat**.
-       - Quando em plano inclinado, aponta para cima.
-       
+    - **Paralela à superfície**
+    - Direção **oposta ao movimento** (ou à tendência de movimento)
+    - Em plano inclinado: paralela ao plano, apontando para cima (ângulo = ângulo_do_plano)
+    - Em superfície horizontal: horizontal (ângulo = 0° ou 180°)
+    - Representada pela abreviação **Fat**
+
+    4. **Outras Forças:**
+    - Tração, empuxo, forças aplicadas: usar ângulo e direção especificados pelo usuário
+
     5. **Rótulos:**
-       - Utilize exatamente as letras **P**, **N** e **Fat** para identificar as forças no diagrama.
-       - Posicione os rótulos próximos às setas, evitando sobreposição com o objeto.
+    - Utilize exatamente as letras **P**, **N** e **Fat** para identificar as forças no diagrama.
+    - Posicione os rótulos próximos às setas, evitando sobreposição com o objeto.
 
     **Exemplo de Saída Esperada (Apenas o JSON):**
-
-    json
+    ```json
     {
         "objeto": {
             "tipo": "retangulo",
@@ -93,14 +102,42 @@ def gerar_corpo_livre (prompt):
         },
         "forcas": [
             {
+                "nome": "P",
+                "magnitude": 50,
+                "angulo": 270,
+                "cor": "red",
+                "ponto_aplicacao": [0, 0]
+            },
+            {
+                "nome": "N",
+                "magnitude": 43.3,
+                "angulo": 120,
+                "cor": "blue",
+                "ponto_aplicacao": [0, 0]
+            },
+            {
+                "nome": "Fat",
+                "magnitude": 15,
+                "angulo": 30,
+                "cor": "orange",
+                "ponto_aplicacao": [0, 0]
+            },
+            {
                 "nome": "F",
                 "magnitude": 150,
                 "angulo": 20,
-                "cor": "red",
+                "cor": "green",
                 "ponto_aplicacao": [0.5, 0.25]
             }
         ]
-    } """
+    }
+    ```
+
+    **IMPORTANTE:** 
+    - Sempre retorne APENAS o JSON, sem marcadores ```json ou texto adicional
+    - SEMPRE inclua as forças P, N e Fat (quando aplicável) na lista de forças
+    - Use ângulos corretos conforme as convenções de física
+    """
 
     client = genai.Client(api_key=GOOGLE_API_KEY)
 
@@ -112,19 +149,32 @@ def gerar_corpo_livre (prompt):
 
     # retira espaços em branco da resposta da ia
     json_puro = response.text.strip()
+    print(json_puro)
 
-    # remove as crases e a palavra json caso elas estejam no começo da resposta
-    if json_puro.startswith("```"):
-        json_puro = json_puro.strip("`")
-        json_puro = json_puro.replace("json", "", 1).strip()
-
-    # tenta converter o json para dicionário
-    try:
-        resposta_dicionario = json.loads(json_puro)
-    except json.JSONDecodeError:
-        print("A respota gerada não é um json válido!")
-        print(json_puro)
-        return None
+    # Extrair todos os blocos JSON da resposta
+    import re
+    
+    # procura os blocos de json na resposta da ia, com ou sem (```)
+    blocos_json = re.findall(r'```json\s*(.*?)\s*```', json_puro, re.DOTALL)
+    
+    if not blocos_json:
+        # se não encontrou blocos com marcadores, tenta a string toda
+        blocos_json = [json_puro]
+    
+    # procura um json em que o campo 'forcas' não esteja vazio
+    resposta_dicionario = None
+    for bloco_json in blocos_json:  
+        try:
+            analisado = json.loads(bloco_json.strip())
+            
+            # verifica se tem o campo 'forcas' e se não está vazio
+            if 'forcas' in analisado and len(analisado['forcas']) > 0:
+                resposta_dicionario = analisado
+                # para, caso encontre o json com as forças 
+                break  
+                
+        except json.JSONDecodeError:
+            continue
 
     imagem_uri = desenharCopoLivre(resposta_dicionario)
 
