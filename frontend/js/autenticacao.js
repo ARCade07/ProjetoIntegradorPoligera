@@ -41,6 +41,7 @@ async function cadastrarUsuario() {
                 URLcompleta,
                 { name: usuarioCadastro, email: emailCadastro, password: passwordCadastro, confirmpassword: confirmPasswordCadastro }
             );
+            if (window.fecharPopupTermos) window.fecharPopupTermos();
             usuarioCadastroInput.value = '';
             emailCadastroInput.value = '';
             passwordCadastroInput.value = '';
@@ -52,6 +53,7 @@ async function cadastrarUsuario() {
                 }, 2000);
             }
         } catch (erro) {
+            if (window.fecharPopupTermos) window.fecharPopupTermos();
             exibirAlerta('.alert-form-cadastro', 'Não foi possível realizar o cadastro!', ['show', 'alert-danger'], 2000);
         }
     }
@@ -211,6 +213,5 @@ function ativarEnter(seletor, funcao) {
 }
 
 ativarEnter('.login', fazerLogin);
-ativarEnter('.campos-preenchimento', cadastrarUsuario);
 ativarEnter('.recuperar', esquecerSenha);
 ativarEnter('.nova-senha-form', redefinirSenha);
