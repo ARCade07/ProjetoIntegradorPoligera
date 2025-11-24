@@ -3,6 +3,26 @@ const protocoloAuth = 'http://';
 const baseAuthURL = 'localhost:3000';
 const endpointAutenticacao = '/autenticacao';
 
+function validarCadastro() {
+    let usuarioCadastroInput = document.querySelector('#nome');
+    let emailCadastroInput = document.querySelector('#email-cadastro');
+    let passwordCadastroInput = document.querySelector('#senha');
+    let confirmPasswordCadastroInput = document.querySelector('#confirmar-senha');
+    let usuarioCadastro = usuarioCadastroInput.value.trim();
+    let emailCadastro = emailCadastroInput.value.trim().toLowerCase();
+    let passwordCadastro = passwordCadastroInput.value.trim();
+    let confirmPasswordCadastro = confirmPasswordCadastroInput.value.trim();
+
+    if (usuarioCadastro && emailCadastro && passwordCadastro && confirmPasswordCadastro) {
+        if (window.abrirPopupTermos) {
+            window.abrirPopupTermos();
+        } else {
+            console.log("Função não encontrada.");
+        }
+    } else {
+        exibirAlerta('.alert-form-cadastro', 'Preencha todos os campos!', ['show', 'alert-warning'], 2000);
+    }
+}
 
 async function cadastrarUsuario() {
     let usuarioCadastroInput = document.querySelector('#nome');
