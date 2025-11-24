@@ -465,7 +465,7 @@ body:has(.resposta img.ampliada)::before {
 }
 
 .resposta a:hover {
-    background-color: rgba(0, 86, 179, 0.95);
+    background-color: rgba(87, 87, 87, 0.95);
 }
 
 .download-outline {

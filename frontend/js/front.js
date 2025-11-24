@@ -71,7 +71,7 @@ async function tratamentoPrompt(event) {
         const response = await axios.post(URLcompleta, {prompt: prompt, elementos: itensSelecionados, materia: materiaInfo.materia, area: materiaInfo.area, tipo: labelImagemSelecionada, userId})
         resposta_gerada.innerHTML = `
             <img class="imagem-gerada" src="${response.data.resposta}" alt="imagem gerada">
-            <button onclick="copiarImagem()">
+            <button onclick="copiarImagemGerada()">
                 <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
             </button>
             <a href="${response.data.resposta}" download="imagem-gerada.jpg">
@@ -133,7 +133,7 @@ if(mensagemUsuario) {
 }
 
 // função que copia a imagem quando o botão é clicado
-async function copiarImagem() {
+async function copiarImagemGerada() {
     // pega a imagem na árvore doom
     const imagem = document.querySelector('.imagem-gerada')
     try{
