@@ -12,13 +12,16 @@ app = Flask(__name__)
 # habilita o CORS para autorizar a conexão entre front e back 
 CORS(app, supports_credentials=True)
 
-def salvar_no_node(prompt, imagem_base64, user_id):
+def salvar_no_node(prompt, imagem_base64, user_id, tipo, materia, icones):
     url = "http://localhost:3000/historico/salvar"
 
     payload = {
         "userId": user_id,
         "prompt": prompt,
-        "imageBase64": imagem_base64
+        "imageBase64": imagem_base64,
+        "tipo": tipo,      
+        "materia": materia,
+        "icones": icones   
     }
 
     return requests.post(url, json=payload)
@@ -72,7 +75,7 @@ def processamentoResposta():
 
         # envia a resposta para o front
         user_id = dados.get("userId")
-        salvar_no_node(prompt, resposta, user_id)
+        salvar_no_node(prompt, resposta, user_id, tipo_imagem_selecionada, materia, itens_selecionados)
         return jsonify({
             'resposta': resposta
         })

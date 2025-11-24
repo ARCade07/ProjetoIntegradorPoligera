@@ -24,8 +24,29 @@ if (containerGraficoHorarios) {
     containerGraficoHorarios.style.height = `${alturaGraficoHorarios}px`;
 }
 
-function atualizarGraficos() {
-    const eventos = JSON.parse(localStorage.getItem('eventosPoligera')) || [];
+async function atualizarGraficos() {
+    let eventos = [];
+
+    const userId = localStorage.getItem('userId'); 
+
+    if (!userId) {
+        console.error("Usuário não logado ou ID não encontrado no localStorage.");
+        return;
+    }
+
+    try {
+        const response = await axios.get('http://localhost:3000/historico/estatisticas', {
+            params: {
+                userId: userId
+            }
+        });
+        
+        eventos = response.data;
+        console.log("Dados recebidos para gráficos:", eventos);
+    } catch (error) {
+        console.error("Erro ao buscar dados do histórico:", error);
+        eventos = JSON.parse(localStorage.getItem('eventosPoligera')) || [];
+    }
 
     const dados = {
         tipoImagem: { 'Técnico': 0, 'Realista': 0 },
@@ -34,143 +55,181 @@ function atualizarGraficos() {
         horarios: Array(24).fill(0),
         continuidade: {
             totalGeracoes: eventos.length,
-            diasAtivos: new Set(eventos.map(e => new Date(e.data).toDateString())).size
+            diasAtivos: 0
         }
     };
     
     nomeItens.forEach(nome => { dados.icones[nome] = 0; });
 
+    const diasUnicos = new Set();
+
     eventos.forEach(e => {
         if (e.tipo === 'Técnico') dados.tipoImagem['Técnico']++;
         if (e.tipo === 'Realista') dados.tipoImagem['Realista']++;
         
-        if (e.materia === 'fisica') dados.areas['Física']++;
-        if (e.materia === 'quimica') dados.areas['Química']++;
-        
-        if (e.hora >= 0 && e.hora <= 23) {
-            dados.horarios[e.hora]++;
+        const materia = e.materia ? e.materia.toLowerCase() : '';
+        if (materia === 'fisica') dados.areas['Física']++;
+        if (materia === 'quimica') dados.areas['Química']++;
+
+        let dataObj;
+        if (e.createdAt) {
+            dataObj = new Date(e.createdAt);
+        } else if (e.data) {
+            dataObj = new Date(e.data);
+            if (typeof e.hora !== 'undefined') {
+                dataObj.setHours(e.hora);
+            }
         }
-        
+
+        if (dataObj && !isNaN(dataObj)) {
+            const hora = dataObj.getHours();
+            if (hora >= 0 && hora <= 23) {
+                dados.horarios[hora]++;
+            }
+            diasUnicos.add(dataObj.toDateString());
+        }
+
         if (e.icones && Array.isArray(e.icones)) {
             e.icones.forEach(iconeNome => {
                 if (iconeNome in dados.icones) {
                     dados.icones[iconeNome]++;
+                } else {
+                    const key = Object.keys(dados.icones).find(k => k.toLowerCase() === iconeNome.toLowerCase());
+                    if (key) dados.icones[key]++;
                 }
             });
         }
     });
 
-    const dataHorarios = {
-        labels: labelsHorarios,
-        datasets: [{
-            label: 'Vezes',
-            data: dados.horarios,
-            borderWidth: 1
-        }]
-    };
-    if (!chartHorarios) {
-        chartHorarios = new Chart(canvasHorarios, {
+    dados.continuidade.diasAtivos = diasUnicos.size;
+
+    if (canvasHorarios) {
+        const dataHorarios = {
+            labels: labelsHorarios,
+            datasets: [{
+                label: 'Vezes',
+                data: dados.horarios,
+                borderWidth: 1,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)'
+            }]
+        };
+        if (!chartHorarios) {
+            chartHorarios = new Chart(canvasHorarios, {
+                type: 'bar',
+                data: dataHorarios,
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { beginAtZero: true, title: { display: true, text: 'Acessos' } },
+                        y: { type: 'category', title: { display: true, text: 'Horários' }, ticks: { autoSkip: false } }
+                    },
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        } else {
+            chartHorarios.data = dataHorarios;
+            chartHorarios.update();
+        }
+    }
+
+    if (canvasTipoImagem) {
+        const dataTipoImagem = {
+            labels: ['Técnico', 'Realista'],
+            datasets: [{
+                label: 'Imagens geradas',
+                data: [dados.tipoImagem['Técnico'], dados.tipoImagem['Realista']],
+                borderWidth: 1,
+                backgroundColor: ['#FF6384', '#36A2EB']
+            }]
+        };
+        if (!chartTipoImagem) {
+            chartTipoImagem = new Chart(canvasTipoImagem, {
+                type: 'pie',
+                data: dataTipoImagem,
+                options: { plugins: { legend: { position: 'bottom' } } }
+            });
+        } else {
+            chartTipoImagem.data = dataTipoImagem;
+            chartTipoImagem.update();
+        }
+    }
+
+    if (canvasAreas) {
+        const dataAreas = {
+            labels: ['Física', 'Química'],
+            datasets: [{
+                label: 'Imagens geradas',
+                data: [dados.areas['Física'], dados.areas['Química']],
+                borderWidth: 1,
+                backgroundColor: ['#FFCE56', '#4BC0C0']
+            }]
+        };
+        if (!chartAreas) {
+            chartAreas = new Chart(canvasAreas, {
+                type: 'pie',
+                data: dataAreas,
+                options: { plugins: { legend: { position: 'bottom' } } }
+            });
+        } else {
+            chartAreas.data = dataAreas;
+            chartAreas.update();
+        }
+    }
+
+    if (canvasIcones) {
+        const dataIcones = {
+            labels: nomeItens,
+            datasets: [{
+                label: 'Imagens geradas',
+                data: nomeItens.map(nome => dados.icones[nome]),
+                borderWidth: 1,
+                backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                borderColor: 'rgba(153, 102, 255, 1)'
+            }]
+        };
+        if (!chartIcones) {
+            chartIcones = new Chart(canvasIcones, {
+                type: 'bar',
+                data: dataIcones,
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { beginAtZero: true, title: { display: true, text: 'Quantidade' } },
+                        y: { type: 'category', title: { display: true, text: 'Ícones' }, ticks: { autoSkip: false } }
+                    },
+                    plugins: { legend: { display: true, position: 'bottom' } }
+                }
+            });
+        } else {
+            chartIcones.data = dataIcones;
+            chartIcones.update();
+        }
+    }
+
+    if (canvasContinuidade) {
+        const dataContinuidade = {
+            labels: ['Total de Imagens Geradas', 'Total de Dias Ativos'],
+            datasets: [{
+                label: 'Estatísticas de Uso (Este Usuário)',
+                data: [dados.continuidade.totalGeracoes, dados.continuidade.diasAtivos],
+                borderWidth: 1,
+                backgroundColor: ['#36A2EB', '#FFCE56']
+            }]
+        };
+        if (chartContinuidade) {
+            chartContinuidade.destroy();
+        }
+        chartContinuidade = new Chart(canvasContinuidade, {
             type: 'bar',
-            data: dataHorarios,
+            data: dataContinuidade,
             options: {
-                indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-                scales: {
-                    x: { beginAtZero: true, title: { display: true, text: 'Acessos' } },
-                    y: { type: 'category', title: { display: true, text: 'Horários' }, ticks: { autoSkip: false } }
-                },
+                indexAxis: 'x',
+                scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
                 plugins: { legend: { position: 'bottom' } }
             }
         });
-    } else {
-        chartHorarios.data = dataHorarios;
-        chartHorarios.update();
     }
-
-    const dataTipoImagem = {
-        labels: ['Técnico', 'Realista'],
-        datasets: [{
-            label: 'Imagens geradas',
-            data: [dados.tipoImagem['Técnico'], dados.tipoImagem['Realista']],
-            borderWidth: 1
-        }]
-    };
-    if (!chartTipoImagem) {
-        chartTipoImagem = new Chart(canvasTipoImagem, {
-            type: 'pie',
-            data: dataTipoImagem,
-            options: { plugins: { legend: { position: 'bottom' } } }
-        });
-    } else {
-        chartTipoImagem.data = dataTipoImagem;
-        chartTipoImagem.update();
-    }
-
-    const dataAreas = {
-        labels: ['Física', 'Química'],
-        datasets: [{
-            label: 'Imagens geradas',
-            data: [dados.areas['Física'], dados.areas['Química']],
-            borderWidth: 1
-        }]
-    };
-    if (!chartAreas) {
-        chartAreas = new Chart(canvasAreas, {
-            type: 'pie',
-            data: dataAreas,
-            options: { plugins: { legend: { position: 'bottom' } } }
-        });
-    } else {
-        chartAreas.data = dataAreas;
-        chartAreas.update();
-    }
-
-    const dataIcones = {
-        labels: nomeItens,
-        datasets: [{
-            label: 'Imagens geradas',
-            data: nomeItens.map(nome => dados.icones[nome]),
-            borderWidth: 1
-        }]
-    };
-    if (!chartIcones) {
-        chartIcones = new Chart(canvasIcones, {
-            type: 'bar',
-            data: dataIcones,
-            options: {
-                indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-                scales: {
-                    x: { beginAtZero: true, title: { display: true, text: 'Quantidade' } },
-                    y: { type: 'category', title: { display: true, text: 'Ícones' }, ticks: { autoSkip: false } }
-                },
-                plugins: { legend: { display: true, position: 'bottom' } }
-            }
-        });
-    } else {
-        chartIcones.data = dataIcones;
-        chartIcones.update();
-    }
-
-    const dataContinuidade = {
-        labels: ['Total de Imagens Geradas', 'Total de Dias Ativos'],
-        datasets: [{
-            label: 'Estatísticas de Uso (Este Usuário)',
-            data: [dados.continuidade.totalGeracoes, dados.continuidade.diasAtivos],
-            borderWidth: 1,
-            backgroundColor: ['#36A2EB', '#FFCE56']
-        }]
-    };
-    if (chartContinuidade) {
-        chartContinuidade.destroy();
-    }
-    chartContinuidade = new Chart(canvasContinuidade, {
-        type: 'bar',
-        data: dataContinuidade,
-        options: {
-            indexAxis: 'x',
-            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
-            plugins: { legend: { position: 'bottom' } }
-        }
-    });
 }
 
 if (modalEstatisticas) {
