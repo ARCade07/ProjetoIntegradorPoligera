@@ -9,10 +9,10 @@ async function cadastrarUsuario() {
     let emailCadastroInput = document.querySelector('#email-cadastro');
     let passwordCadastroInput = document.querySelector('#senha');
     let confirmPasswordCadastroInput = document.querySelector('#confirmar-senha');
-    let usuarioCadastro = usuarioCadastroInput.value;
-    let emailCadastro = emailCadastroInput.value.toLowerCase();
-    let passwordCadastro = passwordCadastroInput.value;
-    let confirmPasswordCadastro = confirmPasswordCadastroInput.value;
+    let usuarioCadastro = usuarioCadastroInput.value.trim();
+    let emailCadastro = emailCadastroInput.value.trim().toLowerCase();
+    let passwordCadastro = passwordCadastroInput.value.trim();
+    let confirmPasswordCadastro = confirmPasswordCadastroInput.value.trim();
     if (usuarioCadastro && emailCadastro && passwordCadastro && confirmPasswordCadastro) {
         try {
             const cadastroEndpoint = '/cadastrar';
@@ -43,8 +43,8 @@ async function cadastrarUsuario() {
 async function fazerLogin() {
     let emailLoginInput = document.querySelector('#email-login');
     let passwordLoginInput = document.querySelector('#senha-login');
-    let emailLogin = emailLoginInput.value.toLowerCase();
-    let passwordLogin = passwordLoginInput.value;
+    let emailLogin = emailLoginInput.value.trim().toLowerCase();
+    let passwordLogin = passwordLoginInput.value.trim();
     if (emailLogin && passwordLogin) {
         try {
             const loginEndpoint = '/login';
@@ -74,7 +74,7 @@ async function fazerLogin() {
 }
 async function esquecerSenha() {
     let emailRecuperarInput = document.querySelector('#email-recuperar');
-    let emailRecuperar = emailRecuperarInput.value;
+    let emailRecuperar = emailRecuperarInput.value.trim();
     if (emailRecuperar) {
         try {
             const esquecerSenhaEndpoint = '/esqueceu-senha';
@@ -98,8 +98,8 @@ async function redefinirSenha() {
     let passwordRedefinirInput = document.querySelector('#senha-redefinir');
     let confirmPasswordRedefinirInput = document.querySelector('#confirmar-senha-redefinir');
 
-    let passwordRedefinir = passwordRedefinirInput.value;
-    let confirmPasswordRedefinir = confirmPasswordRedefinirInput.value;
+    let passwordRedefinir = passwordRedefinirInput.value.trim();
+    let confirmPasswordRedefinir = confirmPasswordRedefinirInput.value.trim();
 
     const params = new URLSearchParams(window.location.search);
     const email = params.get('email');
