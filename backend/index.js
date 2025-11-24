@@ -7,7 +7,7 @@ const app = express();
 const caminhoFrontend = path.join(__dirname, "../frontend");
 const checkToken = require('./middleware/checkToken');
 const connectDB = require('./models/db')
-
+const jwt = require ('jsonwebtoken')
 const autenticacao = require('./routes/authenticationRoutes');
 const historico = require('./routes/historicoRoutes');
 
@@ -22,10 +22,19 @@ app.use(cookieParser())
 
 app.get("/", (req, res) => {
     const token = req.cookies?.token;
+
     if (token) {
-        return res.sendFile(path.join(caminhoFrontend, "index.html"));
+        try {
+            jwt.verify(token, process.env.SECRET);
+            return res.sendFile(path.join(caminhoFrontend, "index.html"));
+        } catch (err) {
+            console.log(err)
+            res.clearCookie('token');
+            res.clearCookie('role');
+            return res.sendFile(path.join(caminhoFrontend, "login.html"));
+        }
     }
-    return res.sendFile(path.join(caminhoFrontend, "login.html"));
+    return res.redirect("/login.html");
 });
 
 app.use(express.static(caminhoFrontend));
