@@ -25,15 +25,16 @@
         </header>
         <div class="row justify-content-center">
             <div class="col-10 col-md-12">
-                <form class="campos-preenchimento">
+                <form class="campos-preenchimento" onsubmit="event.preventDefault(); validarCadastro();">
                     <h2>Cadastro</h2>
                     <div class="d-none alert alert-dismissible fade alert-form-cadastro" role="alert"></div>
                     <input type="text" id="nome" name="nome" required placeholder="Nome">
                     <input type="text" id="email-cadastro" name="e-mail" required placeholder="E-mail">
                     <input type="password" id="senha" name="senha" required placeholder="Senha">
-                    <input type="password" id="confirmar-senha" name="confirmar-senha" required placeholder="Confirme a senha">
+                    <input type="password" id="confirmar-senha" name="confirmar-senha" required
+                        placeholder="Confirme a senha">
                     <div class="btn-cadastrar">
-                        <button type="button" class="btn-cadastrar" onclick="cadastrarUsuario()">Cadastrar</button>
+                        <button type="submit" class="btn-cadastrar">Cadastrar</button>
                     </div>
                     <div>
                         <a href="login.html" id="btn-cancelar">Cancelar</a>
@@ -50,179 +51,235 @@
         <div vw-plugin-wrapper>
             <div class="vw-plugin-top-wrapper"></div>
         </div>
-    </div> 
+    </div>
     <div id="popup-overlay" class="hidden" aria-hidden="true" role="dialog" aria-modal="true">
         <div id="popup-box" role="document" aria-labelledby="popup-title">
             <h3 id="popup-title">Termos de Uso e Política de Privacidade</h3>
 
-           
+
             <div id="popup-content" tabindex="0" aria-label="texto dos Termos e Política">
-Termos e Condições de Uso – Poligera
-Última atualização: 29 de setembro de 2025
+                Termos e Condições de Uso – Poligera
+                Última atualização: 29 de setembro de 2025
 
-Bem-vindo(a) ao Poligera!
+                Bem-vindo(a) ao Poligera!
 
-Estes Termos e Condições de Uso ("Termos") regem o seu acesso e utilização da nossa ferramenta digital de geração de imagens utilizando Inteligência Artificial, desenvolvida para fins pedagógicos. Por favor, leia este documento com atenção.
+                Estes Termos e Condições de Uso ("Termos") regem o seu acesso e utilização da nossa ferramenta digital
+                de geração de imagens utilizando Inteligência Artificial, desenvolvida para fins pedagógicos. Por favor,
+                leia este documento com atenção.
 
-AO CRIAR UMA CONTA OU UTILIZAR A PLATAFORMA, VOCÊ DECLARA QUE LEU, COMPREENDEU E CONCORDA EM CUMPRIR INTEGRALMENTE ESTES TERMOS. CASO NÃO CONCORDE, NÃO PODERÁ ACESSAR OU UTILIZAR O SERVIÇO.
+                AO CRIAR UMA CONTA OU UTILIZAR A PLATAFORMA, VOCÊ DECLARA QUE LEU, COMPREENDEU E CONCORDA EM CUMPRIR
+                INTEGRALMENTE ESTES TERMOS. CASO NÃO CONCORDE, NÃO PODERÁ ACESSAR OU UTILIZAR O SERVIÇO.
 
-1. O Serviço
-O Poligera é uma plataforma digital que utiliza Inteligência Artificial (IA) para permitir que professores e alunos gerem e editem imagens ilustrativas para uso educacional, com foco principal nas disciplinas de Física e Química. As funcionalidades incluem a criação de imagens a partir de descrições em texto (prompts), edição e exportação das imagens em formatos comuns.
+                1. O Serviço
+                O Poligera é uma plataforma digital que utiliza Inteligência Artificial (IA) para permitir que
+                professores e alunos gerem e editem imagens ilustrativas para uso educacional, com foco principal nas
+                disciplinas de Física e Química. As funcionalidades incluem a criação de imagens a partir de descrições
+                em texto (prompts), edição e exportação das imagens em formatos comuns.
 
-2. Elegibilidade e Acesso
-O acesso à plataforma é restrito e exclusivo para:
+                2. Elegibilidade e Acesso
+                O acesso à plataforma é restrito e exclusivo para:
 
--Professores com endereço de e-mail institucional válido, terminado em @sistemapoliedro.com.br.
+                -Professores com endereço de e-mail institucional válido, terminado em @sistemapoliedro.com.br.
 
--Alunos com endereço de e-mail institucional válido, terminado em @p4ed.com.
+                -Alunos com endereço de e-mail institucional válido, terminado em @p4ed.com.
 
-Ao criar sua conta, você concorda em fornecer informações verdadeiras e completas. Você é o único responsável por manter a confidencialidade de sua senha e por todas as atividades que ocorram em sua conta.
+                Ao criar sua conta, você concorda em fornecer informações verdadeiras e completas. Você é o único
+                responsável por manter a confidencialidade de sua senha e por todas as atividades que ocorram em sua
+                conta.
 
-3. Uso Permitido e Propósito da Ferramenta
-A plataforma deve ser utilizada estritamente para fins educacionais, como:
+                3. Uso Permitido e Propósito da Ferramenta
+                A plataforma deve ser utilizada estritamente para fins educacionais, como:
 
--Criação de imagens para provas, listas de exercícios e atividades escolares.
+                -Criação de imagens para provas, listas de exercícios e atividades escolares.
 
--Elaboração de materiais de apoio para aulas e estudos.
+                -Elaboração de materiais de apoio para aulas e estudos.
 
--Desenvolvimento de projetos acadêmicos.
+                -Desenvolvimento de projetos acadêmicos.
 
--Complemento para o estudo dos alunos
+                -Complemento para o estudo dos alunos
 
-4. Propriedade Intelectual
--Conteúdo Gerado pelo Usuário: As imagens e ilustrações que você cria utilizando a plataforma são de sua propriedade. Você é livre para utilizá-las dentro do propósito educacional aqui descrito.
+                4. Propriedade Intelectual
+                -Conteúdo Gerado pelo Usuário: As imagens e ilustrações que você cria utilizando a plataforma são de sua
+                propriedade. Você é livre para utilizá-las dentro do propósito educacional aqui descrito.
 
--Licença para a Plataforma: Ao gerar conteúdo, você nos concede uma licença não exclusiva, global e isenta de royalties para armazenar, exibir e reproduzir seu Conteúdo Gerado com o único propósito de operar e fornecer o serviço a você (como, por exemplo, manter seu histórico de imagens salvo).
+                -Licença para a Plataforma: Ao gerar conteúdo, você nos concede uma licença não exclusiva, global e
+                isenta de royalties para armazenar, exibir e reproduzir seu Conteúdo Gerado com o único propósito de
+                operar e fornecer o serviço a você (como, por exemplo, manter seu histórico de imagens salvo).
 
--Propriedade da Plataforma: Todos os direitos sobre a plataforma, incluindo seu design, software, logotipos e tecnologias subjacentes, são de propriedade exclusiva do Colégio Poliedro, juntamente com os estudantes do segundo semestre de Ciência da Computação do Instituto Mauá de Tecnologia.
+                -Propriedade da Plataforma: Todos os direitos sobre a plataforma, incluindo seu design, software,
+                logotipos e tecnologias subjacentes, são de propriedade exclusiva do Colégio Poliedro, juntamente com os
+                estudantes do segundo semestre de Ciência da Computação do Instituto Mauá de Tecnologia.
 
-5. Conduta do Usuário e Restrições
-Ao utilizar o Poligera, você concorda em NÃO:
+                5. Conduta do Usuário e Restrições
+                Ao utilizar o Poligera, você concorda em NÃO:
 
--Utilizar a plataforma para fins ilegais ou qualquer outro que não seja estritamente educacional.
+                -Utilizar a plataforma para fins ilegais ou qualquer outro que não seja estritamente educacional.
 
--Gerar conteúdo que seja ofensivo, difamatório, pornográfico, que incite ao ódio ou à violência, ou que viole os direitos da personalidade e códigos de ética.
+                -Gerar conteúdo que seja ofensivo, difamatório, pornográfico, que incite ao ódio ou à violência, ou que
+                viole os direitos da personalidade e códigos de ética.
 
--Tentar fazer engenharia reversa, descompilar ou tentar extrair o código-fonte da nossa plataforma.
+                -Tentar fazer engenharia reversa, descompilar ou tentar extrair o código-fonte da nossa plataforma.
 
--Utilizar meios automatizados (como robôs ou scripts) para acessar o serviço ou coletar dados.
+                -Utilizar meios automatizados (como robôs ou scripts) para acessar o serviço ou coletar dados.
 
--Compartilhar suas credenciais de acesso com terceiros.
+                -Compartilhar suas credenciais de acesso com terceiros.
 
-A violação destas regras poderá resultar na suspensão ou encerramento imediato da sua conta.
+                A violação destas regras poderá resultar na suspensão ou encerramento imediato da sua conta.
 
-6. Isenção de Garantias e Limitação de Responsabilidade
--Precisão do Conteúdo: A Inteligência Artificial pode, ocasionalmente, gerar imagens com imprecisões científicas ou técnicas. É de responsabilidade do usuário, especialmente dos professores, verificar a exatidão e a adequação pedagógica do conteúdo gerado antes de sua utilização em avaliações e materiais didáticos.
+                6. Isenção de Garantias e Limitação de Responsabilidade
+                -Precisão do Conteúdo: A Inteligência Artificial pode, ocasionalmente, gerar imagens com imprecisões
+                científicas ou técnicas. É de responsabilidade do usuário, especialmente dos professores, verificar a
+                exatidão e a adequação pedagógica do conteúdo gerado antes de sua utilização em avaliações e materiais
+                didáticos.
 
--Disponibilidade: A plataforma é fornecida "como está". Não garantimos que o serviço será ininterrupto, livre de erros ou totalmente seguro. Com isso não nos responsabilizamos por eventuais prejuízos decorrentes do uso da plataforma.
+                -Disponibilidade: A plataforma é fornecida "como está". Não garantimos que o serviço será ininterrupto,
+                livre de erros ou totalmente seguro. Com isso não nos responsabilizamos por eventuais prejuízos
+                decorrentes do uso da plataforma.
 
--Limitação de Responsabilidade: Em nenhuma circunstância o Poligera ou seus desenvolvedores serão responsáveis por quaisquer danos diretos ou indiretos resultantes do uso ou da incapacidade de usar o serviço.
+                -Limitação de Responsabilidade: Em nenhuma circunstância o Poligera ou seus desenvolvedores serão
+                responsáveis por quaisquer danos diretos ou indiretos resultantes do uso ou da incapacidade de usar o
+                serviço.
 
-7. Privacidade e Dados
-Nós levamos sua privacidade a sério. A coleta e o uso de suas informações pessoais, como seu e-mail institucional e o histórico de imagens, são regidos pela nossa Política de Privacidade [Link para a Política de Privacidade]. Ao concordar com estes Termos, você também declara estar ciente e de acordo com nossa Política de Privacidade.
+                7. Privacidade e Dados
+                Nós levamos sua privacidade a sério. A coleta e o uso de suas informações pessoais, como seu e-mail
+                institucional e o histórico de imagens, são regidos pela nossa Política de Privacidade [Link para a
+                Política de Privacidade]. Ao concordar com estes Termos, você também declara estar ciente e de acordo
+                com nossa Política de Privacidade.
 
-8. Alterações nos Termos
-Reservamo-nos o direito de modificar estes Termos a qualquer momento. Quando o fizermos, notificaremos os usuários através de um aviso na plataforma ou por e-mail. A continuidade do uso do serviço após a notificação constituirá sua aceitação das novas condições.
+                8. Alterações nos Termos
+                Reservamo-nos o direito de modificar estes Termos a qualquer momento. Quando o fizermos, notificaremos
+                os usuários através de um aviso na plataforma ou por e-mail. A continuidade do uso do serviço após a
+                notificação constituirá sua aceitação das novas condições.
 
-9. Encerramento
-Você pode encerrar sua conta a qualquer momento. Nós também nos reservamos o direito de suspender ou encerrar sua conta se você violar qualquer um destes Termos.
+                9. Encerramento
+                Você pode encerrar sua conta a qualquer momento. Nós também nos reservamos o direito de suspender ou
+                encerrar sua conta se você violar qualquer um destes Termos.
 
-10. Contato
-Se você tiver alguma dúvida sobre estes Termos de Uso, entre em contato conosco pelo e-mail: contato@[nomedaprojeto].com.br.
+                10. Contato
+                Se você tiver alguma dúvida sobre estes Termos de Uso, entre em contato conosco pelo e-mail:
+                contato@[nomedaprojeto].com.br.
 
 
----------------------------------------------------------------------------------------------------------------
+                ---------------------------------------------------------------------------------------------------------------
 
 
-Política de Privacidade – Poligera
-Última atualização: 29 de setembro de 2025
+                Política de Privacidade – Poligera
+                Última atualização: 29 de setembro de 2025
 
-A sua privacidade é de extrema importância para nós. Esta Política de Privacidade descreve como o Poligera coleta, utiliza, armazena e protege as suas informações pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/18).
+                A sua privacidade é de extrema importância para nós. Esta Política de Privacidade descreve como o
+                Poligera coleta, utiliza, armazena e protege as suas informações pessoais, em conformidade com a Lei
+                Geral de Proteção de Dados (LGPD - Lei nº 13.709/18).
 
-Ao utilizar nossa plataforma, você concorda com a coleta e o uso de suas informações conforme descrito neste documento.
+                Ao utilizar nossa plataforma, você concorda com a coleta e o uso de suas informações conforme descrito
+                neste documento.
 
-1. Quais Informações Coletamos?
-Coletamos diferentes tipos de informações para operar e melhorar nosso serviço:
+                1. Quais Informações Coletamos?
+                Coletamos diferentes tipos de informações para operar e melhorar nosso serviço:
 
--Informações Fornecidas por Você:
+                -Informações Fornecidas por Você:
 
---Dados de Cadastro: Coletamos seu endereço de e-mail institucional (@sistemapoliedro.com.br ou @p4ed.com) e seu nome de usuário quando você cria uma conta.
+                --Dados de Cadastro: Coletamos seu endereço de e-mail institucional (@sistemapoliedro.com.br ou
+                @p4ed.com) e seu nome de usuário quando você cria uma conta.
 
--Informações Geradas Durante o Uso da Plataforma:
+                -Informações Geradas Durante o Uso da Plataforma:
 
---Conteúdo de Geração: Armazenamos os prompts (comandos de texto) que você insere para gerar imagens e as próprias imagens resultantes. Isso é essencial para que você possa acessar seu histórico.
+                --Conteúdo de Geração: Armazenamos os prompts (comandos de texto) que você insere para gerar imagens e
+                as próprias imagens resultantes. Isso é essencial para que você possa acessar seu histórico.
 
---Dados de Interação: Registramos suas interações com a plataforma, como edições realizadas e imagens exportadas, para fins de melhoria da experiência do usuário.
+                --Dados de Interação: Registramos suas interações com a plataforma, como edições realizadas e imagens
+                exportadas, para fins de melhoria da experiência do usuário.
 
--Informações Coletadas Automaticamente:
+                -Informações Coletadas Automaticamente:
 
---Dados de Acesso: Como a maioria dos serviços web, coletamos automaticamente informações como seu endereço IP, tipo de navegador, sistema operacional, páginas visitadas e datas e horários de acesso. Isso nos ajuda a manter a segurança e a diagnosticar problemas técnicos.
+                --Dados de Acesso: Como a maioria dos serviços web, coletamos automaticamente informações como seu
+                endereço IP, tipo de navegador, sistema operacional, páginas visitadas e datas e horários de acesso.
+                Isso nos ajuda a manter a segurança e a diagnosticar problemas técnicos.
 
-2. Como Utilizamos Suas Informações?
-Utilizamos suas informações para finalidades legítimas e específicas:
+                2. Como Utilizamos Suas Informações?
+                Utilizamos suas informações para finalidades legítimas e específicas:
 
--Para Fornecer e Manter o Serviço:
+                -Para Fornecer e Manter o Serviço:
 
---Autenticar seu acesso à plataforma.
+                --Autenticar seu acesso à plataforma.
 
---Disponibilizar seu histórico de imagens salvas.
+                --Disponibilizar seu histórico de imagens salvas.
 
---Permitir o funcionamento de todas as funcionalidades da ferramenta.
+                --Permitir o funcionamento de todas as funcionalidades da ferramenta.
 
--Para Melhorar a Plataforma:
+                -Para Melhorar a Plataforma:
 
---Analisar dados de uso de forma agregada e anônima para entender como nossos usuários interagem com a ferramenta e identificar áreas para melhoria.
+                --Analisar dados de uso de forma agregada e anônima para entender como nossos usuários interagem com a
+                ferramenta e identificar áreas para melhoria.
 
---Utilizar os prompts e as imagens geradas, de forma totalmente anonimizada, para treinar e aprimorar a precisão e a qualidade dos nossos modelos de Inteligência Artificial. Nenhum dado pessoal seu é diretamente associado a este processo de treinamento.
+                --Utilizar os prompts e as imagens geradas, de forma totalmente anonimizada, para treinar e aprimorar a
+                precisão e a qualidade dos nossos modelos de Inteligência Artificial. Nenhum dado pessoal seu é
+                diretamente associado a este processo de treinamento.
 
--Para Comunicação:
+                -Para Comunicação:
 
---Enviar e-mails importantes sobre sua conta, atualizações nos Termos de Uso, na Política de Privacidade ou sobre mudanças significativas no serviço.
+                --Enviar e-mails importantes sobre sua conta, atualizações nos Termos de Uso, na Política de Privacidade
+                ou sobre mudanças significativas no serviço.
 
--Para Segurança:
+                -Para Segurança:
 
--Monitorar atividades para prevenir fraudes, abusos e violações de nossos Termos de Uso.
+                -Monitorar atividades para prevenir fraudes, abusos e violações de nossos Termos de Uso.
 
-3. Com Quem Compartilhamos Suas Informações?
-Nós não vendemos, alugamos ou comercializamos suas informações pessoais. O compartilhamento é restrito às seguintes circunstâncias:
+                3. Com Quem Compartilhamos Suas Informações?
+                Nós não vendemos, alugamos ou comercializamos suas informações pessoais. O compartilhamento é restrito
+                às seguintes circunstâncias:
 
--Provedores de Serviços: Podemos compartilhar informações com empresas terceirizadas que nos auxiliam a operar a plataforma, como provedores de hospedagem em nuvem (ex: Amazon Web Services, Google Cloud). Exigimos contratualmente que esses parceiros protejam seus dados e os utilizem apenas para os fins para os quais foram contratados.
+                -Provedores de Serviços: Podemos compartilhar informações com empresas terceirizadas que nos auxiliam a
+                operar a plataforma, como provedores de hospedagem em nuvem (ex: Amazon Web Services, Google Cloud).
+                Exigimos contratualmente que esses parceiros protejam seus dados e os utilizem apenas para os fins para
+                os quais foram contratados.
 
--Obrigações Legais: Poderemos divulgar suas informações se formos obrigados por lei, por uma ordem judicial ou para proteger nossos direitos e a segurança de nossos usuários.
+                -Obrigações Legais: Poderemos divulgar suas informações se formos obrigados por lei, por uma ordem
+                judicial ou para proteger nossos direitos e a segurança de nossos usuários.
 
-4. Armazenamento e Segurança dos Dados
-Seus dados são armazenados em servidores seguros. Adotamos as melhores práticas de segurança, para proteger suas informações contra acesso não autorizado, alteração, divulgação ou destruição.
+                4. Armazenamento e Segurança dos Dados
+                Seus dados são armazenados em servidores seguros. Adotamos as melhores práticas de segurança, para
+                proteger suas informações contra acesso não autorizado, alteração, divulgação ou destruição.
 
-Manteremos suas informações pessoais armazenadas apenas pelo tempo necessário para cumprir as finalidades para as quais foram coletadas, ou seja, enquanto sua conta estiver ativa. Após o encerramento da conta, seus dados serão excluídos ou anonimizados de forma irreversível.
+                Manteremos suas informações pessoais armazenadas apenas pelo tempo necessário para cumprir as
+                finalidades para as quais foram coletadas, ou seja, enquanto sua conta estiver ativa. Após o
+                encerramento da conta, seus dados serão excluídos ou anonimizados de forma irreversível.
 
-5. Seus Direitos como Titular dos Dados (LGPD)
-Você, como titular dos dados, tem o direito de:
+                5. Seus Direitos como Titular dos Dados (LGPD)
+                Você, como titular dos dados, tem o direito de:
 
--Confirmação e Acesso: Solicitar a confirmação da existência de tratamento e o acesso aos seus dados.
+                -Confirmação e Acesso: Solicitar a confirmação da existência de tratamento e o acesso aos seus dados.
 
--Correção: Solicitar a correção de dados incompletos, inexatos ou desatualizados.
+                -Correção: Solicitar a correção de dados incompletos, inexatos ou desatualizados.
 
--Eliminação ou Anonimização: Solicitar a eliminação, o bloqueio ou a anonimização de dados desnecessários ou tratados em desconformidade com a lei.
+                -Eliminação ou Anonimização: Solicitar a eliminação, o bloqueio ou a anonimização de dados
+                desnecessários ou tratados em desconformidade com a lei.
 
--Portabilidade: Solicitar a portabilidade dos seus dados a outro fornecedor de serviço.
+                -Portabilidade: Solicitar a portabilidade dos seus dados a outro fornecedor de serviço.
 
--Revogação do Consentimento: Revogar seu consentimento a qualquer momento.
+                -Revogação do Consentimento: Revogar seu consentimento a qualquer momento.
 
--Para exercer qualquer um desses direitos, entre em contato conosco pelo e-mail disponibilizado no final desta política.
+                -Para exercer qualquer um desses direitos, entre em contato conosco pelo e-mail disponibilizado no final
+                desta política.
 
-6. Dados de Menores de Idade
-A plataforma destina-se ao uso por alunos do ensino médio, que podem ser menores de idade. O uso do serviço pressupõe o contexto educacional e a anuência da instituição de ensino. Não coletamos intencionalmente dados de menores fora deste propósito e não solicitamos informações além do estritamente necessário para o funcionamento da ferramenta.
+                6. Dados de Menores de Idade
+                A plataforma destina-se ao uso por alunos do ensino médio, que podem ser menores de idade. O uso do
+                serviço pressupõe o contexto educacional e a anuência da instituição de ensino. Não coletamos
+                intencionalmente dados de menores fora deste propósito e não solicitamos informações além do
+                estritamente necessário para o funcionamento da ferramenta.
 
-7. Alterações a Esta Política de Privacidade
-Podemos atualizar esta Política de Privacidade periodicamente. Notificaremos você sobre quaisquer alterações publicando a nova versão nesta página e, se as mudanças forem significativas, por meio de um aviso na plataforma ou por e-mail.
+                7. Alterações a Esta Política de Privacidade
+                Podemos atualizar esta Política de Privacidade periodicamente. Notificaremos você sobre quaisquer
+                alterações publicando a nova versão nesta página e, se as mudanças forem significativas, por meio de um
+                aviso na plataforma ou por e-mail.
 
-8. Fale Conosco
-Se você tiver dúvidas sobre esta Política de Privacidade ou sobre como tratamos seus dados, entre em contato com nosso Encarregado de Proteção de Dados (DPO) através do e-mail: privacidade@[nomedaprojeto].com.br.
+                8. Fale Conosco
+                Se você tiver dúvidas sobre esta Política de Privacidade ou sobre como tratamos seus dados, entre em
+                contato com nosso Encarregado de Proteção de Dados (DPO) através do e-mail:
+                privacidade@[nomedaprojeto].com.br.
             </div>
 
-            <div id="popup-actions">
-                <button id="popup-accept" type="button" class="btn-primary">ACEITAR OS TERMOS DE USO E POLÍTICA DE PRIVACIDADE</button>
-            </div>
+            <button id="popup-accept" type="button" class="btn-primary" onclick="cadastrarUsuario()">ACEITAR OS TERMOS
+                DE USO E POLÍTICA DE PRIVACIDADE</button>
         </div>
     </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
@@ -232,37 +289,30 @@ Se você tiver dúvidas sobre esta Política de Privacidade ou sobre como tratam
     <script src="https://app.embed.im/accessibility.js" defer></script>
 
     <script>
-        (function () {
-            const form = document.querySelector('.cadastrar form') || document.querySelector('form');
-            const overlay = document.getElementById('popup-overlay');
-            const acceptBtn = document.getElementById('popup-accept');
-            const content = document.getElementById('popup-content');
-
-            function showPopup() {
+        const overlay = document.getElementById('popup-overlay');
+        const acceptBtn = document.getElementById('popup-accept');
+        const content = document.getElementById('popup-content');
+        window.abrirPopupTermos = function () {
+            if (overlay) {
                 overlay.classList.remove('hidden');
                 overlay.setAttribute('aria-hidden', 'false');
                 content.scrollTop = 0;
                 acceptBtn.focus();
             }
-
-            function hidePopup() {
+        }
+        window.fecharPopupTermos = function () {
+            if (overlay) {
                 overlay.classList.add('hidden');
                 overlay.setAttribute('aria-hidden', 'true');
             }
-
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    showPopup();
-                });
-            }
-
-            acceptBtn.addEventListener('click', function () {
-                hidePopup();
-                if (form) form.submit();
+        }
+        if (overlay) {
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) {
+                    window.fecharPopupTermos();
+                }
             });
-
-        })();
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/autenticacao.js"></script>
