@@ -7,12 +7,16 @@ const jwt = require("jsonwebtoken");
 
 router.post('/salvar', async (req, res) => {
     try {
-        const { userId, prompt, imageBase64, tipo, materia, icones} = req.body;
+        const { userId, prompt, imageBase64, tipo, materia, icones } = req.body;
 
         if (!userId) return res.status(422).json({ msg: "userId é obrigatório." });
-        if (!prompt || !imageBase64) return res.status(422).json({ msg: "Prompt e imagem são obrigatórios." });
+        if (!imageBase64) return res.status(422).json({ msg: "A imagem é obrigatória." });
 
-        const novoHistorico = new Historico({ userId, prompt, imageBase64 });
+        const novoHistorico = new Historico({
+            userId,
+            prompt: prompt || "Nenhum prompt foi especificado",
+            imageBase64
+        });
         const novaEstatistica = new Estatistica({ userId, tipo, materia, icones });
         await Promise.all([
             novoHistorico.save(),
@@ -43,14 +47,14 @@ router.get('/buscar', async (req, res) => {
 
 router.get('/estatisticas', async (req, res) => {
     const { userId } = req.query;
-    
+
     if (!userId) {
         return res.status(400).json({ msg: "userId é necessário para identificar a permissão." });
     }
 
     try {
         const user = await User.findById(userId);
-        
+
         if (!user) {
             return res.status(404).json({ msg: "Usuário não encontrado." });
         }

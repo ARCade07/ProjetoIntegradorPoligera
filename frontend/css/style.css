@@ -295,7 +295,9 @@ body {
     border-top: 3px solid #3F696F;
     border-radius: 0 0 17px 17px;
     padding: 20px;
-    overflow-y: auto;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .historicos button {
@@ -855,6 +857,9 @@ body:has(.resposta img.ampliada)::before {
     flex-direction: column;
     gap: 12px;
     padding: 10px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding-right: 5px;
 }
 
 .item-historico {
