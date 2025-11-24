@@ -1,10 +1,17 @@
-async function carregarHistorico() {
+async function carregarHistorico(containerId = "historico-container") {
     const userId = localStorage.getItem("userId");
 
     if (!userId) {
         console.error("userId não encontrado no localStorage");
         return;
     }
+
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error(`Container com ID ${containerId} não encontrado.`);
+        return;
+    }
+
     try {
         const response = await axios.get(
             'http://localhost:3000/historico/buscar',
@@ -12,19 +19,26 @@ async function carregarHistorico() {
                 params: { userId }
             }
         );
-        const container = document.getElementById("historico-container");
+        
         container.innerHTML = "";
-        console.log("Container encontrado:", container);
+        console.log(`Container ${containerId} atualizado.`);
+        
+        if (response.data.length === 0) {
+            container.innerHTML = "<p class='text-center text-muted mt-3'>Nenhum item no histórico.</p>";
+            return;
+        }
+
         response.data.forEach(item => {
             criarItemDoHistorico(container, item);
         });
     } catch (erro) {
         console.error("Erro ao carregar histórico:", erro);
+        container.innerHTML = "<p class='text-center text-danger mt-3'>Erro ao carregar histórico.</p>";
     }
 }
 
 function criarItemDoHistorico(container, item) {
-    // Blocos principais para cda item
+    // Blocos principais para cada item
     const bloco = document.createElement("div");
     bloco.classList.add("item-historico");
     // Área da esquerda
@@ -72,18 +86,33 @@ function criarItemDoHistorico(container, item) {
     pontos.onclick = (e) => {
         // evita que os cliques foram fechem o menu instantaneamente
         e.stopPropagation();
+        
+        document.querySelectorAll(".menu-opcoes.ativo").forEach(m => {
+            if(m !== menu) m.classList.remove("ativo");
+        });
+
         menu.classList.toggle("ativo");
     };
-    // Montando tudo junto
     bloco.appendChild(esquerda);
     bloco.appendChild(menuWrapper);
-    // Adiciona ao container principal
     container.appendChild(bloco);
 }
 
-document.getElementById("aba-historico").addEventListener("click", () => {
-    carregarHistorico();
-});
+const abaHistoricoBtn = document.getElementById("aba-historico");
+if (abaHistoricoBtn) {
+    abaHistoricoBtn.addEventListener("click", () => {
+        carregarHistorico("historico-container");
+    });
+}
+
+const modalHistoricoMobile = document.getElementById('modalHistoricoMobile');
+if (modalHistoricoMobile) {
+    modalHistoricoMobile.addEventListener('shown.bs.modal', () => {
+        console.log("Modal mobile aberto, carregando histórico...");
+        carregarHistorico("historico-mobile-container");
+    });
+}
+
 
 function copiarPrompt(texto) {
     navigator.clipboard.writeText(texto);
@@ -110,6 +139,11 @@ async function apagarHistorico(id, elementoHTML) {
         await axios.delete(url);
 
         elementoHTML.remove();
+
+        const container = elementoHTML.parentElement;
+        if (container && container.children.length === 0) {
+            container.innerHTML = "<p class='text-center text-muted mt-3'>Nenhum item no histórico.</p>";
+        }
 
     } catch (err) {
         console.error("Erro ao apagar:", err);

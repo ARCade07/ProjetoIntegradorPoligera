@@ -37,7 +37,7 @@
             </button>
             <div class="collapse navbar-collapse" id="myNav">
                 <div class="navbar-nav">
-                    <a href="#" class="nav-link active" aria-current="page">Histórico</a>
+                    <a href="#" class="nav-link active" aria-current="page" data-bs-toggle="modal" data-bs-target="#modalHistoricoMobile">Histórico</a>
                     <a href="" class="nav-link active d-none" data-bs-toggle="modal" data-bs-target="#modalEstatisticas">Estatísticas</a>
                 </div>
             </div>
@@ -429,6 +429,20 @@
                         <label for="graficoIcones">Ícones</label>
                         <canvas id="graficoIcones"></canvas>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalHistoricoMobile" tabindex="-1" aria-labelledby="modalHistoricoMobileLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fs-5" id="modalHistoricoMobileLabel">Histórico</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="historico-mobile-container" class="d-flex flex-column gap-3"></div>
                 </div>
             </div>
         </div>

@@ -508,6 +508,17 @@ body:has(.resposta img.ampliada)::before {
         align-items: center;
     }
 
+    /* Ajuste para o modal de histórico */
+    #modalHistoricoMobile .modal-body {
+        padding: 15px;
+        background-color: #F0F4F9; /* Mesma cor de fundo da aba de criação */
+    }
+
+    #historico-mobile-container {
+        /* Garante que o container ocupe a largura */
+        width: 100%;
+    }
+
     .chart-container {
         flex: 0 1 auto;
         width: 95%;
