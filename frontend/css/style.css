@@ -380,29 +380,29 @@ body {
 }
 
 .resposta img {
-  transition: transform 0.3s ease, position 0.3s ease;
-  cursor: pointer;
+    transition: transform 0.3s ease, position 0.3s ease;
+    cursor: pointer;
 }
 
 .resposta img.ampliada {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1.5);
-  z-index: 9999;
-  cursor: pointer;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    z-index: 9999;
+    cursor: pointer;
 }
 
 body:has(.resposta img.ampliada)::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(6px);
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 9998;
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(6px);
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9998;
 }
 
 .resposta {
@@ -411,7 +411,7 @@ body:has(.resposta img.ampliada)::before {
     align-items: center;
     padding: 24px;
     min-height: 60vh;
-    position: relative; 
+    position: relative;
 }
 
 .resposta img {
@@ -475,28 +475,28 @@ body:has(.resposta img.ampliada)::before {
 .loading {
     display: none;
     /* elemento não vai se mover mesmo que haja o scroll da tela */
-    position: fixed; 
+    position: fixed;
     top: 20px;
     left: 60%;
-    transform: translateX(-50%); 
-    
+    transform: translateX(-50%);
+
     background: #f1f1f1;
     color: black;
     padding: 1rem 2rem;
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    
+
     font-size: 1.1rem;
     font-weight: 500;
-    
-    z-index: 1000; 
-    
+
+    z-index: 1000;
+
     /* animação de entrada */
     animation: slideDown 0.3s ease;
 }
 
 @media (max-width: 760px) {
-    .loading{
+    .loading {
         top: 500px;
         left: 50%;
     }
@@ -511,7 +511,8 @@ body:has(.resposta img.ampliada)::before {
     /* Ajuste para o modal de histórico */
     #modalHistoricoMobile .modal-body {
         padding: 15px;
-        background-color: #F0F4F9; /* Mesma cor de fundo da aba de criação */
+        background-color: #F0F4F9;
+        /* Mesma cor de fundo da aba de criação */
     }
 
     #historico-mobile-container {
@@ -582,7 +583,7 @@ body:has(.resposta img.ampliada)::before {
     margin-left: calc(47.5px * var(--escala-barra));
 }
 
-.switch-radio:checked + .switch-label {
+.switch-radio:checked+.switch-label {
     background-color: #1EB4C3;
     color: #00363C;
 }
@@ -600,7 +601,7 @@ body:has(.resposta img.ampliada)::before {
 .mobile-footer .botao {
     flex-grow: 0;
     flex-shrink: 1;
-    flex-basis: 35%; 
+    flex-basis: 35%;
 }
 
 .areas-fisica {
@@ -616,7 +617,7 @@ body:has(.resposta img.ampliada)::before {
     border-radius: 50%;
     background-color: #BBC3CD;
     margin: 0px 10px 0px 10px;
-    transition: background-color 0.2s; 
+    transition: background-color 0.2s;
 }
 
 .botao-area img {
@@ -673,11 +674,13 @@ body:has(.resposta img.ampliada)::before {
     gap: 15px;
 }
 
-.mobile-footer .conteudo-fisica, .mobile-footer .conteudo-quimica {
+.mobile-footer .conteudo-fisica,
+.mobile-footer .conteudo-quimica {
     display: none;
 }
 
-.mobile-footer .conteudo-fisica.active, .mobile-footer .conteudo-quimica.active {
+.mobile-footer .conteudo-fisica.active,
+.mobile-footer .conteudo-quimica.active {
     display: block;
 }
 
@@ -722,7 +725,7 @@ body:has(.resposta img.ampliada)::before {
     color: #00363C;
     width: 97%;
     margin-top: 325px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     flex-basis: 97%;
     margin-left: auto;
     margin-right: auto;
@@ -772,11 +775,11 @@ body:has(.resposta img.ampliada)::before {
     height: auto !important;
 }
 
-.itens-container:not(.hidden):has(.active) + .botao-estatisticas {
+.itens-container:not(.hidden):has(.active)+.botao-estatisticas {
     margin-top: 20px;
 }
 
-.itens-container.hidden + .botao-estatisticas {
+.itens-container.hidden+.botao-estatisticas {
     margin-top: 450px;
 }
 
@@ -791,21 +794,27 @@ body:has(.resposta img.ampliada)::before {
     right: 10px;
 }
 
+.sair-button img {
+    width: 25px;
+    margin-left: 2px;
+    object-fit: contain;
+}
+
 .contador {
     position: absolute;
     top: 0;
-    right: -18px; 
-    z-index: 10; 
+    right: -18px;
+    z-index: 10;
     display: flex;
     align-items: center;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     padding: 2px 6px;
     transition: 0.2s ease;
-  }
+}
 
-  .contador button {
+.contador button {
     background: #007bff;
     color: white;
     border: none;
@@ -815,14 +824,14 @@ body:has(.resposta img.ampliada)::before {
     cursor: pointer;
     font-size: 16px;
     line-height: 0;
-  }
+}
 
-  .contador span {
+.contador span {
     background: #fff;
     color: #333;
     font-weight: bold;
     margin: 0 5px;
-  }
+}
 
 .mensagem-erro {
     display: flex;
@@ -840,6 +849,7 @@ body:has(.resposta img.ampliada)::before {
     color: #d32f2f;
     font-weight: 500;
 }
+
 #historico-container {
     display: flex;
     flex-direction: column;
@@ -853,21 +863,21 @@ body:has(.resposta img.ampliada)::before {
     background: #f5f9ff;
     border: 1px solid #d8e6f7;
     border-radius: 8px;
-    padding: 14px;          
+    padding: 14px;
     cursor: pointer;
     justify-content: space-between;
-    min-height: 60px; 
+    min-height: 60px;
 }
 
 .historico-esquerda {
     display: flex;
     align-items: center;
-    gap: 12px;              
+    gap: 12px;
 }
 
 .thumb {
-    width: 35px;           
-    height: 50px;          
+    width: 35px;
+    height: 50px;
     object-fit: cover;
     border-radius: 6px;
     background: #ffffff;
@@ -875,12 +885,12 @@ body:has(.resposta img.ampliada)::before {
 
 .prompt-texto {
     margin: 0;
-    font-size: 15px;       
+    font-size: 15px;
     font-weight: 500;
 }
 
 .pontos {
-    font-size: 35px; 
+    font-size: 35px;
     cursor: pointer;
     padding: 6px;
     user-select: none;
@@ -900,9 +910,9 @@ body:has(.resposta img.ampliada)::before {
     border-radius: 6px;
     padding: 5px 0;
     width: 150px;
-    display: none;        
+    display: none;
     flex-direction: column;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     z-index: 10;
 }
 
