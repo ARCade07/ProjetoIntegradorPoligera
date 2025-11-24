@@ -67,7 +67,7 @@ function criarItemDoHistorico(container, item) {
     const menu = document.createElement("div");
     menu.classList.add("menu-opcoes");
     const opc1 = document.createElement("div");
-    opc1.innerText = "Copiar imagem";
+    opc1.innerText = "Salvar imagem";
     opc1.onclick = () => copiarImagem(item.imageBase64);
     const opc2 = document.createElement("div");
     opc2.innerText = "Copiar prompt";
@@ -127,7 +127,7 @@ function copiarImagem(base64) {
     link.click();
     document.body.removeChild(link);
 
-    alert("Imagem salva! (Copiar direto para a área de transferência não é permitido por este navegador)");
+    alert("Imagem salva!");
 }
 
 async function apagarHistorico(id, elementoHTML) {
