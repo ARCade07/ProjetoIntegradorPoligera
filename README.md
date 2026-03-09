@@ -5,7 +5,7 @@ Projeto de extensão, realizado pelos alunos do Instituto Mauá de Tecnologia em
 > Alunos do Ensino Médio(15 a 18 anos) e professores do colégio Poliedro
 
 # Status do projeto
-> 🚧Projeto em desenvolvimento 🚧
+> ✔️ Projeto Finalizado!
 
 # :hammer: Funcionalidades do projeto
 - `Funcionalidade 1`: Cadastro de aluno e professor.
